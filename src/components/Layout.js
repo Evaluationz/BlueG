@@ -1,7 +1,13 @@
 import { Button,Offcanvas,Navbar,Container,NavDropdown,Nav } from 'react-bootstrap';
+
 // import React, { useState } from "react";
+import { Auth } from 'aws-amplify';
 
 function Layout() { 
+    async function signOut(){
+        await Auth.signOut();
+        window.location.reload(false);
+      }
     return (
       <>
        <Navbar bg="primary" variant="dark" expand={false}>
@@ -25,6 +31,9 @@ function Layout() {
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href="/reportDownload">Report Download</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <button onClick={signOut}>Sign Out</button>
                 </Nav.Item>
                 {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
