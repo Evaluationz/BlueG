@@ -1,31 +1,41 @@
 import { Button,Offcanvas,Navbar,Container,NavDropdown,Nav } from 'react-bootstrap';
 // import React, { useState } from "react";
+import { IconName } from "react-icons/fa";
+import {FaHome} from "react-icons/fa"
+import {GiNotebook} from "react-icons/gi"
+
+
+
 
 function Layout() { 
     return (
       <>
-       <Navbar bg="primary" variant="dark" expand={false}>
+       <Navbar style={{backgroundColor: 'rgb(49, 96, 224)'}} variant="dark" expand={false}>
         <Container fluid>
             <Navbar.Toggle aria-controls="offcanvasNavbar" />
-            <Navbar.Brand href="#"><img src={require("../logo.svg").default} width="30" height="30" className="d-inline-block align-top"
+            <Navbar.Brand href="#"><img src="../logo.png" width="100%" height="50" className="d-inline-block align-top"
                 alt="logo"
-            />Blue G</Navbar.Brand>
+            /></Navbar.Brand>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
             placement="start"
             >
-            <Offcanvas.Header>
-                <Offcanvas.Title id="offcanvasNavbarLabel">Offcanvas</Offcanvas.Title>
-            </Offcanvas.Header>
+            <center>
+            <Offcanvas.Header style={{color:'black'}}>
+                <Offcanvas.Title id="offcanvasNavbarLabel"><img src="../bluegimage.png" width="100" height="100" className="d-inline-block align-top"
+                alt="logo"
+            />BlueG</Offcanvas.Title>
+            </Offcanvas.Header></center>
             <Offcanvas.Body>
                 <Nav className="justify-content-start flex-grow-1 pe-3">
-                <Nav.Item>
-                    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                <Nav.Item >
+                    <Nav.Link icon="chart-line" href="/dashboard" style={{color:'black',fontSize:"120%"}}> <FaHome/>  Dashboard</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/reportDownload">Report Download</Nav.Link>
+                    <Nav.Link href="/reportDownload" style={{color:'black',fontSize:"120%"}}> <GiNotebook />  Report Download</Nav.Link>
                 </Nav.Item>
+               
                 {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>

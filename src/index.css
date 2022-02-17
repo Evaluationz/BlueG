@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.offcanvas-start {
+  top: 0;
+  left: 0;
+  width: 17%;
+  border-right: 1px solid rgba(0,0,0,.2);
+  transform: translateX(-100%);
+}
+.offcanvas {
+  position: fixed;
+  bottom: 0;
+  z-index: 1045;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  visibility: hidden;
+  background-color: #e6ebe7 !important;;
+  background-clip: padding-box;
+  outline: 0;
+  transition: transform .3s ease-in-out;
+}
+.offcanvas-header {
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(146, 143, 143);
+}
+.nav-item:hover {
+  background-color:rgb(160, 155, 155);
+  padding-left: 0.5rem;
+  
+  
+  
+}
