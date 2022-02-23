@@ -1,13 +1,24 @@
 import { Button,Offcanvas,Navbar,Container,NavDropdown,Nav } from 'react-bootstrap';
+
 // import React, { useState } from "react";
 import { IconName } from "react-icons/fa";
 import {FaHome} from "react-icons/fa"
 import {GiNotebook} from "react-icons/gi"
+import React, { Component } from "react";
 
 
 
+
+import { Auth } from 'aws-amplify';
 
 function Layout() { 
+    async function signOut(){
+        await Auth.signOut();
+        window.location.reload(false);
+      }
+
+    
+  
     return (
       <>
        <Navbar style={{backgroundColor: 'rgb(49, 96, 224)'}} variant="dark" expand={false}>
@@ -35,6 +46,7 @@ function Layout() {
                 <Nav.Item>
                     <Nav.Link href="/reportDownload" style={{color:'black',fontSize:"120%"}}> <GiNotebook />  Report Download</Nav.Link>
                 </Nav.Item>
+               
                
                 {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

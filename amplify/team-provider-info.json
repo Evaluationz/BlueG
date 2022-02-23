@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blueg-dev-124000-authRole",
+      "UnauthRoleArn": "arn:aws:iam::152712286852:role/amplify-blueg-dev-124000-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::152712286852:role/amplify-blueg-dev-124000-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-blueg-dev-124000-deployment",
+      "UnauthRoleName": "amplify-blueg-dev-124000-unauthRole",
+      "StackName": "amplify-blueg-dev-124000",
+      "StackId": "arn:aws:cloudformation:ap-south-1:152712286852:stack/amplify-blueg-dev-124000/25b1def0-8d65-11ec-ab14-028f52b83b4e",
+      "AmplifyAppId": "d1u77tpbo3p0vs"
+    },
+    "categories": {
+      "auth": {
+        "blueg40cd1cde": {}
+      }
+    }
+  }
+}
