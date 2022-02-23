@@ -47,7 +47,9 @@ function Layout() {
                     <Nav.Link href="/reportDownload" style={{color:'black',fontSize:"120%"}}> <GiNotebook />  Report Download</Nav.Link>
                 </Nav.Item>
                
-               
+                <Nav.Item>
+                    <Nav.Link onClick={signOut} style={{color:'black',fontSize:"120%"}}>Logout</Nav.Link>
+                </Nav.Item>
                 {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
