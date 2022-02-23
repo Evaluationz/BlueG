@@ -10,7 +10,7 @@ import './App.css';
 import { Auth,Hub } from 'aws-amplify';
 
 const initialFormState = {
-  username:'',cin:'',address:'',contactno:'',companyname:'', password:'', authCode:'',checkConfirm:false, formType:'singIn'
+  username:'',cin:'',address: '',contactno:'',companyname:'', password:'', authCode:'',checkConfirm:false, formType:'singIn'
 }
 
 const alertSettings = {
@@ -18,7 +18,6 @@ const alertSettings = {
 }
 
 function App() {
-  
   const [ alertState, updateAlertState ] = useState(alertSettings);
   const [ formState, updateFormState ] = useState(initialFormState);
   const [ user, updateUser ] = useState(null);
@@ -46,6 +45,17 @@ function App() {
     setAuthListener()
   },[])
   
+  async function addressAuto(){
+    let autocomplete = new window.google.maps.places.Autocomplete(
+      document.getElementById( 'address' ),
+      { types: [ 'geocode' ] }
+    );
+    autocomplete.addListener( 'place_changed', () =>{
+      let place = autocomplete.getPlace()
+      updateFormState(() => ({...formState,address:place.formatted_address}))
+    });
+  }
+
   async function checkUser(){
     try{
       const user = await Auth.currentAuthenticatedUser()
@@ -183,7 +193,7 @@ function App() {
           <Modal.Body>
           <Stack gap={4} className="mx-auto">  
           <InputGroup>
-          <Contract/>
+          <Contract formState={formState}/>
           </InputGroup>
           <Form.Check type='checkbox'>
           <Form.Check.Input onChange={onChange} name='checkConfirm'/>
@@ -218,8 +228,9 @@ function App() {
               <FormControl name='cin' required type='text' placeholder="CIN" onChange={onChange}/>
               </InputGroup>
               <InputGroup className="mb-3">
-              <FormControl name='address' required as="textarea" rows={2} placeholder="Address" onChange={onChange}/>
-              </InputGroup>
+              <FormControl name='address' id='address' required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+             
+             </InputGroup>
               <InputGroup className="mb-3">
               <FormControl name='contactno' required maxlength="10" type='number' placeholder="Contact number" onChange={onChange}/>
               </InputGroup>
