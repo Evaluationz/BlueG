@@ -36,3 +36,67 @@
     transform: rotate(360deg);
   }
 }
+.App{
+  display: flex;
+  max-width: 100vw;
+  background: #f7fafc url("../public/images/bg-image.jpg") 50% no-repeat;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.form-label{
+  float: left;
+}
+.login-card-block{
+  min-height: 100vh;
+}
+.login-card{
+  min-width: 25rem;
+}
+.btn-primary{
+  background: rgb(66, 153, 225);
+  border: 1px solid rgb(66, 153, 225);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.btn-dark{
+  background: rgb(16, 185, 129);
+  border: 1px solid rgb(16, 185, 129);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.decorated{
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 0;
+}
+.decorated > span{
+  position: relative;
+  display: inline-block;
+}
+.decorated > span:before, .decorated > span:after{
+  content: '';
+  position: absolute;
+  top: 50%;
+  border-bottom: 1px solid #888;
+  width: 100vw;
+  margin: 0 10px;
+}
+.decorated > span:before{
+  right: 100%;
+}
+.decorated > span:after{
+  left: 100%;
+}
+.form-control.is-invalid, .was-validated .form-control:invalid{
+  /*background-image: none;*/
+}
+.alert{
+  padding: .5rem;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
