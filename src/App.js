@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import { Routes, Route, Link } from "react-router-dom";
 import { Button,Container,Card,InputGroup,FormControl,Row,Col,Stack,Alert,Form,Modal } from 'react-bootstrap';
 import Dashboard from "./views/dashboard";
 import ReportDownload from "./views/reportDownload";
 import Contract from "./components/Contract"
+import configData from "./config/index.json"
+
 
 import './App.css';
 
 import { Auth,Hub } from 'aws-amplify';
 
 const initialFormState = {
-  username:'',cin:'',address: '',contactno:'',companyname:'', password:'', authCode:'',checkConfirm:false, formType:'singIn'
+  username:'',cin:'',address: '',contactno:'',companyname:'',postion_coords:'', password:'', authCode:'',checkConfirm:false, formType:'singIn'
 }
 
 const alertSettings = {
@@ -109,7 +112,6 @@ function App() {
   }
 
   async function confirmContract(){
-    try{
     setShow(false)
     const { username,password,checkConfirm} = formState;
     if(!checkConfirm){
@@ -117,15 +119,32 @@ function App() {
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
     }
     else {
-      await Auth.signUp({ username,password })
-      //Add Location Capture to Kompass
-      updateFormState(() => ({...formState,formType:'confirmSignUp'}))
-    }
-    }
-    catch(err){
-      msg = 'An account with the given email already exists.'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-    }
+      //Add Data Captured to Kompass
+      navigator.geolocation.getCurrentPosition(
+       async position => {
+          const { latitude, longitude } = position.coords;
+          var postion_coords= 'Lat: '+latitude+' Long: '+longitude;
+          const { companyname,cin,contactno,address } = formState;
+          let url = configData.express_url
+          var postData = {'client_name':companyname,'cin':cin,'email':username,'contact_no':contactno,'address':address,'postions':postion_coords}
+          let updateClient = await axios.post(url+"client/createMClient",postData)
+          if(updateClient.data === 'success'){
+            try{
+              await Auth.signUp({ username,password })
+              updateFormState(() => ({...formState,formType:'confirmSignUp'}))
+            }
+          catch(err){
+            msg = 'An account with the given email already exists.'
+            updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+          }
+          }
+          else {
+                var msg = 'Unable to create account.Please try again'
+                updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+             }
+        })
+      
+      }
   }
   async function closeContract(){
     setShow(false)
@@ -228,7 +247,7 @@ function App() {
               <FormControl name='cin' required type='text' placeholder="CIN" onChange={onChange}/>
               </InputGroup>
               <InputGroup className="mb-3">
-              <FormControl name='address' id='address' required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+              <FormControl name='address' id='address' autoComplete='off' required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
              
              </InputGroup>
               <InputGroup className="mb-3">
@@ -357,6 +376,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="reportDownload" element={<ReportDownload />} />
+         
         </Routes>
         )
       }
