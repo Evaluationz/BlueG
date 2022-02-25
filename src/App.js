@@ -203,11 +203,11 @@ function App() {
                     </Stack>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="success" onClick={confirmContract}>I Agree</Button>
+                    <Button variant="primary" onClick={confirmContract}>I Agree</Button>
                   </Modal.Footer>
                 </Modal>
 
-                <Container fluid>
+                <Container fluid className="bg-block">
                   <Container className="d-flex justify-content-md-center align-items-center login-card-block my-5">
                     <Row>
                       <Col>
@@ -276,23 +276,25 @@ function App() {
         {
           formType === 'confirmSignUp' && (
               <div>
-                <Container fluid className="d-flex justify-content-md-center align-items-center login-card-block">
-                  <Row>
-                    <Col>
-                      <Card border="light" className='shadow rounded login-card'>
-                        <Card.Body>
-                          <Form.Group className="mb-3">
-                            <Form.Label className="mb-0">Confirmation code</Form.Label>
-                            <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                          </Form.Group>
+                <Container fluid className="bg-block">
+                  <Container className="d-flex justify-content-md-center align-items-center login-card-block">
+                    <Row>
+                      <Col>
+                        <Card border="light" className='shadow rounded login-card'>
+                          <Card.Body>
+                            <Form.Group className="mb-3">
+                              <Form.Label className="mb-0">Confirmation code</Form.Label>
+                              <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
+                            </Form.Group>
 
-                          <Stack gap={3} className="mx-auto">
-                            <Button variant="primary" type="submit" onClick={confirmSignUp}> Confirm Sing-Up</Button>
-                          </Stack>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  </Row>
+                            <Stack gap={3} className="mx-auto">
+                              <Button variant="primary" type="submit" onClick={confirmSignUp}> Confirm Sign-Up</Button>
+                            </Stack>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </Container>
                 </Container>
               </div>
           )
@@ -300,33 +302,35 @@ function App() {
         {
           formType === 'newPassword' && (
               <div>
-                <Container fluid className="d-flex justify-content-md-center align-items-center login-card-block">
-                  <Row>
-                    <Col>
-                      <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                      <Card border="light" className='shadow rounded login-card'>
-                        <Card.Body>
-                          <Form.Group className="mb-3">
-                            <Form.Label className="mb-0">Confirmation code</Form.Label>
-                            <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                          </Form.Group>
+                <Container fluid className="bg-block">
+                  <Container className="d-flex justify-content-md-center align-items-center login-card-block">
+                    <Row>
+                      <Col>
+                        <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                        <Card border="light" className='shadow rounded login-card'>
+                          <Card.Body>
+                            <Form.Group className="mb-3">
+                              <Form.Label className="mb-0">Confirmation code</Form.Label>
+                              <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
+                            </Form.Group>
 
-                          <Form.Group className="mb-3">
-                            <Form.Label className="mb-0">Password</Form.Label>
-                            <FormControl isInvalid={passwordValidity} name='password' required type='password' placeholder="Password" onChange={onChange}/>
-                            <Form.Control.Feedback type="invalid">
-                              password between 7 to 15 characters which contain at least one numeric digit and a special character
-                            </Form.Control.Feedback>
-                          </Form.Group>
+                            <Form.Group className="mb-3">
+                              <Form.Label className="mb-0">Password</Form.Label>
+                              <FormControl isInvalid={passwordValidity} name='password' required type='password' placeholder="Password" onChange={onChange}/>
+                              <Form.Control.Feedback type="invalid">
+                                password between 7 to 15 characters which contain at least one numeric digit and a special character
+                              </Form.Control.Feedback>
+                            </Form.Group>
 
-                          <Stack gap={3} className="mx-auto">
-                            <Button variant="primary" type="submit" onClick={resetPassword} >Reset Password</Button>
-                            <Button variant="link" size="sm" onClick={forgotPassword}>Request code again</Button>
-                          </Stack>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  </Row>
+                            <Stack gap={3} className="mx-auto">
+                              <Button variant="primary" type="submit" onClick={resetPassword} >Reset Password</Button>
+                              <Button variant="link" size="sm" onClick={forgotPassword}>Request code again</Button>
+                            </Stack>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </Container>
                 </Container>
               </div>
           )
@@ -334,7 +338,7 @@ function App() {
         {
           formType === 'singIn' && (
               <div>
-                <Container fluid>
+                <Container fluid className="bg-block">
                   <Container className="d-flex justify-content-md-center align-items-center login-card-block">
                     <Row>
                       <Col>
