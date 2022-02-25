@@ -11,14 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
-}
 .offcanvas-start {
   top: 0;
   left: 0;
@@ -49,4 +41,12 @@ input[type=number]::-webkit-outer-spin-button {
 .nav-item:hover {
   background-color:rgb(160, 155, 155);
   padding-left: 0.5rem;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }
