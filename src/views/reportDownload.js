@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { Button, Table, Container, Form, Row, Col } from 'react-bootstrap';
+import { Button, Table, Container, Form, Row, Col,Toast } from 'react-bootstrap';
 import React, { useState, Component } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -8,6 +8,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import swal from 'sweetalert';
+
 
 class ReportDownload extends Component {
   constructor(props) {
@@ -48,13 +50,24 @@ class ReportDownload extends Component {
     },
       { responseType: 'blob' })
       .then((res) => {
+      console.log("res",res)
+      
         const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
         let url = window.URL.createObjectURL(pdfBlob);
         let a = document.createElement('a');
         a.href = url;
         a.download = 'FinalReport.pdf';
         a.click();
-      });
+     
+        
+      
+      }).catch(err => {
+       
+        console.log(err,"sorry")
+        swal("Final Report Not Found");
+         });
+      
+
 
   }
 
