@@ -217,7 +217,10 @@ function App() {
                             <Col>
                               <Card.Body className="d-flex align-items-center justify-content-start">
                                 <Card.Img variant="top" src={ require('./logo.png')} style={{ width:'50px' }}/>
-                                <span className="" style={{marginLeft: '0.5rem', fontWeight: '700'}}>SIGN UP WITH BLUE G</span>
+                                <span className="" style={{marginLeft: '0.5rem', fontWeight: '700'}}>BLUE G</span>
+                              </Card.Body>
+                              <Card.Body className="d-flex align-items-center justify-content-start py-0">
+                                <h4 className="mb-0" style={{fontWeight: '700'}}>SIGN UP</h4>
                               </Card.Body>
                               <Card.Body>
                                 <Form noValidate validated={validatesignIn} onSubmit={signUp}>
@@ -348,7 +351,10 @@ function App() {
                             <Col>
                               <Card.Body className="d-flex align-items-center justify-content-start">
                                 <Card.Img variant="top" src={ require('./logo.png')} style={{ width:'50px' }}/>
-                                <span className="" style={{marginLeft: '0.5rem', fontWeight: '700'}}>SIGN IN WITH BLUE G</span>
+                                <span className="" style={{marginLeft: '0.5rem', fontWeight: '700'}}>BLUE G</span>
+                              </Card.Body>
+                              <Card.Body className="d-flex align-items-center justify-content-start py-0">
+                                <h4 className="mb-0" style={{fontWeight: '700'}}>SIGN IN</h4>
                               </Card.Body>
                               <Card.Body>
                                 <Form noValidate validated={validatesignIn} onSubmit={signIn}>
