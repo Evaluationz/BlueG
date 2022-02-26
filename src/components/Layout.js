@@ -17,46 +17,66 @@ function Layout() {
         window.location.reload(false);
     }
 
-
-
     return (
         <>
-            <Navbar style={{backgroundColor: 'rgb(49, 96, 224)'}} variant="dark" expand={false}>
+            <Navbar className="shadow-sm bg-white" variant="dark" expand={false}>
                 <Container fluid>
-                    <Navbar.Toggle aria-controls="offcanvasNavbar" />
-                    <Navbar.Brand href="#"><img src="../logo.png" width="100%" height="50" className="d-inline-block align-top"
-                                                alt="logo"
-                    /></Navbar.Brand>
+                    <div className="col-4 d-flex align-items-center justify-content-start">
+                        <div className="d-flex align-items-center justify-content-center">
+                            <img src="./images/logo.png"
+                                 width="30"
+                                 className="" alt="logo"/> <p className="mb-0 m-lg-1 logo-text">BlueG</p>
+                        </div>
+                        <Navbar.Toggle aria-controls="offcanvasNavbar"></Navbar.Toggle>
+                    </div>
+
+                    <div className="col-8 d-flex align-items-center justify-content-end">
+                        <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center m-0">
+                            <img src="./images/user.png"
+                                 width="40"
+                                 className="d-inline-block align-top" alt="logo"/>
+                            <NavDropdown
+                                id="nav-dropdown-dark-example"
+                                className="user-dropdown"
+                                menuVariant="dark">
+                                <NavDropdown.Item href="#action/3.1"><i className="mdi mdi-account"></i> My Profile</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2"><i className="mdi mdi-cog"></i> Settings</NavDropdown.Item>
+                                <NavDropdown.Item onClick={signOut}><i className="mdi mdi-logout"></i> Logout</NavDropdown.Item>
+                            </NavDropdown>
+                        </Navbar.Brand>
+                    </div>
+
                     <Navbar.Offcanvas
                         id="offcanvasNavbar"
                         aria-labelledby="offcanvasNavbarLabel"
                         placement="start">
                         <center>
                             <Offcanvas.Header style={{color:'black'}}>
-                                <Offcanvas.Title id="offcanvasNavbarLabel"><img src="../logo.png" width="100" height="100" className="d-inline-block align-top"
-                                                                                alt="logo"
-                                />BlueG</Offcanvas.Title>
+                                <Offcanvas.Title id="offcanvasNavbarLabel" className="d-flex align-items-center justify-content-center">
+                                    <img src="./images/user.png"
+                                         width="40"
+                                         className="d-inline-block align-top" alt="logo"/>
+                                    <span>Kompass +</span>
+                                </Offcanvas.Title>
                             </Offcanvas.Header></center>
                         <Offcanvas.Body>
-                            <Nav className="justify-content-start flex-grow-1 pe-3">
-                                <Nav.Item >
-                                    <Nav.Link icon="chart-line" href="/dashboard" style={{color:'black',fontSize:"120%"}}> <FaHome/>  Dashboard</Nav.Link>
+                            <Nav className="justify-content-start flex-grow-1">
+                                <Nav.Item>
+                                    <Nav.Link href="/dashboard">
+                                        <i className="mdi mdi-home"/> Dashboard
+                                    </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link href="/reportDownload" style={{color:'black',fontSize:"120%"}}> <GiNotebook />  Report Download</Nav.Link>
+                                    <Nav.Link href="/reportDownload">
+                                        <i className="mdi mdi-file-document-multiple-outline"/> Reports
+                                    </Nav.Link>
                                 </Nav.Item>
 
                                 <Nav.Item>
-                                    <Nav.Link onClick={signOut} style={{color:'black',fontSize:"120%"}}>Logout</Nav.Link>
+                                    <Nav.Link onClick={signOut}>
+                                        <i className="mdi mdi-logout"/> Logout
+                                    </Nav.Link>
                                 </Nav.Item>
-                                {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                    Something else here
-                    </NavDropdown.Item>
-                </NavDropdown> */}
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>

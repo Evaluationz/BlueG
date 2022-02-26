@@ -138,8 +138,13 @@
   <th>Download Report</th>
   </thead>
   <tbody>
-   
-  {this.renderTableRows()}
+
+  <tr>
+      <td>
+          {this.renderTableRows()}
+      </td>
+  </tr>
+
    
   </tbody>
 </Table>
