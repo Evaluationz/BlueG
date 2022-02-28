@@ -17,9 +17,11 @@ const alertSettings = {
   variant:'' , msg:'' , alertStatus: false
 }
 
-function ReportDownload() {
+function ReportDownload(props) {
+  
   const [ pageState, updatePageState ] = useState(pageData);
   const [ alertState, updateAlertState ] = useState(alertSettings);
+  const client_id = props.clientid
 
   useEffect(() => {
     loadData()
@@ -39,7 +41,7 @@ function ReportDownload() {
   function loadData(){
     const { startDate, endDate } = pageState;
     let url = configData.express_url
-    const postData = { from_date: startDate,to_date: endDate,client_id: 213}
+    const postData = { from_date: startDate,to_date: endDate,client_id: client_id}
     axios.post(url+"report/GetReportData",postData)
       .then(res => {
         updatePageState(() => ({...pageState,ReportData:res.data}))
