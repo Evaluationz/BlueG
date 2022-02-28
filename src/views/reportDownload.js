@@ -78,31 +78,26 @@ class ReportDownload extends Component {
   };
 
   componentDidMount() {
-    //this.getData();
+    
     if(this.state.startDate=="" && this.state.endDate=="")
     {
-      var startDate=new Date('yyyy/mm/dd');
-     
       let date = new Date()
-let day = date.getDate();
-let month = date.getMonth()+1;
-let year = date.getFullYear();
-let endDate = year + "/" + month + "/" + day;
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      let endDate = year + "/" + month + "/" + day;
 
       axios.post("http://localhost:306/report/GetReportData", {
-      from_date: '2022/02/01',
-      to_date: endDate,
-      client_id: 212
-    })
-      .then(res => {
-        this.setState({ apiResponse: res.data })
-        console.log("result", res)
+        from_date: '2022/02/01',
+        to_date: endDate,
+        client_id: 212
       })
- 
-     // this.getData();
-      
+        .then(res => {
+          this.setState({ apiResponse: res.data })
+          console.log("result", res)
+        })
+
     }
-    //
   }
   render() {
     const { startDate, endDate } = this.state;
