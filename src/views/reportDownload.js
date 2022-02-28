@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { Button, Table, Container, Form, Row, Col,Toast } from 'react-bootstrap';
+import { Button, Table, Container, Form, Row, Col,Toast,Alert } from 'react-bootstrap';
 import React, { useState, Component } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -26,11 +26,13 @@ class ReportDownload extends Component {
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+    
   }
 
   getData = (e) => {
     e.preventDefault();
     const { startDate, endDate } = this.state
+    
     console.log("Im here", startDate, endDate)
     axios.post("http://localhost:306/report/GetReportData", {
       from_date: startDate,
@@ -63,8 +65,14 @@ class ReportDownload extends Component {
       
       }).catch(err => {
        
-        console.log(err,"sorry")
-        swal("Final Report Not Found");
+        console.log(err,"sorry");
+        <Alert  variant="danger">
+    This is a  alert—check it out!
+  </Alert>
+      swal({
+        icon: "error",
+        title: "Final Report Not Found!",
+      });
          });
       
 
@@ -72,7 +80,31 @@ class ReportDownload extends Component {
   }
 
   componentDidMount() {
-    // this.callAPI();
+    //this.getData();
+    if(this.state.startDate=="" && this.state.endDate=="")
+    {
+      var startDate=new Date('yyyy/mm/dd');
+     
+      let date = new Date()
+let day = date.getDate();
+let month = date.getMonth()+1;
+let year = date.getFullYear();
+let endDate = year + "/" + month + "/" + day;
+
+      axios.post("http://localhost:306/report/GetReportData", {
+      from_date: '2022/02/01',
+      to_date: endDate,
+      client_id: 212
+    })
+      .then(res => {
+        this.setState({ apiResponse: res.data })
+        console.log("result", res)
+      })
+ 
+     // this.getData();
+      
+    }
+    //
   }
   render() {
     const { startDate, endDate } = this.state;
