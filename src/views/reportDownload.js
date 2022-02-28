@@ -1,110 +1,72 @@
 import Layout from "../components/Layout";
-import {Button,Alert, Table, Container, Form, Row, Col, Breadcrumb} from 'react-bootstrap';
-import React, { useState, Component } from "react";
+import {Button,Alert, Container, Form, Row, Col, Breadcrumb} from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import Moment from 'moment';
 import { ImDownload3 } from "react-icons/im";
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import swal from 'sweetalert';
+import configData from "../config/index.json"
 
+const pageData = { ReportData:[],startDate: Moment().startOf('month').format('YYYY-MM-DD'),endDate:Moment().format('YYYY-MM-DD')}
 
-class ReportDownload extends Component {
-  constructor(props) {
-    super(props);
+const alertSettings = {
+  variant:'' , msg:'' , alertStatus: false
+}
 
-    this.state = {
-      apiResponse: [],
-      startDate: '',
-      endDate: '',
-    };
+function ReportDownload() {
+  const [ pageState, updatePageState ] = useState(pageData);
+  const [ alertState, updateAlertState ] = useState(alertSettings);
+
+  useEffect(() => {
+    loadData()
+  },[])
+
+  function handleChange(e) {
+    updatePageState(() => ({...pageState,[e.target.name]:e.target.value}))
   }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-    
-  }
+  const { alertStatus,variant,msg } = alertState;
 
-  getData = (e) => {
+  function getData(e){
     e.preventDefault();
-    const { startDate, endDate } = this.state
-    
-    console.log("Im here", startDate, endDate)
-    axios.post("http://localhost:306/report/GetReportData", {
-      from_date: startDate,
-      to_date: endDate,
-      client_id: 212
-    })
-      .then(res => {
-        this.setState({ apiResponse: res.data });
-        console.log("result", res)
-      })
+    loadData()
   };
 
-  getReport = (row) => {
-    console.log("hii", row.case_id);
-    axios.post("http://localhost:306/report/DownloadReportData", {
-      case_no: row.case_id,
-    },
+  function loadData(){
+    const { startDate, endDate } = pageState;
+    let url = configData.express_url
+    const postData = { from_date: startDate,to_date: endDate,client_id: 212}
+    axios.post(url+"report/GetReportData",postData)
+      .then(res => {
+        updatePageState(() => ({...pageState,ReportData:res.data}))
+      })
+  }
+
+  function getReport(row) {
+    let url = configData.express_url
+    let postData = { case_no: row.case_id}
+    axios.post(url+"report/DownloadReportData",postData,
       { responseType: 'blob' })
       .then((res) => {
       console.log("res",res)
-      
         const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
         let url = window.URL.createObjectURL(pdfBlob);
         let a = document.createElement('a');
         a.href = url;
         a.download = 'FinalReport.pdf';
         a.click();
-     
-        
-      
       }).catch(err => {
-       
         console.log(err,"sorry");
-        <Alert  variant="danger">
-    This is a  alert—check it out!
-  </Alert>
-      swal({
-        icon: "error",
-        title: "Final Report Not Found!",
-      });
-         });
-      
-
-
-  };
-
-  componentDidMount() {
-    
-    if(this.state.startDate=="" && this.state.endDate=="")
-    {
-      let date = new Date()
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-      let endDate = year + "/" + month + "/" + day;
-
-      axios.post("http://localhost:306/report/GetReportData", {
-        from_date: '2022/02/01',
-        to_date: endDate,
-        client_id: 212
-      })
-        .then(res => {
-          this.setState({ apiResponse: res.data })
-          console.log("result", res)
-        })
-
-    }
+        let msg = 'Final report not avaliable to download.'
+        updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger',msg:msg}))
+     });
   }
-  render() {
-    const { startDate, endDate } = this.state;
-    const date = new Date();
-    date.setDate(date.getDate());
-    var date_d = date.toISOString().substr(0, 10);
-    const defaultdate = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+    const { ReportData,startDate,endDate }= pageState;
+
     const columns = [{
       dataField: "SI No",
       text: "SI NO",
@@ -148,10 +110,8 @@ class ReportDownload extends Component {
       text: "Download Report",
       formatter: (cellContent, row) => {
         return (
-          <div >
-
-            <button type="button" onClick={() => this.getReport(row)}><ImDownload3 /></button>
-
+          <div>
+            <Button onClick={()=>getReport(row)}><ImDownload3 /></Button>
           </div>
         );
       }
@@ -162,6 +122,7 @@ class ReportDownload extends Component {
       <>
         <Layout />
         <div className="container-fluid body-container">
+        <Alert show={alertStatus} variant={variant} auto="off">{msg}</Alert>
           <Container fluid className="my-3">
             <Container fluid className="py-3 bg-white shadow-sm">
               <Breadcrumb>
@@ -175,16 +136,16 @@ class ReportDownload extends Component {
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
                     <Col sm="4">
                       <Form.Label column>From Date</Form.Label>
-                      <Form.Control type="date" name="startDate" onChange={this.handleChange} />
+                      <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
                     </Col>
 
                     <Col sm="4">
                       <Form.Label column>To Date</Form.Label>
-                      <Form.Control type="date" name="endDate" onChange={this.handleChange} />
+                      <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
                     </Col>
                     <Col sm="4" className="mt-4 pt-2" style={{textAlign: 'right'}}>
                       <Form.Label column></Form.Label>
-                      <Button type="Submit" variant="primary" onClick={this.getData}>Search</Button>
+                      <Button type="Submit" variant="primary" onClick={getData}>Search</Button>
                     </Col>
                   </Form.Group>
                 </Form>
@@ -193,7 +154,7 @@ class ReportDownload extends Component {
               <br/>
 
               <BootstrapTable keyField="case_id"
-                              data={this.state.apiResponse}
+                              data={ReportData}
                               columns={columns}
                               striped
                               hover
@@ -207,6 +168,6 @@ class ReportDownload extends Component {
       </>
     );
   }
-}
+
 
 export default ReportDownload;
