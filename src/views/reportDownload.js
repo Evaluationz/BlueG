@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { Button, Table, Container, Form, Row, Col,Toast,Alert } from 'react-bootstrap';
+import {Button,Alert, Table, Container, Form, Row, Col, Breadcrumb} from 'react-bootstrap';
 import React, { useState, Component } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -15,14 +15,12 @@ class ReportDownload extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       apiResponse: [],
       startDate: '',
       endDate: '',
     };
   }
-
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -40,13 +38,13 @@ class ReportDownload extends Component {
       client_id: 212
     })
       .then(res => {
-        this.setState({ apiResponse: res.data })
+        this.setState({ apiResponse: res.data });
         console.log("result", res)
       })
-  }
+  };
 
   getReport = (row) => {
-    console.log("hii", row.case_id)
+    console.log("hii", row.case_id);
     axios.post("http://localhost:306/report/DownloadReportData", {
       case_no: row.case_id,
     },
@@ -77,7 +75,7 @@ class ReportDownload extends Component {
       
 
 
-  }
+  };
 
   componentDidMount() {
     //this.getData();
@@ -164,45 +162,56 @@ let endDate = year + "/" + month + "/" + day;
       }
 
     }
-    ]
+    ];
     return (
       <>
         <Layout />
-        <div style={{
-          width: 1400, padding: 30
-        }}>
+        <div className="container-fluid body-container">
+          <Container fluid className="my-3">
+            <Container fluid className="py-3 bg-white shadow-sm">
+              <Breadcrumb>
+                <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home"/>Home</Breadcrumb.Item>
 
-          <Container className="p-5 mb-4 bg-light rounded-3" >
-            <Form method="POST" >
-              <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                  From Date
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control type="date" name="startDate" onChange={this.handleChange} />
-                </Col>
-                <Form.Label column sm="3">
-                  To Date
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control type="date" name="endDate" onChange={this.handleChange} />
-                </Col>
-                <Col sm="3">
-                  <Button type="Submit" variant="primary" onClick={this.getData}>Search</Button>
-                </Col>
-              </Form.Group>
-            </Form>
-            <br /><br />
+                <Breadcrumb.Item active>Reports</Breadcrumb.Item>
+              </Breadcrumb>
 
-            <BootstrapTable keyField="case_id" data={this.state.apiResponse} columns={columns} striped hover condensed pagination={paginationFactory()} filter={filterFactory()}>
-            </BootstrapTable>
+              <Container fluid className="px-0">
+                <Form method="POST">
+                  <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
+                    <Col sm="4">
+                      <Form.Label column>From Date</Form.Label>
+                      <Form.Control type="date" name="startDate" onChange={this.handleChange} />
+                    </Col>
+
+                    <Col sm="4">
+                      <Form.Label column>To Date</Form.Label>
+                      <Form.Control type="date" name="endDate" onChange={this.handleChange} />
+                    </Col>
+                    <Col sm="4" className="mt-4 pt-2" style={{textAlign: 'right'}}>
+                      <Form.Label column></Form.Label>
+                      <Button type="Submit" variant="primary" onClick={this.getData}>Search</Button>
+                    </Col>
+                  </Form.Group>
+                </Form>
+              </Container>
+
+              <br/>
+
+              <BootstrapTable keyField="case_id"
+                              data={this.state.apiResponse}
+                              columns={columns}
+                              striped
+                              hover
+                              condensed
+                              pagination={paginationFactory()}
+                              filter={filterFactory()}>
+              </BootstrapTable>
+            </Container>
           </Container>
-
         </div>
       </>
     );
   }
 }
-
 
 export default ReportDownload;

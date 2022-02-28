@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import * as Highcharts from 'highcharts';
-import {Container } from 'react-bootstrap';
+import {Breadcrumb, Container} from "react-bootstrap";
+import React from "react";
 import HighchartsReact from 'highcharts-react-official';
 
 
@@ -43,6 +44,7 @@ const noPureConfig = {
   ]
 };
 
+
 function Dashboard() { 
     return (
       <>
@@ -56,6 +58,15 @@ function Dashboard() {
   />
   
   </Container>
+          <div className="container-fluid body-container">
+              <Container fluid className="my-3">
+                  <Container fluid className="py-3 bg-white shadow-sm">
+                      <Breadcrumb>
+                          <Breadcrumb.Item><i className="mdi mdi-home"/> Dashboard</Breadcrumb.Item>
+                      </Breadcrumb>
+                  </Container>
+              </Container>
+          </div>
       </>
     )
 }

@@ -1,5 +1,13 @@
+*{
+  font-family: 'Montserrat', sans-serif;
+}
 .App {
   text-align: center;
+  min-height: 100%;
+  background: #f2edf3;
+}
+.body-container{
+  min-height: 100vh;
 }
 
 .App-logo {
