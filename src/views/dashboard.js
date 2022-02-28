@@ -4,64 +4,51 @@ import { Breadcrumb, Container } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Moment from 'moment';
-import { Routes, Link,useHistory,BrowserRouter as Router,Switch,Route,Redirect, } from "react-router-dom";
-import ReportDownload from "./reportDownload";
+import { useNavigate } from "react-router-dom";
+import configData from "../config/index.json"
 import HighchartsReact from 'highcharts-react-official';
 
 
-const pageData={case_completed_date:[],case_completed_count:[]}
+const pageData = { case_completed_date: [], case_completed_count: [] }
 
 
 
-function Dashboard() {
-  const [ pageState, updatePageState ] = useState(pageData);
+function Dashboard(props) {
+  const [pageState, updatePageState] = useState(pageData);
+  const client_id = props.clientid
+  const navigate = useNavigate()
 
-  function RedirectToReport()
-  {
-  alert("hii");
-  
-<Route exact path="/" render={() => (
-
-    <ReportDownload/>
-  
-)}/>
-
-  // <Router>
-  
-   
-  // <Route path="ReportDownload" component={ReportDownload} />
-      
-  //     </Router>
+  function RedirectToReport() {
+    navigate('/reportDownload', { replace: true });
   }
 
   useEffect(() => {
-    axios.post('http://localhost:306/graphDashboard/GetGraphData', {
-      client_id: 212,
-    }).then((res) => {
-      let completed_date=[];
-      let completed_count=[]
+    loadData()
+  }, []);
+  
+  function loadData() {
+    let url = configData.express_url;
+    const postData = { client_id: client_id }
+    axios.post(url + 'graphDashboard/GetGraphData', postData).then((res) => {
+      let completed_date = [];
+      let completed_count = []
       res.data.forEach(graphdata => {
-        console.log("inside for", graphdata.case_completed_date)
         completed_date.push(Moment(graphdata.case_completed_date).format("DD/MM/YYYY"))
         completed_count.push(graphdata.completed_case_count)
       });
-     updatePageState(() => ({...pageState,case_completed_date:completed_date,case_completed_count:completed_count}))
+      updatePageState(() => ({ ...pageState, case_completed_date: completed_date, case_completed_count: completed_count }))
     })
-  }, []);
 
+  }
 
-
-const {case_completed_date,case_completed_count}=pageState
+  const { case_completed_date, case_completed_count } = pageState
 
   const Config = {
     title: {
-      text: 'Completed Case Graph'
+      text: 'Completed Cases'
     },
     xAxis: {
       categories: case_completed_date,
-      
-  
-  
     },
     yAxis: {
       min: 0,
@@ -71,12 +58,14 @@ const {case_completed_date,case_completed_count}=pageState
     },
     series: [
       {
-        data: case_completed_count
+        name: 'Case completed',
+        data: case_completed_count,
+        showInLegend: false,
       }
-    ]
+    ],
   };
 
-  
+
   return (
     <>
       <Layout />
@@ -86,7 +75,6 @@ const {case_completed_date,case_completed_count}=pageState
             <Breadcrumb>
               <Breadcrumb.Item><i className="mdi mdi-home" /> Dashboard</Breadcrumb.Item>
             </Breadcrumb>
-
           </Container>
           <HighchartsReact
             highcharts={Highcharts}

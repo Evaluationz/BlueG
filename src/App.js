@@ -24,6 +24,7 @@ function App() {
   const [ alertState, updateAlertState ] = useState(alertSettings);
   const [ formState, updateFormState ] = useState(initialFormState);
   const [ user, updateUser ] = useState(null);
+  const [ clientid, updateClientId ] = useState(null);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [validatesignIn, setValidatedSignIn] = useState(false);
@@ -37,7 +38,6 @@ function App() {
       event.stopPropagation();
     }
     else{
-      console.log(formState)
       setShow(true);
     }
     setValidated(true);
@@ -62,6 +62,13 @@ function App() {
   async function checkUser(){
     try{
       const user = await Auth.currentAuthenticatedUser()
+      let url = configData.express_url
+      var postData = {email: user.attributes.email}
+      let clientDetails = await axios.post(url+"client/getClientId",postData)
+      let kompass_id =clientDetails.data.client_id
+      if(kompass_id !== "undifined" && kompass_id!==''){
+        updateClientId(kompass_id)
+      }
       updateUser(user)
       updateFormState(() => ({...formState,formType:'confirmSingIn'}))
     }catch(err){
@@ -411,9 +418,9 @@ function App() {
     {
       formType === 'confirmSingIn' && (
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="reportDownload" element={<ReportDownload />} />
+            <Route path="/" element={<Dashboard clientid={clientid}/>} />
+            <Route path="dashboard" element={<Dashboard clientid={clientid}/>} />
+            <Route path="reportDownload" element={<ReportDownload clientid={clientid}/>} />
           </Routes>
       )
     }
