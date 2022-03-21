@@ -67,6 +67,11 @@ function Layout() {
                                     </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
+                                    <Nav.Link href="/profile">
+                                        <i className="mdi mdi-home"/> Profile
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
                                     <Nav.Link href="/reportDownload">
                                         <i className="mdi mdi-file-document-multiple-outline"/> Reports
                                     </Nav.Link>

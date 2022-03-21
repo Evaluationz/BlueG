@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { Button,Container,Card,InputGroup,FormControl,Row,Col,Stack,Alert,Form,Modal } from 'react-bootstrap';
 import Dashboard from "./views/dashboard";
 import ReportDownload from "./views/reportDownload";
+import Profile from "./views/Profile";
 import Contract from "./components/Contract"
 import configData from "./config/index.json"
 
@@ -62,6 +63,8 @@ function App() {
   async function checkUser(){
     try{
       const user = await Auth.currentAuthenticatedUser()
+      if(user)
+      {
       let url = configData.express_url
       var postData = {email: user.attributes.email}
       let clientDetails = await axios.post(url+"client/getClientId",postData)
@@ -69,8 +72,10 @@ function App() {
       if(kompass_id !== "undifined" && kompass_id!==''){
         updateClientId(kompass_id)
       }
+
       updateUser(user)
       updateFormState(() => ({...formState,formType:'confirmSingIn'}))
+    }
     }catch(err){
       updateUser(null)
     }
@@ -420,6 +425,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard clientid={clientid}/>} />
             <Route path="dashboard" element={<Dashboard clientid={clientid}/>} />
+            <Route path="profile" element={<Profile clientid={clientid}/>} />
             <Route path="reportDownload" element={<ReportDownload clientid={clientid}/>} />
           </Routes>
       )
