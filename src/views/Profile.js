@@ -54,16 +54,9 @@ function Profile(props) {
         <Layout />
         <div className="container-fluid body-container">
 
-          <Container fluid className="my-3">
-            <Container fluid className="py-3 bg-white shadow-sm">
-              <Breadcrumb>
-                <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
-
-                <Breadcrumb.Item active>Profile</Breadcrumb.Item>
-              </Breadcrumb>
-
-              <Container fluid className="px-0">
-                <Row>
+          <Container fluid className="py-3">
+            <Container className="px-0">
+              {/*<Row>
                   <Col className="col-xl-4">
                     <Card className="overflow-hidden shadow">
                       <Card.Body>
@@ -90,10 +83,10 @@ function Profile(props) {
                             <th scope="row">E-mail :</th>
                             <td>{pageState.ReportData.email}</td>
                           </tr>
-                          {/* <tr>
+                           <tr>
                         <th scope="row">Location :</th>
                         <td>{this.state.apiResponse.client_name}</td>
-                      </tr> */}
+                      </tr>
                           </tbody>
                         </Table>
                       </Card.Body>
@@ -193,8 +186,117 @@ function Profile(props) {
                       </Accordion>
                     </Card>
                   </Col>
-                </Row>
-              </Container>
+                </Row>*/}
+
+              <div className="row">
+                <div className="col-md-4">
+                  <div className="card card-profile">
+                    <div className="card-header"></div>
+                    <div className="card-body text-center">
+                      <div className="profile-img-block">
+                        <img src="./images/user.png" className="card-profile-img"/>
+
+                        <a className="edit-camera-icon">
+                          <i className="mdi mdi-camera cursor-pointer"></i>
+                        </a>
+                      </div>
+
+                      <h4 className="mb-1">{pageState.ReportData.client_name}</h4>
+                      <p className="mb-1">Bangalore</p>
+                    </div>
+
+                    <div className="card-body text-left border-top">
+                      <h6 className="mb-1">BIO</h6>
+                      <p className="mb-0 f-14">About me section</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-md-8">
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title border-bottom pb-2 text-left">Basic Information <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h5>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">About Me</h6>
+                            <p className="f-14">About Me section</p>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Name</h6>
+                            <p className="f-14">{pageState.ReportData.client_name}</p>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Email</h6>
+                            <p className="f-14">{pageState.ReportData.email}</p>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Contact Number</h6>
+                            <p className="mb-1 f-14">{pageState.ReportData.contact_no}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title border-bottom pb-2 text-left">Company Information <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h5>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Company Name</h6>
+                            <p className="f-14">{pageState.ReportData.client_name}</p>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Address</h6>
+                            <p className="f-14">{pageState.ReportData.address}</p>
+                          </div>
+                        </div>
+                        <div className="col-sm-6 col-md-4">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">City</h6>
+                            <p className="f-14">{pageState.ReportData.address}</p>
+                          </div>
+                        </div>
+                        <div className="col-sm-6 col-md-4">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">ZIP</h6>
+                            <p className="f-14">560064</p>
+                          </div>
+                        </div>
+                        <div className="col-sm-6 col-md-4">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Country</h6>
+                            <p className="f-14">India</p>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Tier</h6>
+                            <p className="mb-1 f-14">Monthly</p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div className="text-left mb-1">
+                            <h6 className="mb-1">Valid Till</h6>
+                            <p className="mb-1 f-14">26-April-2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Container>
           </Container>
         </div>
