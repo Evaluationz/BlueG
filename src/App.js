@@ -274,7 +274,7 @@ function App() {
                         </Card.Body>
                         <Card.Body>
                           <Form noValidate validated={validatesignUp} onSubmit={signUp}>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-1">
                               <div className="row">
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='companyname' required type='text' className="shadow-lg" placeholder="Company name" onChange={onChange}/>
@@ -304,7 +304,7 @@ function App() {
                                 </div>
 
                                 <div className="col-12 pt-2">
-                                  <Button variant="dark" className="float-left"><i className="mdi mdi-chevron-left"></i> Back to Sign In</Button>
+                                  <a className="float-left c-blue font-bold cursor-pointer"><i className="mdi mdi-chevron-left"></i>Back to Sign In</a>
                                   <Button variant="primary" type='submit' className="float-right"> Sign Up</Button>
                                 </div>
                               </div>
@@ -386,7 +386,7 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card  border="light" className='shadow rounded login-card'>
+                  <Card  border="light" className='shadow rounded signin-card'>
                     <Row>
                       <Col>
                         <Card.Body className="d-flex align-items-center justify-content-center">
@@ -399,41 +399,36 @@ function App() {
                         </Card.Body>
                         <Card.Body>
                           <Form noValidate validated={validatesignIn} onSubmit={signIn}>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                   <Form.Label className="mb-0">Email</Form.Label>
                                   <FormControl name='username' type='email' className="shadow-lg" required onChange={onChange}/>
-                                  <Form.Control.Feedback type="invalid" className="mb-0">
+                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Email
                                   </Form.Control.Feedback>
                                 </div>
-                              </div>
-                            </Form.Group>
 
-                            <Form.Group className="mb-3">
-                              <div className="row align-items-center ">
-                                <div className="col-lg-12 pb-3">
+                                <div className="col-lg-12 pb-1">
                                   <Form.Label className="mb-0">Password</Form.Label>
                                   <FormControl name='password'  className="shadow-lg" type='password' required onChange={onChange}/>
-                                  <Form.Control.Feedback type="invalid" className="mb-0">
+                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
                                   </Form.Control.Feedback>
                                 </div>
-                              </div>
-                              <div className="mb-2 d-flex justify-content-md-end align-items-end">
-                                <Button variant="link" size="sm" onClick={forgotPassword}>Forgot Password?</Button>
+                                <div className="mb-2 d-flex justify-content-md-end align-items-end">
+                                  <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
+                                </div>
+
+                                <div className="col-lg-12 py-3">
+                                  <Button variant="primary" type='submit'> Sign In</Button>
+                                </div>
+
+                                <div className="col-lg-12 f-14">
+                                  Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
+                                </div>
                               </div>
                             </Form.Group>
-
-                            <Stack gap={3} className="mx-auto">
-
-                              <Button variant="primary" type='submit'> Sign In</Button>
-
-                              <p className="decorated"><span>OR</span></p>
-
-                              <Button variant="dark" onClick={createAccount}><i className="mdi mdi-plus-circle"></i> Create New Account</Button>
-                            </Stack>
                           </Form>
                         </Card.Body>
                       </Col>
