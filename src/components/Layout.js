@@ -68,7 +68,7 @@ function Layout() {
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link href="/profile">
-                                        <i className="mdi mdi-home"/> Profile
+                                        <i className="mdi mdi-account"/> Profile
                                     </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
