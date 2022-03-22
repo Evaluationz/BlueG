@@ -32,6 +32,7 @@ function App() {
   const [validatesignIn, setValidatedSignIn] = useState(false);
   const [validatesignUp, setValidatedSignUp] = useState(false);
   const [passwordValidity, setPasswordValidity] = useState(false);
+  const [contactValidity, setContactValidity] = useState(false);
 
   const signUp = (event) => {
     event.preventDefault();
@@ -122,6 +123,15 @@ function App() {
         else{
           setPasswordValidity(true);
         }
+    }
+    if(e.target.name === 'contactno' &&  e.target.value.length==10){
+  
+          setContactValidity(false);
+    }
+    else
+    {
+      setContactValidity(true);
+        
     }
   }
 
@@ -283,7 +293,7 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl name='cin' required type='text' className="shadow-lg" placeholder="CIN" onChange={onChange}/>
+                                <FormControl name='cin' required type='text' maxLength={21} className="shadow-lg" placeholder="CIN" onChange={onChange}/>
                               </div>
                               </div>
                               </Form.Group>
@@ -300,7 +310,7 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl name='contactno' required maxlength="10" className="shadow-lg" type='number' placeholder="Contact number" onChange={onChange}/>
+                                <FormControl name='contactno' required isInvalid={contactValidity}  className="shadow-lg"  type='number' placeholder="Contact number" onChange={onChange}/>
                              </div>
                              </div>
                               </Form.Group>
@@ -308,7 +318,7 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl isInvalid={passwordValidity} name='password' className="shadow-lg" required type='password' placeholder="Password" onChange={onChange}/>
+                                <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-lg" required type='password' placeholder="Password" onChange={onChange}/>
                                 <Form.Control.Feedback type="invalid">
                                   password between 7 to 15 characters which contain at least one numeric digit and a special character
                                 </Form.Control.Feedback>

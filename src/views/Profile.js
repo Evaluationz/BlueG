@@ -19,6 +19,7 @@ import Moment from "moment";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
+import Footer from "../components/Footer/Footer";
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
 function Profile(props) {
@@ -55,7 +56,7 @@ function Profile(props) {
         <div className="container-fluid body-container">
 
           <Container fluid className="py-3">
-            <Container className="px-0">
+           
               {/*<Row>
                   <Col className="col-xl-4">
                     <Card className="overflow-hidden shadow">
@@ -226,7 +227,7 @@ function Profile(props) {
                         <div className="col-md-6">
                           <div className="text-left mb-1">
                             <h6 className="mb-1">Name</h6>
-                            <p className="f-14">{pageState.ReportData.client_name}</p>
+                            {/* <p className="f-14">{pageState.ReportData.client_name}</p> */}
                           </div>
                         </div>
                         <div className="col-md-6">
@@ -252,7 +253,7 @@ function Profile(props) {
                         <div className="col-md-12">
                           <div className="text-left mb-1">
                             <h6 className="mb-1">Company Name</h6>
-                            <p className="f-14">{pageState.ReportData.client_name}</p>
+                            {/* <p className="f-14">{pageState.ReportData.client_name}</p> */}
                           </div>
                         </div>
                         <div className="col-md-12">
@@ -297,9 +298,10 @@ function Profile(props) {
                   </div>
                 </div>
               </div>
-            </Container>
+        
           </Container>
         </div>
+        <Footer/>
       </>
     );
 
