@@ -9,6 +9,7 @@ import Contract from "./components/Contract"
 import configData from "./config/index.json"
 
 
+
 import './App.css';
 
 import { Auth,Hub } from 'aws-amplify';
@@ -29,6 +30,7 @@ function App() {
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [validatesignIn, setValidatedSignIn] = useState(false);
+  const [validatesignUp, setValidatedSignUp] = useState(false);
   const [passwordValidity, setPasswordValidity] = useState(false);
 
   const signUp = (event) => {
@@ -41,7 +43,7 @@ function App() {
     else{
       setShow(true);
     }
-    setValidated(true);
+    setValidatedSignUp(true);
   };
 
   useEffect(() => {
@@ -164,7 +166,14 @@ function App() {
   async function confirmSignUp(){
     const { username,authCode} = formState;
     await Auth.confirmSignUp(username,authCode)
-    updateFormState(() => ({...formState,formType:'singIn'}))
+    .then(data => {
+      updateFormState(() => ({...formState,formType:'singIn'}))
+    })
+    .catch(err => {
+      var msg = 'Invalid code please enter valid code'
+      updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+    })
+    
   }
   async function signIn(event){
     event.preventDefault();
@@ -253,38 +262,58 @@ function App() {
                             <h4 className="mb-0" style={{fontWeight: '700'}}>SIGN UP</h4>
                           </Card.Body>
                           <Card.Body>
-                            <Form noValidate validated={validatesignIn} onSubmit={signUp}>
+                            <Form noValidate validated={validatesignUp} onSubmit={signUp}>
                               <Form.Group className="mb-3">
-                                <Form.Label className="mb-0">Email</Form.Label>
-                                <FormControl name='username' required type='email' placeholder="Email address" onChange={onChange}/>
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                               
+                                <FormControl name='username' required type='email' className="shadow-lg" placeholder="Email address" onChange={onChange}/>
+                              </div>
+                            </div>
                               </Form.Group>
 
                               <Form.Group className="mb-3">
-                                <Form.Label className="mb-0">Company name</Form.Label>
-                                <FormControl name='companyname' required type='text' placeholder="Company name" onChange={onChange}/>
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                                <FormControl name='companyname' required type='text' className="shadow-lg" placeholder="Company name" onChange={onChange}/>
+                             </div>
+                             </div>
                               </Form.Group>
 
                               <Form.Group className="mb-3">
-                                <Form.Label className="mb-0">CIN</Form.Label>
-                                <FormControl name='cin' required type='text' placeholder="CIN" onChange={onChange}/>
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                                <FormControl name='cin' required type='text' className="shadow-lg" placeholder="CIN" onChange={onChange}/>
+                              </div>
+                              </div>
                               </Form.Group>
 
                               <Form.Group className="mb-3">
-                                <Form.Label className="mb-0">Address</Form.Label>
-                                <FormControl name='address' id='address' required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                               
+                                <FormControl name='address' id='address' className="shadow-lg" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+                              </div>
+                              </div>
                               </Form.Group>
 
                               <Form.Group className="mb-3">
-                                <Form.Label className="mb-0">Contact number</Form.Label>
-                                <FormControl name='contactno' required maxlength="10" type='number' placeholder="Contact number" onChange={onChange}/>
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                                <FormControl name='contactno' required maxlength="10" className="shadow-lg" type='number' placeholder="Contact number" onChange={onChange}/>
+                             </div>
+                             </div>
                               </Form.Group>
 
                               <Form.Group className="mb-3">
-                                <Form.Label className="mb-0">Password</Form.Label>
-                                <FormControl isInvalid={passwordValidity} name='password' required type='password' placeholder="Password" onChange={onChange}/>
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                                <FormControl isInvalid={passwordValidity} name='password' className="shadow-lg" required type='password' placeholder="Password" onChange={onChange}/>
                                 <Form.Control.Feedback type="invalid">
                                   password between 7 to 15 characters which contain at least one numeric digit and a special character
                                 </Form.Control.Feedback>
+                              </div>
+                              </div>
                               </Form.Group>
 
                               <Stack gap={3} className="mx-auto">
@@ -313,6 +342,7 @@ function App() {
               <Container className="d-flex justify-content-md-center align-items-center login-card-block">
                 <Row>
                   <Col>
+                  <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                     <Card border="light" className='shadow rounded login-card'>
                       <Card.Body>
                         <Form.Group className="mb-3">
@@ -389,19 +419,34 @@ function App() {
                           <Card.Body>
                             <Form noValidate validated={validatesignIn} onSubmit={signIn}>
                               <Form.Group className="mb-3">
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
                                 <Form.Label className="mb-0">Email</Form.Label>
-                                <FormControl name='username' type='email' required onChange={onChange}/>
+                                <FormControl name='username' type='email' className="shadow-lg" required onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Enter Your Email
+                                </Form.Control.Feedback>
+                                </div>
+                            </div>
                               </Form.Group>
 
                               <Form.Group className="mb-3">
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
                                 <Form.Label className="mb-0">Password</Form.Label>
-                                <FormControl name='password' type='password' required onChange={onChange}/>
+                                <FormControl name='password'  className="shadow-lg" type='password' required onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Enter Your Password.
+                                </Form.Control.Feedback>
+                                </div>
+                              </div>
                                 <div className="mb-2 d-flex justify-content-md-end align-items-end">
                                   <Button variant="link" size="sm" onClick={forgotPassword}>Forgot Password?</Button>
                                 </div>
                               </Form.Group>
 
                               <Stack gap={3} className="mx-auto">
+                                
                                 <Button variant="primary" type='submit'> Sign In</Button>
 
                                 <p className="decorated"><span>OR</span></p>
@@ -427,8 +472,12 @@ function App() {
             <Route path="dashboard" element={<Dashboard clientid={clientid}/>} />
             <Route path="profile" element={<Profile clientid={clientid}/>} />
             <Route path="reportDownload" element={<ReportDownload clientid={clientid}/>} />
+          
           </Routes>
+         
+
       )
+    
     }
   </div>
   );

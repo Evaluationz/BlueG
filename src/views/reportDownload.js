@@ -10,6 +10,7 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import configData from "../config/index.json"
+import Footer from "../components/Footer/Footer";
 
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
@@ -171,6 +172,7 @@ function ReportDownload(props) {
           </Container>
         </Container>
       </div>
+      <Footer/>
     </>
   );
 }

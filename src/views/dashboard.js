@@ -7,6 +7,7 @@ import Moment from 'moment';
 import { useNavigate } from "react-router-dom";
 import configData from "../config/index.json"
 import HighchartsReact from 'highcharts-react-official';
+import Footer from "../components/Footer/Footer";
 
 
 const pageData = { case_completed_date: [], case_completed_count: [] }
@@ -82,6 +83,7 @@ function Dashboard(props) {
           />
         </Container>
       </div>
+      <Footer/>
     </>
   )
 }

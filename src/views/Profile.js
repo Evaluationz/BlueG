@@ -16,6 +16,7 @@ import React, { useState, Component,useEffect } from "react";
 import axios from "axios";
 import configData from "../config/index.json";
 import Moment from "moment";
+import Footer from "../components/Footer/Footer";
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
 function Profile(props) {
@@ -194,6 +195,7 @@ function Profile(props) {
                       </Row>
           <br></br>
         </Container>
+        <Footer/>
       </>
     );
 
