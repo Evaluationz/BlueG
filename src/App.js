@@ -110,6 +110,12 @@ function App() {
     setPasswordValidity(false);
   }
 
+  async function Backtosignin(){
+    updateFormState(() => ({...formState,formType:'singIn'}))
+    updateAlertState(() => ({...alertState,alertStatus:false}))
+    setPasswordValidity(false);
+  }
+
   function onChange(e){
     e.persist();
     updateAlertState(() => ({...alertState,alertStatus:false}))
@@ -124,8 +130,11 @@ function App() {
           setPasswordValidity(true);
         }
     }
-    if(e.target.name === 'contactno' &&  e.target.value.length==10){
-  
+    
+    if(e.target.name ==='contactno'){
+      const re = /^[0-9\b]+$/;
+      if(e.target.value === '' || re.test(e.target.value))
+      {
           setContactValidity(false);
     }
     else
@@ -134,6 +143,7 @@ function App() {
         
     }
   }
+}
 
   async function confirmContract(){
     setShow(false)
@@ -277,7 +287,10 @@ function App() {
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                
-                                <FormControl name='username' required type='email' className="shadow-lg" placeholder="Email address" onChange={onChange}/>
+                                <FormControl name='username' required type='email'  placeholder="Email address" onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Please provide a username.
+                                </Form.Control.Feedback>
                               </div>
                             </div>
                               </Form.Group>
@@ -285,7 +298,11 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl name='companyname' required type='text' className="shadow-lg" placeholder="Company name" onChange={onChange}/>
+                               
+                                <FormControl name='companyname' required type='text'  placeholder="Company name" onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Please provide a company name
+                                </Form.Control.Feedback>
                              </div>
                              </div>
                               </Form.Group>
@@ -293,7 +310,10 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl name='cin' required type='text' maxLength={21} className="shadow-lg" placeholder="CIN" onChange={onChange}/>
+                                <FormControl name='cin' required type='text' maxLength={21}  placeholder="CIN" onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Please provide a CIN number.
+                                </Form.Control.Feedback>
                               </div>
                               </div>
                               </Form.Group>
@@ -302,7 +322,10 @@ function App() {
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                
-                                <FormControl name='address' id='address' className="shadow-lg" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+                                <FormControl name='address' id='address'  required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Please provide a address.
+                                </Form.Control.Feedback>
                               </div>
                               </div>
                               </Form.Group>
@@ -310,7 +333,10 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl name='contactno' required isInvalid={contactValidity}  className="shadow-lg"  type='number' placeholder="Contact number" onChange={onChange}/>
+                                <FormControl name='contactno' required isInvalid={contactValidity}    type='text' maxLength={10}  placeholder="Contact number" onChange={onChange}/>
+                                <Form.Control.Feedback type="invalid" className="mb-0">
+                                  Please provide a contact number.
+                                </Form.Control.Feedback>
                              </div>
                              </div>
                               </Form.Group>
@@ -318,7 +344,7 @@ function App() {
                               <Form.Group className="mb-3">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-lg" required type='password' placeholder="Password" onChange={onChange}/>
+                                <FormControl isInvalid={passwordValidity} name='password' maxLength={15}  required type='password' placeholder="Password" onChange={onChange}/>
                                 <Form.Control.Feedback type="invalid">
                                   password between 7 to 15 characters which contain at least one numeric digit and a special character
                                 </Form.Control.Feedback>
@@ -330,8 +356,9 @@ function App() {
                                 <Button variant="primary" type='submit'> Sign Up</Button>
 
                                 <p className="decorated"><span>OR</span></p>
-
-                                <Button variant="dark"><i className="mdi mdi-chevron-left"></i> Back to Sign In</Button>
+                               
+                                <Button variant="dark" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i> Back to Sign In</Button>
+                               
                               </Stack>
                             </Form>
                           </Card.Body>
@@ -432,7 +459,7 @@ function App() {
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                 <Form.Label className="mb-0">Email</Form.Label>
-                                <FormControl name='username' type='email' className="shadow-lg" required onChange={onChange}/>
+                                <FormControl name='username' type='email'  required onChange={onChange}/>
                                 <Form.Control.Feedback type="invalid" className="mb-0">
                                   Enter Your Email
                                 </Form.Control.Feedback>
@@ -444,7 +471,7 @@ function App() {
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                 <Form.Label className="mb-0">Password</Form.Label>
-                                <FormControl name='password'  className="shadow-lg" type='password' required onChange={onChange}/>
+                                <FormControl name='password'   type='password' required onChange={onChange}/>
                                 <Form.Control.Feedback type="invalid" className="mb-0">
                                   Enter Your Password.
                                 </Form.Control.Feedback>
