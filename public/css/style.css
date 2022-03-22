@@ -38,6 +38,10 @@ body {
   margin-top: 40px;
 }
 
+.mt-70 {
+  margin-top: 70px;
+}
+
 .mt-100 {
   margin-top: 100px;
 }
@@ -979,11 +983,6 @@ select.form-control {
   background-image: url(../images/page-bg/page-bg-2.jpg);
 }
 
-/*************** MAIN CSS ***************/
-.fixed-top.non-fixed {
-  position: relative;
-}
-
 .topbar {
   padding-left: 25px;
   padding-right: 25px;
@@ -1298,7 +1297,9 @@ select.form-control {
   display: none;
   background-color: transparent;
 }
-
+.navbar.navbar-dark.fixed-top{
+  height: 70px;
+}
 .main-nav nav .navbar-nav .nav-item {
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
@@ -3722,12 +3723,13 @@ select.form-control {
 }
 
 .footer-details {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .footer-details p {
   margin-bottom: 15px;
   color: #000;
+  text-align: left;
 }
 
 .footer-details p:last-child {
@@ -3739,6 +3741,7 @@ select.form-control {
   color: #ffffff;
   margin-bottom: 0;
   font-weight: 200;
+  text-align: left;
 }
 
 .footer-list {
@@ -3763,17 +3766,14 @@ select.form-control {
   margin-bottom: 0;
 }
 
-.footer-list li a {
-  color: #000;
-  -webkit-transition: all 0.3s linear;
-  transition: all 0.3s linear;
-}
-
 .footer-list li p {
   margin-top: 3px;
 }
 
 .footer-list li a {
+  text-decoration: none;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
   color: #ffffff;
   margin-bottom: .5rem;
 }
@@ -3826,6 +3826,7 @@ select.form-control {
 .footer-copyright-text p a {
   color: #ffffff;
   font-weight: 200;
+  text-decoration: none;
 }
 
 .footer-copyright-text p a:hover {
@@ -4880,65 +4881,6 @@ select.form-control {
   top: 100px;
   right: 100px;
   cursor: pointer;
-}
-
-.scroll-top {
-  position: fixed;
-  bottom: 105%;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 11;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  -webkit-transition: all 0.5s linear;
-  transition: all 0.5s linear;
-}
-
-.scroll-top.scrolltopactive {
-  bottom: 30px;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
-}
-
-.scroll-top:hover .scroll-top-inner {
-  color: #fff;
-}
-
-.scroll-top:after {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  top: 100%;
-  left: 5%;
-  height: 10px;
-  width: 90%;
-  opacity: 1;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 80%);
-}
-
-.scroll-top-inner {
-  -webkit-transition: all 0.3s linear;
-  transition: all 0.3s linear;
-  color: #fff;
-  background: #3e72fe;
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  font-size: 20px;
-  border-radius: 50%;
 }
 
 .contact-info {
@@ -6579,6 +6521,7 @@ select.form-control {
 @media screen and (max-width: 767px){
   .logo-image {
     width: 200px;
+    max-width: 200px;
   }
   .hero-block{
     margin-top: 2rem;
@@ -6786,4 +6729,12 @@ select.form-control {
 .readMoreText{
   font-weight: 500;
   margin-left: 0.5rem;
+}
+
+/*Float CSS*/
+.float-left{
+  float: left;
+}
+.float-right{
+  float: right;
 }

@@ -18,22 +18,6 @@ jQuery(function ($) {
         }
     });
 
-    // Scrolltop
-    $(window).on('scroll', function() {
-        if( $(this).scrollTop() > 300 ) {
-            $("#scrolltop").addClass("scrolltopactive");
-        }
-        else {
-            $("#scrolltop").removeClass("scrolltopactive");
-        }
-    });
-    $("#scrolltop").on('click', function () {
-        $("html").animate({
-            scrollTop: 0
-        }, 2000);
-        return false;
-    });
-
     // Banner-carousel
     $(".banner-carousel").owlCarousel({
         loop: true,

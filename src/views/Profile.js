@@ -53,8 +53,7 @@ function Profile(props) {
     return (
       <>
         <Layout />
-        <div className="container-fluid body-container">
-
+        <div className="container-fluid body-container mt-70 pt-2">
           <Container fluid className="py-3">
            
               {/*<Row>
@@ -204,11 +203,6 @@ function Profile(props) {
 
                       <h4 className="mb-1">{pageState.ReportData.client_name}</h4>
                       <p className="mb-1">Bangalore</p>
-                    </div>
-
-                    <div className="card-body text-left border-top">
-                      <h6 className="mb-1">BIO</h6>
-                      <p className="mb-0 f-14">About me section</p>
                     </div>
                   </div>
                 </div>

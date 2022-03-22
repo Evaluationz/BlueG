@@ -26,7 +26,7 @@ function Dashboard(props) {
   useEffect(() => {
     loadData()
   }, []);
-  
+
   function loadData() {
     let url = configData.express_url;
     const postData = { client_id: client_id }
@@ -68,23 +68,21 @@ function Dashboard(props) {
 
 
   return (
-    <>
-      <Layout />
-      <div className="container-fluid body-container" >
-        <Container fluid className="my-3" onClick={RedirectToReport}>
-          <Container fluid className="py-3 bg-white shadow-sm" >
-            <Breadcrumb>
-              <Breadcrumb.Item><i className="mdi mdi-home" /> Dashboard</Breadcrumb.Item>
-            </Breadcrumb>
+      <>
+        <Layout />
+        <div className="container-fluid body-container mt-70 pt-2">
+          <Container fluid className="my-3" onClick={RedirectToReport}>
+            <Container fluid className="py-3 bg-white shadow-sm">
+              <Breadcrumb>
+                <Breadcrumb.Item><i className="mdi mdi-home"/> Dashboard</Breadcrumb.Item>
+              </Breadcrumb>
+            </Container>
+            <HighchartsReact highcharts={Highcharts}
+                             options={Config}/>
           </Container>
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={Config}
-          />
-        </Container>
-      </div>
-      <Footer/>
-    </>
+        </div>
+        <Footer/>
+      </>
   )
 }
 

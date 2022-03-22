@@ -44,32 +44,32 @@ function ReportDownload(props) {
     let url = configData.express_url
     const postData = { from_date: startDate, to_date: endDate, client_id: client_id }
     axios.post(url + "report/GetReportData", postData)
-      .then(res => {
-        updatePageState(() => ({ ...pageState, ReportData: res.data }))
-      })
+        .then(res => {
+          updatePageState(() => ({ ...pageState, ReportData: res.data }))
+        })
   }
 
   function getReport(row) {
     let url = configData.express_url
     let postData = { case_no: row.case_id }
     axios.post(url + "report/DownloadReportData", postData,
-      { responseType: 'blob' })
-      .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-        let url = window.URL.createObjectURL(pdfBlob);
-        let a = document.createElement('a');
-        a.href = url;
-        a.download = 'FinalReport.pdf';
-        a.click();
-      }).catch(err => {
-        let msg = 'Final report not avaliable to download.'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        { responseType: 'blob' })
+        .then((res) => {
+          const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+          let url = window.URL.createObjectURL(pdfBlob);
+          let a = document.createElement('a');
+          a.href = url;
+          a.download = 'FinalReport.pdf';
+          a.click();
+        }).catch(err => {
+      let msg = 'Final report not avaliable to download.'
+      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+      setTimeout(() => {
+        updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
 
-        }, 3000);
+      }, 3000);
 
-      });
+    });
   }
   const { ReportData, startDate, endDate } = pageState;
 
@@ -80,100 +80,99 @@ function ReportDownload(props) {
       return rowIndex + 1;
     },
   },
-  {
-    dataField: "resume_id",
-    text: "Resume Id",
-    filter: textFilter(),
-  },
-  {
-    dataField: "candidate_name",
-    text: "Candidate Name"
-  },
-  {
-    dataField: "client_name",
-    text: "Client Name",
-    sort: true
+    {
+      dataField: "resume_id",
+      text: "Resume Id",
+      filter: textFilter(),
+    },
+    {
+      dataField: "candidate_name",
+      text: "Candidate Name"
+    },
+    {
+      dataField: "client_name",
+      text: "Client Name",
+      sort: true
 
-  },
-  {
-    dataField: "subclient_name",
-    text: "SubClient Name"
-  },
-  {
-    dataField: "profile_desc",
-    text: "Profile"
-  },
-  {
-    dataField: "submission_date",
-    text: "Submission date"
-  },
-  {
-    dataField: "completion_date",
-    text: "Completion date"
-  },
-  {
-    dataField: "",
-    text: "Download Report",
-    formatter: (cellContent, row) => {
-      return (
-        <div>
-          <Button onClick={() => getReport(row)}><ImDownload3 /></Button>
-        </div>
-      );
+    },
+    {
+      dataField: "subclient_name",
+      text: "SubClient Name"
+    },
+    {
+      dataField: "profile_desc",
+      text: "Profile"
+    },
+    {
+      dataField: "submission_date",
+      text: "Submission date"
+    },
+    {
+      dataField: "completion_date",
+      text: "Completion date"
+    },
+    {
+      dataField: "",
+      text: "Download Report",
+      formatter: (cellContent, row) => {
+        return (
+            <div>
+              <Button onClick={() => getReport(row)}><ImDownload3 /></Button>
+            </div>
+        );
+      }
+
     }
-
-  }
   ];
   return (
-    <>
-      <Layout />
-      <div className="container-fluid body-container">
+      <>
+        <Layout />
+        <div className="container-fluid body-container mt-70 pt-2">
+          <Container fluid className="my-3">
+            <Container fluid className="py-3 bg-white shadow-sm">
+              <Breadcrumb>
+                <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
 
-        <Container fluid className="my-3">
-          <Container fluid className="py-3 bg-white shadow-sm">
-            <Breadcrumb>
-              <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
+                <Breadcrumb.Item active>Reports</Breadcrumb.Item>
+              </Breadcrumb>
 
-              <Breadcrumb.Item active>Reports</Breadcrumb.Item>
-            </Breadcrumb>
+              <Container fluid className="px-0">
+                <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                <Form method="POST">
+                  <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
+                    <Col sm="4">
+                      <Form.Label column>From Date</Form.Label>
+                      <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
+                    </Col>
 
-            <Container fluid className="px-0">
-              <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-              <Form method="POST">
-                <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
-                  <Col sm="4">
-                    <Form.Label column>From Date</Form.Label>
-                    <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
-                  </Col>
+                    <Col sm="4">
+                      <Form.Label column>To Date</Form.Label>
+                      <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
+                    </Col>
+                    <Col sm="4" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
+                      <Form.Label column></Form.Label>
+                      <Button type="Submit" variant="primary" onClick={getData}>Search</Button>
+                    </Col>
+                  </Form.Group>
+                </Form>
+              </Container>
 
-                  <Col sm="4">
-                    <Form.Label column>To Date</Form.Label>
-                    <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
-                  </Col>
-                  <Col sm="4" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
-                    <Form.Label column></Form.Label>
-                    <Button type="Submit" variant="primary" onClick={getData}>Search</Button>
-                  </Col>
-                </Form.Group>
-              </Form>
+              <br />
+
+              <BootstrapTable keyField="case_id"
+                              data={ReportData}
+                              columns={columns}
+                              striped
+                              hover
+                              condensed
+                              pagination={paginationFactory()}
+                              filter={filterFactory()}>
+              </BootstrapTable>
             </Container>
-
-            <br />
-
-            <BootstrapTable keyField="case_id"
-              data={ReportData}
-              columns={columns}
-              striped
-              hover
-              condensed
-              pagination={paginationFactory()}
-              filter={filterFactory()}>
-            </BootstrapTable>
           </Container>
-        </Container>
-      </div>
-      <Footer/>
-    </>
+        </div>
+        <Footer/>
+      </>
   );
 }
 

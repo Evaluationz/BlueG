@@ -90,12 +90,6 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="scroll-top scrolltopactive" id="scrolltop">
-                <div className="scroll-top-inner">
-                    <i className="mdi mdi-arrow-up"></i>
-                </div>
-            </div>
         </footer>
     );
 };
