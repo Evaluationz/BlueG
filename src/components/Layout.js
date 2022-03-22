@@ -5,6 +5,7 @@ import { IconName } from "react-icons/fa";
 import {FaHome} from "react-icons/fa"
 import {GiNotebook} from "react-icons/gi"
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -19,13 +20,19 @@ function Layout() {
 
     return (
         <>
-            <Navbar className="shadow-sm bg-white" variant="dark" expand={false}>
+            <Navbar variant="dark" expand={false} className="bg-black footer">
                 <Container fluid>
                     <div className="col-4 d-flex align-items-center justify-content-start">
                         <div className="d-flex align-items-center justify-content-center">
-                            <img src="./images/logo.png"
+                        <Link className="navbar-brand mr-0"
+                                to="/" onClick={() => { window.location.href = "/" }}>
+                                <div className="d-flex align-items-center justify-content-start">
+                                    <img src="images/logo.png" alt="logo" className="logo logo-image" />
+                                </div>
+                            </Link>
+                            {/* <img src="./images/logo.png"
                                  width="30"
-                                 className="" alt="logo"/> <p className="mb-0 m-lg-1 logo-text">BlueG</p>
+                                 className="" alt="logo"/> <p className="mb-0 m-lg-1 logo-text">BlueG</p> */}
                         </div>
                         <Navbar.Toggle aria-controls="offcanvasNavbar"></Navbar.Toggle>
                     </div>
@@ -68,7 +75,7 @@ function Layout() {
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link href="/profile">
-                                        <i className="mdi mdi-home"/> Profile
+                                        <i className="mdi mdi-account"/> Profile
                                     </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>

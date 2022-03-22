@@ -472,7 +472,6 @@ function App() {
             <Route path="dashboard" element={<Dashboard clientid={clientid}/>} />
             <Route path="profile" element={<Profile clientid={clientid}/>} />
             <Route path="reportDownload" element={<ReportDownload clientid={clientid}/>} />
-          
           </Routes>
          
 

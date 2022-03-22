@@ -118,3 +118,164 @@ input[type=number]::-webkit-outer-spin-button {
 .user-dropdown .dropdown-menu .dropdown-item:active{
   background: #f7f7f7;
 }
+.card {
+  background-color: #fff;
+  border: 0 solid #eee;
+  border-radius: 0;
+}
+.card {
+  margin-bottom: 1.5rem;
+  -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+}
+
+.card-profile .card-header {
+  height: 6rem;
+  background-size: cover;
+  background-position: center center
+}
+
+.card-profile-img {
+  max-width: 6rem;
+  margin-top: -4rem;
+  margin-bottom: .5rem;
+  border: 3px solid #fff;
+  border-radius: 100%
+}
+
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 50%;
+  display: inline-block;
+  background: #ced4da no-repeat center/cover;
+  position: relative;
+  text-align: center;
+  color: #868e96;
+  font-weight: 600;
+  vertical-align: bottom
+}
+
+.avatar.avatar-md {
+  width: 3rem;
+  height: 3rem
+}
+
+.avatar.avatar-lg {
+  width: 4rem;
+  height: 4rem
+}
+
+.avatar.avatar-xl {
+  width: 5rem;
+  height: 5rem
+}
+
+.avatar.avatar-xxl {
+  width: 7rem;
+  height: 7rem;
+  min-width: 7rem
+}
+
+.card-header:first-child {
+  border-radius: 0 0 0 0;
+}
+.card-header:first-child {
+  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.card-header {
+  padding: 1rem 1.25rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+.card-header {
+  -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.05);
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.05);
+}
+.card-header{
+  background-image: url(https://demo.bootstrapious.com/admin-premium/1-4-5/img/photos/paul-morris-116514-unsplash.jpg);
+}
+.media-object.avatar.avatar-md{
+  background-image: url(https://bootdey.com/img/Content/avatar/avatar2.png);
+}
+.media-object.avatar{
+  background-image: url(https://bootdey.com/img/Content/avatar/avatar3.png);
+}
+.edit-profile{
+  position: absolute;
+  right: 1rem;
+  font-size: 1rem;
+}
+.profile-img-block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit-camera-icon{
+  background: #ffffff;
+  color: #000000 !important;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  padding: 0.4rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 7rem;
+  right: auto;
+  margin-right: -4.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/*Text Align*/
+.text-left{
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+
+/*Cursor*/
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/*Font CSS*/
+.f-10{
+  font-size: 10px;
+}
+.f-11{
+  font-size: 11px;
+}
+.f-12{
+  font-size: 12px;
+}
+.f-13{
+  font-size: 13px;
+}
+.f-14{
+  font-size: 14px;
+}
+.f-15{
+  font-size: 15px;
+}
+.f-16{
+  font-size: 16px;
+}
+.f-17{
+  font-size: 17px;
+}
+.f-18{
+  font-size: 18px;
+}
+.f-19{
+  font-size: 19px;
+}
+.f-20{
+  font-size: 20px;
+}
