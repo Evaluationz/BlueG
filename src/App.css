@@ -68,7 +68,8 @@ button:focus {
 .login-card{
   min-width: 25rem;
 }
-.signin-card{
+.signin-card,
+.password-card{
   max-width: 25rem;
 }
 .signup-card{

@@ -193,6 +193,7 @@ function App() {
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
     })
     .catch(err => {
+      
       var msg = 'Invalid code please enter valid code'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
       
