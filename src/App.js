@@ -10,6 +10,8 @@ import configData from "./config/index.json"
 
 
 
+
+
 import './App.css';
 
 import { Auth,Hub } from 'aws-amplify';
@@ -34,6 +36,7 @@ function App() {
   const [validatesignUp, setValidatedSignUp] = useState(false);
   const [passwordValidity, setPasswordValidity] = useState(false);
   const [contactValidity, setContactValidity] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const signUp = (event) => {
     event.preventDefault();
@@ -117,6 +120,13 @@ function App() {
     setPasswordValidity(false);
   }
 
+  const togglePassword = () => {
+    // When the handler is invoked
+    // inverse the boolean state of passwordShown
+    setPasswordShown(!passwordShown);
+  };
+
+  
   function onChange(e){
     e.persist();
     updateAlertState(() => ({...alertState,alertStatus:false}))
@@ -185,6 +195,7 @@ function App() {
     setShow(false)
   }
   async function confirmSignUp(e){
+    e.preventDefault();
     const { username,authCode} = formState;
     await Auth.confirmSignUp(username,authCode)
     .then(data => {
@@ -217,7 +228,8 @@ function App() {
     setValidatedSignIn(true);
   }
 
-  async function resetPassword(){
+  async function resetPassword(e){
+    e.preventDefault();
     const { username,authCode,password} = formState;
     Auth.forgotPasswordSubmit(username, authCode ,password)
     .then(data => {
@@ -227,7 +239,7 @@ function App() {
     
     })
     .catch(err => {
-      var msg = 'Invalid code please request code again'
+      var msg = 'Invalid code'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
     });
   }
@@ -327,8 +339,8 @@ function App() {
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" required type='password' placeholder="Password" onChange={onChange}/>
-                                  <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
+                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" required type={passwordShown ? "text" : "password"} placeholder="Password" onChange={onChange}/>
+                                  <i className="toggle-password mdi mdi-eye-off"  onClick={togglePassword}></i>
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     password between 7 to 15 characters which contain at least one numeric digit and a special character
                                   </Form.Control.Feedback>
@@ -389,40 +401,33 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded signin-card'>
-                    <Card.Body >
-                      <Form>
-                      <Form.Group className="">
-                      <div className="row align-items-center ">
+                  <Card border="light" className='shadow rounded password-card'>
+                    <Card.Body>
+                      <Form.Group className="mb-1">
+                        <div className="row align-items-center ">
                           <div className="col-lg-12 pb-3">
-                        <Form.Label className="mb-0">Confirmation code</Form.Label>
-                        <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                     </div>
-                     </div>
-                      
+                            <Form.Label className="mb-0">Confirmation code</Form.Label>
+                            <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
+                          </div>
 
-                      
-                      <div className="row align-items-center ">
-                          <div className="col-lg-12 pb-3">
-                        <Form.Label className="mb-0">Password</Form.Label>
-                        <FormControl isInvalid={passwordValidity} name='password' maxLength={15} required type='password' placeholder="Password" onChange={onChange}/>
-                        <Form.Control.Feedback type="invalid">
-                          password between 7 to 15 characters which contain at least one numeric digit and a special character
-                        </Form.Control.Feedback>
+                          <div className="col-lg-12 pb-1">
+                            <Form.Label className="mb-0">Password</Form.Label>
+                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="cnfpassword" placeholder="Password" onChange={onChange}/>
+                            <i className="toggle-password mdi mdi-eye-off" id="toggleEye1"></i>
+                            <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                              password between 7 to 15 characters which contain at least one numeric digit and a special character
+                            </Form.Control.Feedback>
+                          </div>
+
+                          <div className="col-lg-12 py-3">
+                            <Button variant="primary" type="submit" onClick={resetPassword} >Reset Password</Button>
+                          </div>
+
+                          <div className="col-lg-12">
+                            <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Request code again</a>
+                          </div>
                         </div>
-                        </div>
-                     
-                      <div className="col-lg-12 py-3">
-                      <Button className='btn-blue' type="submit" onClick={resetPassword} >Reset Password</Button>
-                       
-                      </div>
-                      <div className="col-lg-12 f-14">
-                      
-                       <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Request code again</a>
-                                
-                      </div>
                       </Form.Group>
-                      </Form>
                     </Card.Body>
                   </Card>
                 </Col>

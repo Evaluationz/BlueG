@@ -6,7 +6,7 @@ jQuery(function ($) {
     jQuery('.mean-menu').meanmenu({
         meanScreenWidth: "1199"
     });
-
+    
     // Sticky navbar
     $(window).on('scroll', function() {
         if ($(this).scrollTop() > 50) {
@@ -27,6 +27,19 @@ jQuery(function ($) {
             $(this).removeClass('mdi-eye');
             $(this).addClass('mdi-eye-off');
             $('#password').attr('type','password');
+        }
+    });
+
+   
+    $('#toggleEye1').on('click', function(){
+        if($(this).hasClass('mdi-eye-off')){
+            $(this).removeClass('mdi-eye-off');
+            $(this).addClass('mdi-eye');
+            $('#cnfpassword').attr('type','text');
+        }else{
+            $(this).removeClass('mdi-eye');
+            $(this).addClass('mdi-eye-off');
+            $('#cnfpassword').attr('type','password');
         }
     });
 
