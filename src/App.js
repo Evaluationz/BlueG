@@ -97,11 +97,17 @@ function App() {
         case 'signIn_failure':
             msg = data.payload.data.message
             updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+            setTimeout(() => {
+              updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+            }, 3000);
             setValidatedSignIn(false);
             break;
         case 'configured':
             msg = data.payload.data.message
             updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
+            setTimeout(() => {
+              updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+            }, 3000);
         }
     });
   }
@@ -143,9 +149,11 @@ function App() {
     }
     
     if(e.target.name ==='contactno'){
-      const re = /^[0-9\b]+$/;
-      if(e.target.value === '' || re.test(e.target.value))
+      //const re = /^[0-9\b]+$/;
+      console.log("inside contact")
+      if(e.target.value === '' || e.target.value.length===10)
       {
+
           setContactValidity(false);
     }
     else
@@ -181,11 +189,17 @@ function App() {
             catch(err){
               msg = 'An account with the given email already exists.'
               updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+              setTimeout(() => {
+                updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+              }, 3000);
             }
           }
           else {
                 var msg = 'Unable to create account.Please try again'
                 updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+                setTimeout(() => {
+                updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+              }, 3000);
              }
         })
       
@@ -202,12 +216,17 @@ function App() {
       updateFormState(() => ({...formState,formType:'singIn'}))
       var msg = 'SignUp  Success'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
+      setTimeout(() => {
+      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+    }, 3000);
     })
     .catch(err => {
       
       var msg = 'Invalid code please enter valid code'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-      
+      setTimeout(() => {
+      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+    }, 3000);
      
     })
     
@@ -236,11 +255,16 @@ function App() {
       updateFormState(() => ({...formState,formType:'singIn'}))
       var msg = 'Password Reset Success'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
-    
+      setTimeout(() => {
+      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+    }, 3000);
     })
     .catch(err => {
       var msg = 'Invalid code'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+      setTimeout(() => {
+      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+    }, 3000);
     });
   }
 
@@ -251,11 +275,17 @@ function App() {
       updateFormState(() => ({...formState,formType:'newPassword'}))
       var msg = 'Verification code sent to email'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
+      setTimeout(() => {
+      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+    }, 3000);
     })
     .catch(err => {
       console.log(err)
       var msg = 'Plase enter email id'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+      setTimeout(() => {
+      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+    }, 3000);
     });
   }
   
