@@ -328,7 +328,7 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded login-card'>
+                  <Card border="light" className='shadow rounded signin-card'>
                     <Card.Body>
                       <Form.Group className="mb-3">
                         <Form.Label className="mb-0">Confirmation code</Form.Label>
@@ -353,25 +353,33 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded login-card'>
+                  <Card border="light" className='shadow rounded password-card'>
                     <Card.Body>
-                      <Form.Group className="mb-3">
-                        <Form.Label className="mb-0">Confirmation code</Form.Label>
-                        <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                      </Form.Group>
+                      <Form.Group className="mb-1">
+                        <div className="row align-items-center ">
+                          <div className="col-lg-12 pb-3">
+                            <Form.Label className="mb-0">Confirmation code</Form.Label>
+                            <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
+                          </div>
 
-                      <Form.Group className="mb-3">
-                        <Form.Label className="mb-0">Password</Form.Label>
-                        <FormControl isInvalid={passwordValidity} name='password' required type='password' placeholder="Password" onChange={onChange}/>
-                        <Form.Control.Feedback type="invalid">
-                          password between 7 to 15 characters which contain at least one numeric digit and a special character
-                        </Form.Control.Feedback>
-                      </Form.Group>
+                          <div className="col-lg-12 pb-1">
+                            <Form.Label className="mb-0">Password</Form.Label>
+                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="password" placeholder="Password" onChange={onChange}/>
+                            <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
+                            <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                              password between 7 to 15 characters which contain at least one numeric digit and a special character
+                            </Form.Control.Feedback>
+                          </div>
 
-                      <Stack gap={3} className="mx-auto">
-                        <Button variant="primary" type="submit" onClick={resetPassword} >Reset Password</Button>
-                        <Button variant="link" size="sm" onClick={forgotPassword}>Request code again</Button>
-                      </Stack>
+                          <div className="col-lg-12 py-3">
+                            <Button variant="primary" type="submit" onClick={resetPassword} >Reset Password</Button>
+                          </div>
+
+                          <div className="col-lg-12">
+                            <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Request code again</a>
+                          </div>
+                        </div>
+                      </Form.Group>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -418,7 +426,7 @@ function App() {
                                     Enter Your Password.
                                   </Form.Control.Feedback>
                                 </div>
-                                <div className="mb-2 d-flex justify-content-md-end align-items-end">
+                                <div className="mb-2 d-flex justify-content-end align-items-end">
                                   <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
                                 </div>
 
