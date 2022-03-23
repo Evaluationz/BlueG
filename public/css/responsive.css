@@ -106,11 +106,6 @@
     -webkit-transform: translate(10px, -10px);
             transform: translate(10px, -10px);
   }
-  .breadcrumb {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
   .button-group .main-btn {
     margin-left: 12px;
     margin-right: 12px;

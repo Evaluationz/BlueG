@@ -542,9 +542,6 @@ button:focus, button:active {
   background-color: transparent;
   padding: 0;
   margin-bottom: 0;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
 .breadcrumb .breadcrumb-item {
@@ -556,23 +553,24 @@ button:focus, button:active {
 }
 
 .breadcrumb .breadcrumb-item a {
-  color: #fff;
+  color: #000 !important;
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }
 
 .breadcrumb .breadcrumb-item a:hover {
-  color: #fff;
+  color: #3e4b5b;
 }
 
 .breadcrumb .breadcrumb-item.active {
-  color: #fff;
+  color: #3e4b5b;
 }
 
 .breadcrumb .breadcrumb-item + .breadcrumb-item:before {
-  color: #fff;
-  font-size: 10px;
-  content: "\f130";
+  font-family: "Material Design Icons";
+  color: #3e4b5b;
+  font-size: 13px;
+  content: "\F0FDF";
   padding-top: 4px;
 }
 
@@ -6752,4 +6750,29 @@ select.form-control {
 /*Anchor CSS*/
 a.c-blue{
   text-decoration: none;
+}
+
+
+/*Margin CSS*/
+.ml-auto{
+  margin-left: auto;
+}
+.mr-auto{
+  margin-right: auto;
+}
+
+/*Navbar*/
+#responsive-navbar-nav .navbar-nav a{
+  color: #ffffff;
+}
+#responsive-navbar-nav .navbar-nav a:hover{
+  color: rgba(255,255,255,.55);
+}
+@media screen and (max-width: 767px) {
+  .sidebar-toggle{
+    display: block !important;
+  }
+  #responsive-navbar-nav{
+    display: none !important;
+  }
 }

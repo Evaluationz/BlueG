@@ -20,35 +20,27 @@ function Layout() {
 
     return (
         <>
-            <Navbar variant="dark" expand={false} fixed="top" className="bg-black shadow-sm">
-                <Container fluid>
-                    <div className="col-md-4 d-flex align-items-center justify-content-start nav-toggle-profile">
-                        <div className="d-flex align-items-center justify-content-center">
-                            <Link className="navbar-brand mr-0"
-                                  to="/" onClick={() => { window.location.href = "/" }}>
-                                <div className="d-flex align-items-center justify-content-start">
-                                    <img src="images/logo.png" alt="logo" className="logo logo-image" />
-                                </div>
-                            </Link>
-                        </div>
-                        <Navbar.Toggle aria-controls="offcanvasNavbar"></Navbar.Toggle>
-                    </div>
+            <Navbar collapseOnSelect variant="dark" expand={true} fixed="top" className="bg-black shadow-sm">
+                <Container fluid className="mx-lg-5">
+                    <Navbar.Brand className="d-flex">
+                        <Link className="navbar-brand mr-0"
+                              to="/" onClick={() => { window.location.href = "/" }}>
+                            <div className="d-flex align-items-center justify-content-start">
+                                <img src="images/logo.png" alt="logo" className="logo logo-image" />
+                            </div>
+                        </Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="ml-auto">
+                            <Nav.Link href="/dashboard" className="text-uppercase">Dashboard</Nav.Link>
+                            <Nav.Link href="/reportDownload" className="text-uppercase">Reports</Nav.Link>
+                            <Nav.Link href="/profile" className="text-uppercase">Profile</Nav.Link>
+                            <Nav.Link onClick={signOut} className="text-uppercase"><i className="mdi mdi-logout"/> Logout</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
 
-                    <div className="col-md-8 d-md-flex align-items-center justify-content-end nav-user-profile">
-                        <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center m-0">
-                            <img src="./images/user.png"
-                                 width="40"
-                                 className="d-inline-block align-top" alt="logo"/>
-                            <NavDropdown
-                                id="nav-dropdown-dark-example"
-                                className="user-dropdown"
-                                menuVariant="dark">
-                                <NavDropdown.Item href="#action/3.1"><i className="mdi mdi-account"></i> My Profile</NavDropdown.Item>
-                                {/* <NavDropdown.Item href="#action/3.2"><i className="mdi mdi-cog"></i> Settings</NavDropdown.Item> */}
-                                <NavDropdown.Item onClick={signOut}><i className="mdi mdi-logout"></i> Logout</NavDropdown.Item>
-                            </NavDropdown>
-                        </Navbar.Brand>
-                    </div>
+                    <Navbar.Toggle aria-controls="offcanvasNavbar" className="sidebar-toggle"></Navbar.Toggle>
 
                     <Navbar.Offcanvas id="offcanvasNavbar"
                                       aria-labelledby="offcanvasNavbarLabel"
