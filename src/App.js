@@ -127,8 +127,6 @@ function App() {
   }
 
   const togglePassword = () => {
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
     setPasswordShown(!passwordShown);
   };
 
@@ -369,7 +367,7 @@ function App() {
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" required type={passwordShown ? "text" : "password"} placeholder="Password" onChange={onChange}/>
+                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={passwordShown ? "text" : "password"} placeholder="Password" onChange={onChange}/>
                                   <i className="toggle-password mdi mdi-eye-off"  onClick={togglePassword}></i>
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     password between 7 to 15 characters which contain at least one numeric digit and a special character
@@ -442,7 +440,7 @@ function App() {
 
                           <div className="col-lg-12 pb-1">
                             <Form.Label className="mb-0">Password</Form.Label>
-                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="cnfpassword" placeholder="Password" onChange={onChange}/>
+                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange}/>
                             <i className="toggle-password mdi mdi-eye-off" id="toggleEye1"></i>
                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                               password between 7 to 15 characters which contain at least one numeric digit and a special character
@@ -498,7 +496,7 @@ function App() {
 
                                 <div className="col-lg-12 pb-1">
                                   <Form.Label className="mb-0">Password</Form.Label>
-                                  <FormControl name='password'  className="shadow-sm" type='password' maxLength={15} id="password" required onChange={onChange}/>
+                                  <FormControl name='password'  className="shadow-sm" type='password' maxLength={15} id="password" autoComplete="off" required onChange={onChange}/>
                                   <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
                                   <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
