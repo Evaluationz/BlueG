@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Button,Container,Card,InputGroup,FormControl,Row,Col,Stack,Alert,Form,Modal } from 'react-bootstrap';
 import Dashboard from "./views/dashboard";
 import ReportDownload from "./views/reportDownload";
@@ -298,6 +298,7 @@ function App() {
 
                                 <div className="col-md-6 pb-3">
                                   <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-lg" required type='password' placeholder="Password" onChange={onChange}/>
+                                  <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     password between 7 to 15 characters which contain at least one numeric digit and a special character
                                   </Form.Control.Feedback>
@@ -411,7 +412,8 @@ function App() {
 
                                 <div className="col-lg-12 pb-1">
                                   <Form.Label className="mb-0">Password</Form.Label>
-                                  <FormControl name='password'  className="shadow-lg" type='password' required onChange={onChange}/>
+                                  <FormControl name='password'  className="shadow-lg" type='password' id="password" required onChange={onChange}/>
+                                  <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
                                   <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
                                   </Form.Control.Feedback>

@@ -24,8 +24,8 @@ function Layout() {
                 <Container fluid>
                     <div className="col-md-4 d-flex align-items-center justify-content-start nav-toggle-profile">
                         <div className="d-flex align-items-center justify-content-center">
-                        <Link className="navbar-brand mr-0"
-                                to="/" onClick={() => { window.location.href = "/" }}>
+                            <Link className="navbar-brand mr-0"
+                                  to="/" onClick={() => { window.location.href = "/" }}>
                                 <div className="d-flex align-items-center justify-content-start">
                                     <img src="images/logo.png" alt="logo" className="logo logo-image" />
                                 </div>
@@ -50,10 +50,9 @@ function Layout() {
                         </Navbar.Brand>
                     </div>
 
-                    <Navbar.Offcanvas
-                        id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel"
-                        placement="start">
+                    <Navbar.Offcanvas id="offcanvasNavbar"
+                                      aria-labelledby="offcanvasNavbarLabel"
+                                      placement="start">
                         <center>
                             <Offcanvas.Header style={{color:'black'}}>
                                 <Offcanvas.Title id="offcanvasNavbarLabel" className="d-flex align-items-center justify-content-center">

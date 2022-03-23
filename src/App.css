@@ -69,7 +69,7 @@ button:focus {
   min-width: 25rem;
 }
 .signin-card{
-  max-width: 30rem;
+  max-width: 25rem;
 }
 .signup-card{
   max-width: 40rem;
@@ -116,4 +116,12 @@ button:focus {
 }
 .form-check-input{
   cursor: pointer;
+}
+
+/*Eye Icon*/
+.toggle-password {
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: -30px;
 }
