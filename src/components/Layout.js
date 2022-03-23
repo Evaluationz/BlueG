@@ -36,7 +36,7 @@ function Layout() {
                             <Nav.Link href="/dashboard" className="text-uppercase">Dashboard</Nav.Link>
                             <Nav.Link href="/reportDownload" className="text-uppercase">Reports</Nav.Link>
                             <Nav.Link href="/profile" className="text-uppercase">Profile</Nav.Link>
-                            <Nav.Link onClick={signOut} className="text-uppercase"><i className="mdi mdi-logout"/> Logout</Nav.Link>
+                            <Nav.Link onClick={signOut} className="text-uppercase nav-btn"><i className="mdi mdi-logout"/> Logout</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
 

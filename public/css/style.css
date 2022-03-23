@@ -6765,6 +6765,18 @@ a.c-blue{
 #responsive-navbar-nav .navbar-nav a{
   color: #ffffff;
 }
+#responsive-navbar-nav .navbar-nav .nav-link{
+  padding: .2rem .7rem;
+}
+#responsive-navbar-nav .navbar-nav a.nav-btn {
+  background: #ff1717;
+  font-weight: bold;
+  margin-left: .5rem;
+  border-radius: 5px;
+}
+#responsive-navbar-nav .navbar-nav a.nav-btn:hover {
+  color: #ffffff;
+}
 #responsive-navbar-nav .navbar-nav a:hover{
   color: rgba(255,255,255,.55);
 }
