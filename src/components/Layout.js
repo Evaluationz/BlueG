@@ -20,9 +20,9 @@ function Layout() {
 
     return (
         <>
-            <Navbar variant="dark" expand={false} className="bg-black footer">
+            <Navbar variant="dark" expand={false} fixed="top" className="bg-black shadow-sm">
                 <Container fluid>
-                    <div className="col-4 d-flex align-items-center justify-content-start">
+                    <div className="col-md-4 d-flex align-items-center justify-content-start nav-toggle-profile">
                         <div className="d-flex align-items-center justify-content-center">
                         <Link className="navbar-brand mr-0"
                                 to="/" onClick={() => { window.location.href = "/" }}>
@@ -30,14 +30,11 @@ function Layout() {
                                     <img src="images/logo.png" alt="logo" className="logo logo-image" />
                                 </div>
                             </Link>
-                            {/* <img src="./images/logo.png"
-                                 width="30"
-                                 className="" alt="logo"/> <p className="mb-0 m-lg-1 logo-text">BlueG</p> */}
                         </div>
                         <Navbar.Toggle aria-controls="offcanvasNavbar"></Navbar.Toggle>
                     </div>
 
-                    <div className="col-8 d-flex align-items-center justify-content-end">
+                    <div className="col-md-8 d-md-flex align-items-center justify-content-end nav-user-profile">
                         <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center m-0">
                             <img src="./images/user.png"
                                  width="40"

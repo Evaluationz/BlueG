@@ -68,6 +68,9 @@ button:focus {
 .login-card{
   min-width: 25rem;
 }
+.signup-card{
+  max-width: 40rem;
+}
 .btn-primary{
   background: rgb(66, 153, 225);
   border: 1px solid rgb(66, 153, 225);
