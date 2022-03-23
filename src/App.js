@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Button,Container,Card,InputGroup,FormControl,Row,Col,Stack,Alert,Form,Modal } from 'react-bootstrap';
 import Dashboard from "./views/dashboard";
 import ReportDownload from "./views/reportDownload";
@@ -184,15 +184,19 @@ function App() {
   async function closeContract(){
     setShow(false)
   }
-  async function confirmSignUp(){
+  async function confirmSignUp(e){
     const { username,authCode} = formState;
     await Auth.confirmSignUp(username,authCode)
     .then(data => {
       updateFormState(() => ({...formState,formType:'singIn'}))
+      var msg = 'SignUp  Success'
+      updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
     })
     .catch(err => {
       var msg = 'Invalid code please enter valid code'
       updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+      
+     
     })
     
   }
@@ -284,7 +288,7 @@ function App() {
                         </Card.Body>
                         <Card.Body>
                           <Form noValidate validated={validatesignUp} onSubmit={signUp}>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-1">
                               <div className="row">
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='companyname' required type='text' className="shadow-sm" placeholder="Company name" onChange={onChange}/>
@@ -323,14 +327,15 @@ function App() {
 
                                 <div className="col-md-6 pb-3">
                                   <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" required type='password' placeholder="Password" onChange={onChange}/>
+                                  <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     password between 7 to 15 characters which contain at least one numeric digit and a special character
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-12 pt-2">
-                                  <Button  onClick={Backtosignin} className="float-left btn-red"><i className="mdi mdi-chevron-left"></i> Back to Sign In</Button>
-                                  <Button   type='submit' className="float-right btn-blue"> Sign Up</Button>
+                                  <a className="float-left c-blue font-bold cursor-pointer" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back to Sign In</a>
+                                  <Button  type='submit' className="float-right btn-blue"> Sign Up</Button>
                                 </div>
                               </div>
                             </Form.Group>
@@ -354,14 +359,20 @@ function App() {
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                   <Card border="light" className='shadow rounded login-card'>
                     <Card.Body>
-                      <Form.Group className="mb-3">
+                    <Form>
+                      <Form.Group className="">
+                    <div className="row align-items-center ">
+                          <div className="col-lg-12 pb-3">
                         <Form.Label className="mb-0">Confirmation code</Form.Label>
                         <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                      </Form.Group>
+                      </div>
+                      </div>
 
-                      <Stack gap={3} className="mx-auto">
+                      <div className="col-lg-12 py-3">
                         <Button className='btn-blue' type="submit" onClick={confirmSignUp}> Confirm Sign-Up</Button>
-                      </Stack>
+                      </div>
+                      </Form.Group>
+                      </Form>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -377,25 +388,40 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded login-card'>
-                    <Card.Body>
-                      <Form.Group className="mb-3">
+                  <Card border="light" className='shadow rounded signin-card'>
+                    <Card.Body >
+                      <Form>
+                      <Form.Group className="">
+                      <div className="row align-items-center ">
+                          <div className="col-lg-12 pb-3">
                         <Form.Label className="mb-0">Confirmation code</Form.Label>
                         <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                      </Form.Group>
+                     </div>
+                     </div>
+                      
 
-                      <Form.Group className="mb-3">
+                      
+                      <div className="row align-items-center ">
+                          <div className="col-lg-12 pb-3">
                         <Form.Label className="mb-0">Password</Form.Label>
-                        <FormControl isInvalid={passwordValidity} name='password' required type='password' placeholder="Password" onChange={onChange}/>
+                        <FormControl isInvalid={passwordValidity} name='password' maxLength={15} required type='password' placeholder="Password" onChange={onChange}/>
                         <Form.Control.Feedback type="invalid">
                           password between 7 to 15 characters which contain at least one numeric digit and a special character
                         </Form.Control.Feedback>
+                        </div>
+                        </div>
+                     
+                      <div className="col-lg-12 py-3">
+                      <Button className='btn-blue' type="submit" onClick={resetPassword} >Reset Password</Button>
+                       
+                      </div>
+                      <div className="col-lg-12 f-14">
+                      
+                       <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Request code again</a>
+                                
+                      </div>
                       </Form.Group>
-
-                      <Stack gap={3} className="mx-auto">
-                        <Button className='btn-blue' type="submit" onClick={resetPassword} >Reset Password</Button>
-                        <Button variant="link" size="sm" onClick={forgotPassword}>Request code again</Button>
-                      </Stack>
+                      </Form>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -411,7 +437,7 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card  border="light" className='shadow rounded login-card'>
+                  <Card  border="light" className='shadow rounded signin-card'>
                     <Row>
                       <Col>
                         <Card.Body className="d-flex align-items-center justify-content-center">
@@ -424,41 +450,37 @@ function App() {
                         </Card.Body>
                         <Card.Body>
                           <Form noValidate validated={validatesignIn} onSubmit={signIn}>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                   <Form.Label className="mb-0">Email</Form.Label>
                                   <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange}/>
-                                  <Form.Control.Feedback type="invalid" className="text-left">
+                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Email
                                   </Form.Control.Feedback>
                                 </div>
-                              </div>
-                            </Form.Group>
 
-                            <Form.Group className="mb-3">
-                              <div className="row align-items-center ">
-                                <div className="col-lg-12 pb-3">
+                                <div className="col-lg-12 pb-1">
                                   <Form.Label className="mb-0">Password</Form.Label>
-                                  <FormControl name='password'  className="shadow-sm" type='password' required onChange={onChange}/>
-                                  <Form.Control.Feedback type="invalid" className="text-left">
+                                  <FormControl name='password'  className="shadow-sm" type='password' maxLength={15} id="password" required onChange={onChange}/>
+                                  <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
+                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
                                   </Form.Control.Feedback>
                                 </div>
-                              </div>
-                              <div className="mb-2 d-flex justify-content-md-end align-items-end">
-                                <Button variant="link" size="sm" onClick={forgotPassword}>Forgot Password?</Button>
+                                <div className="mb-2 d-flex justify-content-md-end align-items-end">
+                                  <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
+                                </div>
+
+                                <div className="col-lg-12 py-3">
+                                  <Button className='btn-blue' type='submit'> Sign In</Button>
+                                </div>
+
+                                <div className="col-lg-12 f-14">
+                                  Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
+                                </div>
                               </div>
                             </Form.Group>
-
-                            <Stack gap={3} className="mx-auto">
-
-                              <Button className='btn-blue' type='submit'> Sign In</Button>
-
-                              <p className="decorated"><span>OR</span></p>
-
-                              <Button className='btn-red' onClick={createAccount}><i className="mdi mdi-plus-circle"></i> Create New Account</Button>
-                            </Stack>
                           </Form>
                         </Card.Body>
                       </Col>

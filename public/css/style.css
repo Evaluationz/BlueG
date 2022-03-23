@@ -695,6 +695,15 @@ button:focus, button:active {
   color: #767676 !important;
   margin-top: 5px;
 }
+.font-normal{
+  font-weight: normal;
+}
+.font-bold{
+  font-weight: 500;
+}
+.font-bolder{
+  font-weight: 700;
+}
 
 .input-group {
   border: 0;
@@ -6737,4 +6746,10 @@ select.form-control {
 }
 .float-right{
   float: right;
+}
+
+
+/*Anchor CSS*/
+a.c-blue{
+  text-decoration: none;
 }

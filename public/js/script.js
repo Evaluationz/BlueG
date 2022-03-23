@@ -18,103 +18,18 @@ jQuery(function ($) {
         }
     });
 
-    // Banner-carousel
-    $(".banner-carousel").owlCarousel({
-        loop: true,
-        items: 1,
-        autoplay: true,
-        smartSpeed: 1500,
-        margin: 30,
-        dots: true,
-        nav: false,
-        navText: ['',''],
-        responsive:{
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            992: {
-                items: 1
-            }
+    $('#toggleEye').on('click', function(){
+        if($(this).hasClass('mdi-eye-off')){
+            $(this).removeClass('mdi-eye-off');
+            $(this).addClass('mdi-eye');
+            $('#password').attr('type','text');
+        }else{
+            $(this).removeClass('mdi-eye');
+            $(this).addClass('mdi-eye-off');
+            $('#password').attr('type','password');
         }
     });
 
-
-    //Testimonials carousel
-    $(".testimonials-carousel").owlCarousel({
-        loop: true,
-        items: 3,
-        autoplay: true,
-        smartSpeed: 1500,
-        margin: 30,
-        dots: false,
-        nav: true,
-        navText: ["<i class='mdi mdi-chevron-left c-blue'></i>", "<i class='mdi mdi-chevron-right c-blue'></i>"],
-        responsive:{
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            992: {
-                items: 3
-            }
-        }
-    });
-
-    //Client carousel
-    $(".client-carousel").owlCarousel({
-        loop: true,
-        items: 3,
-        autoplay: false,
-        smartSpeed: 1500,
-        margin: 5,
-        dots: false,
-        nav: true,
-        navText: ["<i class='mdi mdi-chevron-left text-white'></i>", "<i class='mdi mdi-chevron-right text-white'></i>"],
-        responsive:{
-            0: {
-                items: 1
-            },
-            768: {
-                items: 3
-            },
-            992: {
-                items: 4
-            }
-        }
-    });
-
-    //Blogs carousel
-    $(".blog-carousel").owlCarousel({
-        loop: true,
-        items: 1,
-        center:true,
-        autoplay: true,
-        smartSpeed: 1500,
-        margin: 30,
-        dots: false,
-        nav: true,
-        navText: ["<i class='mdi mdi-chevron-left text-white'></i>", "<i class='mdi mdi-chevron-right text-white'></i>"],
-        pagination:false,
-        // onInitialized : function(el){
-        //     el.find(".owl-item").eq(0).addClass("synced");
-        // },
-        responsive:{
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            992: {
-                items: 3
-            }
-        }
-    });
 
     /*Refresh Page click on Browser back button*/
     window.onpopstate = function () {

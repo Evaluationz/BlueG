@@ -221,7 +221,7 @@ function Profile(props) {
                         <div className="col-md-6">
                           <div className="text-left mb-1">
                             <h6 className="mb-1">Name</h6>
-                            {/* <p className="f-14">{pageState.ReportData.client_name}</p> */}
+                          <p className="f-14">{pageState.ReportData.client_name}</p>
                           </div>
                         </div>
                         <div className="col-md-6">
@@ -247,7 +247,7 @@ function Profile(props) {
                         <div className="col-md-12">
                           <div className="text-left mb-1">
                             <h6 className="mb-1">Company Name</h6>
-                            {/* <p className="f-14">{pageState.ReportData.client_name}</p> */}
+                          <p className="f-14">{pageState.ReportData.client_name}</p>
                           </div>
                         </div>
                         <div className="col-md-12">
