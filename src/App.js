@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
-import { Button,Container,Card,InputGroup,FormControl,Row,Col,Stack,Alert,Form,Modal } from 'react-bootstrap';
+import { Button, Container, Card, InputGroup, FormControl, Row, Col, Stack, Alert, Form, Modal } from 'react-bootstrap';
 import Dashboard from "./views/dashboard";
 import ReportDownload from "./views/reportDownload";
 import Profile from "./views/Profile";
@@ -9,34 +9,33 @@ import Contract from "./components/Contract"
 import configData from "./config/index.json"
 
 
-
-
-
 import './App.css';
 
-import { Auth,Hub } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
 import Layout from "./components/Layout";
 
 const initialFormState = {
-  username:'',cin:'',address: '',contactno:'',companyname:'',postion_coords:'', password:'', authCode:'',checkConfirm:false, formType:'singIn'
+  username: '', cin: '', address: '', contactno: '', companyname: '', postion_coords: '', password: '', authCode: '', checkConfirm: false, formType: 'singIn'
 }
 
 const alertSettings = {
-  variant:'' , msg:'' , alertStatus: false
+  variant: '', msg: '', alertStatus: false
 }
 
 function App() {
-  const [ alertState, updateAlertState ] = useState(alertSettings);
-  const [ formState, updateFormState ] = useState(initialFormState);
-  const [ user, updateUser ] = useState(null);
-  const [ clientid, updateClientId ] = useState(null);
+  const [alertState, updateAlertState] = useState(alertSettings);
+  const [formState, updateFormState] = useState(initialFormState);
+  const [user, updateUser] = useState(null);
+  const [clientid, updateClientId] = useState(null);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [validatesignIn, setValidatedSignIn] = useState(false);
   const [validatesignUp, setValidatedSignUp] = useState(false);
   const [passwordValidity, setPasswordValidity] = useState(false);
   const [contactValidity, setContactValidity] = useState(false);
+  const [confirmationcodeValidity, setConfirmationcodeValidity] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
+  
 
   const signUp = (event) => {
     event.preventDefault();
@@ -45,7 +44,7 @@ function App() {
       event.preventDefault();
       event.stopPropagation();
     }
-    else{
+    else {
       setShow(true);
     }
     setValidatedSignUp(true);
@@ -54,75 +53,74 @@ function App() {
   useEffect(() => {
     checkUser()
     setAuthListener()
-  },[])
-  
-  async function addressAuto(){
+  }, [])
+
+  async function addressAuto() {
     let autocomplete = new window.google.maps.places.Autocomplete(
-      document.getElementById( 'address' ),
-      { types: [ 'geocode' ] }
+      document.getElementById('address'),
+      { types: ['geocode'] }
     );
-    autocomplete.addListener( 'place_changed', () =>{
+    autocomplete.addListener('place_changed', () => {
       let place = autocomplete.getPlace()
-      updateFormState(() => ({...formState,address:place.formatted_address}))
+      updateFormState(() => ({ ...formState, address: place.formatted_address }))
     });
   }
 
-  async function checkUser(){
-    try{
+  async function checkUser() {
+    try {
       const user = await Auth.currentAuthenticatedUser()
-      if(user)
-      {
-      let url = configData.express_url
-      var postData = {email: user.attributes.email}
-      let clientDetails = await axios.post(url+"client/getClientId",postData)
-      let kompass_id =clientDetails.data.client_id
-      if(kompass_id !== "undifined" && kompass_id!==''){
-        updateClientId(kompass_id)
-      }
+      if (user) {
+        let url = configData.express_url
+        var postData = { email: user.attributes.email }
+        let clientDetails = await axios.post(url + "client/getClientId", postData)
+        let kompass_id = clientDetails.data.client_id
+        if (kompass_id !== "undifined" && kompass_id !== '') {
+          updateClientId(kompass_id)
+        }
 
-      updateUser(user)
-      updateFormState(() => ({...formState,formType:'confirmSingIn'}))
-    }
-    }catch(err){
+        updateUser(user)
+        updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
+      }
+    } catch (err) {
       updateUser(null)
     }
   }
 
-  const { alertStatus,variant,msg } = alertState
+  const { alertStatus, variant, msg } = alertState
 
-  async function setAuthListener(){
-    var msg='';
+  async function setAuthListener() {
+    var msg = '';
     Hub.listen('auth', (data) => {
       switch (data.payload.event) {
         case 'signIn_failure':
-            msg = data.payload.data.message
-            updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-            setTimeout(() => {
-              updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-            }, 3000);
-            setValidatedSignIn(false);
-            break;
+          msg = data.payload.data.message
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+          setValidatedSignIn(false);
+          break;
         case 'configured':
-            msg = data.payload.data.message
-            updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
-            setTimeout(() => {
-              updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-            }, 3000);
-        }
+          msg = data.payload.data.message
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+      }
     });
   }
 
   const { formType } = formState
 
-  async function createAccount(){
-    updateFormState(() => ({...formState,formType:'signUp'}))
-    updateAlertState(() => ({...alertState,alertStatus:false}))
+  async function createAccount() {
+    updateFormState(() => ({ ...formState, formType: 'signUp' }))
+    updateAlertState(() => ({ ...alertState, alertStatus: false }))
     setPasswordValidity(false);
   }
 
-  async function Backtosignin(){
-    updateFormState(() => ({...formState,formType:'singIn'}))
-    updateAlertState(() => ({...alertState,alertStatus:false}))
+  async function Backtosignin() {
+    updateFormState(() => ({ ...formState, formType: 'singIn' }))
+    updateAlertState(() => ({ ...alertState, alertStatus: false }))
     setPasswordValidity(false);
   }
 
@@ -130,106 +128,114 @@ function App() {
     setPasswordShown(!passwordShown);
   };
 
-  
-  function onChange(e){
+
+  function onChange(e) {
     e.persist();
-    updateAlertState(() => ({...alertState,alertStatus:false}))
-    updateFormState(() => ({...formState,[e.target.name]:e.target.value}))
-    if(e.target.name === 'password'){
-      var paswd=  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
-        if(e.target.value.match(paswd)) 
-        { 
-          setPasswordValidity(false);
-        }
-        else{
-          setPasswordValidity(true);
-        }
+    updateAlertState(() => ({ ...alertState, alertStatus: false }))
+    updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
+    if (e.target.name === 'password') {
+      var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+      if (e.target.value.match(paswd)) {
+        setPasswordValidity(false);
+      }
+      else {
+        setPasswordValidity(true);
+      }
     }
     
-    if(e.target.name ==='contactno'){
-      //const re = /^[0-9\b]+$/;
-      console.log("inside contact")
-      if(e.target.value === '' || e.target.value.length===10)
-      {
+    if (e.target.name === 'contactno') {
+     
+      if (e.target.value === '' || e.target.value.length === 10) {
 
-          setContactValidity(false);
+        setContactValidity(false);
+      }
+      else {
+        setContactValidity(true);
+
+      }
     }
-    else
-    {
-      setContactValidity(true);
-        
+
+    if (e.target.name === 'authCode') {
+     
+      if (e.target.value === '' || e.target.value.length === 6) {
+
+        setConfirmationcodeValidity(false);
+      }
+      else {
+        setConfirmationcodeValidity(true);
+
+      }
     }
   }
-}
 
-  async function confirmContract(){
+  async function confirmContract() {
     setShow(false)
-    const { username,password,checkConfirm} = formState;
-    if(!checkConfirm){
+    const { username, password, checkConfirm } = formState;
+    if (!checkConfirm) {
       var msg = 'Please accept the agreement to create the account.'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
     }
     else {
       //Add Data Captured to Kompass
       navigator.geolocation.getCurrentPosition(
-       async position => {
+        async position => {
           const { latitude, longitude } = position.coords;
-          var postion_coords= 'Lat: '+latitude+' Long: '+longitude;
-          const { companyname,cin,contactno,address } = formState;
+          var postion_coords = 'Lat: ' + latitude + ' Long: ' + longitude;
+          const { companyname, cin, contactno, address } = formState;
           let url = configData.express_url
-          var postData = {'client_name':companyname,'cin':cin,'email':username,'contact_no':contactno,'address':address,'postions':postion_coords}
-          let updateClient = await axios.post(url+"client/createMClient",postData)
-          if(updateClient.data === 'success'){
-            try{
-              await Auth.signUp({ username,password })
-              updateFormState(() => ({...formState,formType:'confirmSignUp'}))
+          var postData = { 'client_name': companyname, 'cin': cin, 'email': username, 'contact_no': contactno, 'address': address, 'postions': postion_coords }
+          let updateClient = await axios.post(url + "client/createMClient", postData)
+          if (updateClient.data === 'success') {
+            try {
+              await Auth.signUp({ username, password })
+              updateFormState(() => ({ ...formState, formType: 'confirmSignUp' }))
             }
-            catch(err){
+            catch (err) {
               msg = 'An account with the given email already exists.'
-              updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
+              updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
               setTimeout(() => {
-                updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
               }, 3000);
             }
           }
           else {
-                var msg = 'Unable to create account.Please try again'
-                updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-                setTimeout(() => {
-                updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-              }, 3000);
-             }
+            var msg = 'Unable to create account.Please try again'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+              updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
+          }
         })
-      
-      }
+
+    }
   }
-  async function closeContract(){
+  async function closeContract() {
     setShow(false)
   }
-  async function confirmSignUp(e){
+  async function confirmSignUp(e) {
     e.preventDefault();
-    const { username,authCode} = formState;
-    await Auth.confirmSignUp(username,authCode)
-    .then(data => {
-      updateFormState(() => ({...formState,formType:'singIn'}))
-      var msg = 'SignUp  Success'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
-      setTimeout(() => {
-      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-    }, 3000);
-    })
-    .catch(err => {
-      
-      var msg = 'Invalid code please enter valid code'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-      setTimeout(() => {
-      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-    }, 3000);
-     
-    })
-    
+    const { username, authCode } = formState;
+    await Auth.confirmSignUp(username, authCode)
+      .then(data => {
+        updateFormState(() => ({ ...formState, formType: 'singIn' }))
+        var msg = 'SignUp  Success'
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+      })
+      .catch(err => {
+
+        var msg = 'Invalid code please enter valid code'
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+
+      })
+
   }
-  async function signIn(event){
+  async function signIn(event) {
     event.preventDefault();
     const form = event.currentTarget;
 
@@ -237,60 +243,60 @@ function App() {
       event.preventDefault();
       event.stopPropagation();
     }
-    else{
-      const { username,password} = formState;
-      await Auth.signIn(username,password)
-      updateFormState(() => ({...formState,formType:'confirmSingIn'}))
+    else {
+      const { username, password } = formState;
+      await Auth.signIn(username, password)
+      updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
     }
     setValidatedSignIn(true);
   }
 
-  async function resetPassword(e){
+  async function resetPassword(e) {
     e.preventDefault();
-    const { username,authCode,password} = formState;
-    Auth.forgotPasswordSubmit(username, authCode ,password)
-    .then(data => {
-      updateFormState(() => ({...formState,formType:'singIn'}))
-      var msg = 'Password Reset Success'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
-      setTimeout(() => {
-      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-    }, 3000);
-    })
-    .catch(err => {
-      var msg = 'Invalid code'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-      setTimeout(() => {
-      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-    }, 3000);
-    });
+    const { username, authCode, password } = formState;
+    Auth.forgotPasswordSubmit(username, authCode, password)
+      .then(data => {
+        updateFormState(() => ({ ...formState, formType: 'singIn' }))
+        var msg = 'Password Reset Success'
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+      })
+      .catch(err => {
+        var msg = 'Invalid code'
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+      });
   }
 
-  async function forgotPassword(){
+  async function forgotPassword() {
     const { username } = formState;
     Auth.forgotPassword(username)
-    .then(data => {
-      updateFormState(() => ({...formState,formType:'newPassword'}))
-      var msg = 'Verification code sent to email'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'success' , msg:msg}))
-      setTimeout(() => {
-      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-    }, 3000);
-    })
-    .catch(err => {
-      console.log(err)
-      var msg = 'Plase enter email id'
-      updateAlertState(() => ({...alertState,alertStatus:true,variant:'danger' , msg:msg}))
-      setTimeout(() => {
-      updateAlertState(() => ({...alertState,alertStatus:false,variant:'' , msg:''}))
-    }, 3000);
-    });
+      .then(data => {
+        updateFormState(() => ({ ...formState, formType: 'newPassword' }))
+        var msg = 'Verification code sent to email'
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+      })
+      .catch(err => {
+        console.log(err)
+        var msg = 'Plase enter email id'
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+      });
   }
-  
+
   return (
     <div className="App">
-    {
-      formType ==='signUp' && (
+      {
+        formType === 'signUp' && (
           <div>
             <Modal show={show} onHide={closeContract}>
               <Modal.Header closeButton>
@@ -299,11 +305,11 @@ function App() {
               <Modal.Body>
                 <Stack gap={4} className="mx-auto">
                   <InputGroup>
-                    <Contract formState={formState}/>
+                    <Contract formState={formState} />
                   </InputGroup>
                   <Form.Check type='checkbox'>
-                    <Form.Check.Input onChange={onChange} name='checkConfirm'/>
-                    <Form.Check.Label style={{ fontSize:13 }}>I have read and agreed to the service agreement for Pre-Employment Screening Service</Form.Check.Label>
+                    <Form.Check.Input onChange={onChange} name='checkConfirm' />
+                    <Form.Check.Label style={{ fontSize: 13 }}>I have read and agreed to the service agreement for Pre-Employment Screening Service</Form.Check.Label>
                   </Form.Check>
                 </Stack>
               </Modal.Body>
@@ -316,14 +322,14 @@ function App() {
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card  border="light" className='shadow rounded signup-card'>
+                  <Card border="light" className='shadow rounded signup-card'>
                     <Row>
                       <Col>
                         <Card.Body className="d-flex align-items-center justify-content-center">
-                          <Card.Img variant="top" src={ require('./logo-black.png')} style={{ width:'200px' }}/><Card.Img variant="top" src={ require('./logo.png')} style={{ width:'50px' }}/>
+                          <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
                         </Card.Body>
                         <Card.Body className="d-flex align-items-center justify-content-center py-0">
-                          <h6 className="mb-0" style={{fontWeight: '600'}}>
+                          <h6 className="mb-0" style={{ fontWeight: '600' }}>
                             SIGN UP with BlueG
                           </h6>
                         </Card.Body>
@@ -332,43 +338,43 @@ function App() {
                             <Form.Group className="mb-1">
                               <div className="row">
                                 <div className="col-md-6 pb-3">
-                                  <FormControl name='companyname' required type='text' className="shadow-sm" placeholder="Company name" onChange={onChange}/>
+                                  <FormControl name='companyname' required type='text' className="shadow-sm" placeholder="Company name" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     Please provide a company name
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl name='username' required type='email' className="shadow-sm" placeholder="Email address" onChange={onChange}/>
+                                  <FormControl name='username' required type='email' className="shadow-sm" placeholder="Email address" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     Please provide a user name
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl name='cin' required type='text' maxLength={21} className="shadow-sm" placeholder="CIN" onChange={onChange}/>
+                                  <FormControl name='cin' required type='text' maxLength={21} className="shadow-sm" placeholder="CIN" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     Please provide a CIN number
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl name='address' id='address' className="shadow-sm" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange}/>
+                                  <FormControl name='address' id='address' className="shadow-sm" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     Please provide a address
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm"  type='number' placeholder="Contact number" onChange={onChange}/>
+                                  <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm" type='number' placeholder="Contact number" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a contact number
+                                    Please provide a valid contact number
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={passwordShown ? "text" : "password"} placeholder="Password" onChange={onChange}/>
-                                  <i className="toggle-password mdi mdi-eye-off"  onClick={togglePassword}></i>
+                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={passwordShown ? "text" : "password"} placeholder="Password" onChange={onChange} />
+                                  <i className="toggle-password mdi mdi-eye-off" onClick={togglePassword}></i>
                                   <Form.Control.Feedback type="invalid" className="text-left">
                                     password between 7 to 15 characters which contain at least one numeric digit and a special character
                                   </Form.Control.Feedback>
@@ -376,7 +382,7 @@ function App() {
 
                                 <div className="col-12 pt-2">
                                   <a className="float-left c-blue font-bold cursor-pointer" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back to Sign In</a>
-                                  <Button  type='submit' className="float-right btn-blue"> Sign Up</Button>
+                                  <Button type='submit' className="float-right btn-blue"> Sign Up</Button>
                                 </div>
                               </div>
                             </Form.Group>
@@ -389,10 +395,10 @@ function App() {
               </Row>
             </Container>
           </div>
-      )
-    }
-    {
-      formType === 'confirmSignUp' && (
+        )
+      }
+      {
+        formType === 'confirmSignUp' && (
           <div>
             <Container fluid className="bg-block login-card-block">
               <Row>
@@ -400,19 +406,22 @@ function App() {
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                   <Card border="light" className='shadow rounded login-card'>
                     <Card.Body>
-                    <Form>
-                      <Form.Group className="">
-                    <div className="row align-items-center ">
-                          <div className="col-lg-12 pb-3">
-                        <Form.Label className="mb-0">Confirmation code</Form.Label>
-                        <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
-                      </div>
-                      </div>
+                      <Form>
+                        <Form.Group className="">
+                          <div className="row align-items-center ">
+                            <div className="col-lg-12 pb-3">
+                              <Form.Label className="mb-0">Confirmation code</Form.Label>
+                              <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' placeholder="Confirmation code" onChange={onChange} />
+                              <Form.Control.Feedback type="invalid" className="text-left">
+                               Please provide 6 digit number
+                              </Form.Control.Feedback>
+                            </div>
+                          </div>
 
-                      <div className="col-lg-12 py-3">
-                        <Button className='btn-blue' type="submit" onClick={confirmSignUp}> Confirm Sign-Up</Button>
-                      </div>
-                      </Form.Group>
+                          <div className="col-lg-12 py-3">
+                            <Button className='btn-blue' type="submit" onClick={confirmSignUp}> Confirm Sign-Up</Button>
+                          </div>
+                        </Form.Group>
                       </Form>
                     </Card.Body>
                   </Card>
@@ -420,10 +429,10 @@ function App() {
               </Row>
             </Container>
           </div>
-      )
-    }
-    {
-      formType === 'newPassword' && (
+        )
+      }
+      {
+        formType === 'newPassword' && (
           <div>
             <Container fluid className="bg-block login-card-block">
               <Row>
@@ -435,12 +444,15 @@ function App() {
                         <div className="row align-items-center ">
                           <div className="col-lg-12 pb-3">
                             <Form.Label className="mb-0">Confirmation code</Form.Label>
-                            <FormControl name='authCode' type='number' placeholder="Confirmation code" onChange={onChange}/>
+                            <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' required placeholder="Confirmation code" onChange={onChange} />
+                            <Form.Control.Feedback type="invalid" className="text-left">
+                               Please provide 6 digit number
+                            </Form.Control.Feedback>
                           </div>
 
                           <div className="col-lg-12 pb-1">
                             <Form.Label className="mb-0">Password</Form.Label>
-                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange}/>
+                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange} />
                             <i className="toggle-password mdi mdi-eye-off" id="toggleEye1"></i>
                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                               password between 7 to 15 characters which contain at least one numeric digit and a special character
@@ -462,23 +474,23 @@ function App() {
               </Row>
             </Container>
           </div>
-      )
-    }
-    {
-      formType === 'singIn' && (
+        )
+      }
+      {
+        formType === 'singIn' && (
           <div>
             <Container fluid className="bg-block login-card-block">
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card  border="light" className='shadow rounded signin-card'>
+                  <Card border="light" className='shadow rounded signin-card'>
                     <Row>
                       <Col>
                         <Card.Body className="d-flex align-items-center justify-content-center">
-                          <Card.Img variant="top" src={ require('./logo-black.png')} style={{ width:'200px' }}/><Card.Img variant="top" src={ require('./logo.png')} style={{ width:'50px' }}/>
+                          <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
                         </Card.Body>
                         <Card.Body className="d-flex align-items-center justify-content-center py-0">
-                          <h6 className="mb-0" style={{fontWeight: '600'}}>
+                          <h6 className="mb-0" style={{ fontWeight: '600' }}>
                             SIGN IN with BlueG
                           </h6>
                         </Card.Body>
@@ -488,7 +500,7 @@ function App() {
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
                                   <Form.Label className="mb-0">Email</Form.Label>
-                                  <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange}/>
+                                  <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Email
                                   </Form.Control.Feedback>
@@ -496,7 +508,7 @@ function App() {
 
                                 <div className="col-lg-12 pb-1">
                                   <Form.Label className="mb-0">Password</Form.Label>
-                                  <FormControl name='password'  className="shadow-sm" type='password' maxLength={15} id="password" autoComplete="off" required onChange={onChange}/>
+                                  <FormControl name='password' className="shadow-sm" type='password' maxLength={15} id="password" autoComplete="off" required onChange={onChange} />
                                   <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
                                   <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
@@ -524,19 +536,19 @@ function App() {
               </Row>
             </Container>
           </div>
-      )
-    }
-    {
-      formType === 'confirmSingIn' && (
+        )
+      }
+      {
+        formType === 'confirmSingIn' && (
           <Routes>
-            <Route path="/" element={<Dashboard clientid={clientid}/>} />
-            <Route path="dashboard" element={<Dashboard clientid={clientid}/>} />
-            <Route path="profile" element={<Profile clientid={clientid}/>} />
-            <Route path="reportDownload" element={<ReportDownload clientid={clientid}/>} />
+            <Route path="/" element={<Dashboard clientid={clientid} />} />
+            <Route path="dashboard" element={<Dashboard clientid={clientid} />} />
+            <Route path="profile" element={<Profile clientid={clientid} />} />
+            <Route path="reportDownload" element={<ReportDownload clientid={clientid} />} />
           </Routes>
-      )
-    }
-  </div>
+        )
+      }
+    </div>
   );
 }
 
