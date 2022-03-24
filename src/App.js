@@ -282,7 +282,7 @@ function App() {
               </Modal.Footer>
             </Modal>
 
-            <Container fluid className="bg-block login-card-block">
+            <Container fluid className="bg-block bg-blue login-card-block">
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -364,7 +364,7 @@ function App() {
     {
       formType === 'confirmSignUp' && (
           <div>
-            <Container fluid className="bg-block login-card-block">
+            <Container fluid className="bg-block bg-blue login-card-block">
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -395,7 +395,7 @@ function App() {
     {
       formType === 'newPassword' && (
           <div>
-            <Container fluid className="bg-block login-card-block">
+            <Container fluid className="bg-block bg-blue login-card-block">
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -437,7 +437,7 @@ function App() {
     {
       formType === 'singIn' && (
           <div>
-            <Container fluid className="bg-block login-card-block">
+            <Container fluid className="bg-block bg-blue login-card-block">
               <Row>
                 <Col>
                   <Alert show={alertStatus} variant={variant}>{msg}</Alert>
