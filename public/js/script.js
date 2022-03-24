@@ -2,11 +2,6 @@ jQuery(function ($) {
 
     'use strict';
 
-    // Mean menu
-    jQuery('.mean-menu').meanmenu({
-        meanScreenWidth: "1199"
-    });
-    
     // Sticky navbar
     $(window).on('scroll', function() {
         if ($(this).scrollTop() > 50) {

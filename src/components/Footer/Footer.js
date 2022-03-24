@@ -21,19 +21,16 @@ const Footer = () => {
                                         FOLLOW US ON
                                     </p>
                                     <ul className="social-list social-list-btn">
-                                        {/*<li>
-                                            <Link to={{pathname: "https://www.twitter.com/"}} target="_blank" name="facebook"><i className="mdi mdi-twitter"></i></Link>
-                                        </li>*/}
                                         <li>
-                                            <Link to={{pathname: "https://www.linkedin.com/company/evaluationz-india-pvt-ltd/?viewAsMember=true"}} target="_blank" name="linkedin"><i className="mdi mdi-linkedin"></i></Link>
+                                            <a href="https://www.linkedin.com/company/evaluationz-india-pvt-ltd/?viewAsMember=true" target="_blank" name="linkedin"><i className="mdi mdi-linkedin"></i></a>
                                         </li>
                                         <li>
-                                            <Link to={{pathname: "https://www.facebook.com/Evaluationz-212093105791989"}} target="_blank" name="facebook"><i className="mdi mdi-facebook"></i></Link>
+                                            <a href="https://www.facebook.com/Evaluationz-212093105791989" target="_blank" name="facebook"><i className="mdi mdi-facebook"></i></a>
                                         </li>
                                     </ul>
 
                                     <div className="footer-copyright-text pt-3 footer-copyright-text-white">
-                                        <p>{/*<Link to="/tnc">Terms of Use</Link> | */}<Link to="/privacy" target="_blank">Privacy Policy</Link>{/* | <Link to="/cookie">Cookie Policy</Link>*/} | <Link to="/faq" target="_blank">FAQ's</Link></p>
+                                        <p><a href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a> | <a href="https://www.evaluationz.com/faq" target="_blank">FAQ's</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -47,22 +44,22 @@ const Footer = () => {
                                     <li>
                                         <div className="row">
                                             <div className="col">
-                                                <Link to="/services">SERVICES</Link>
+                                                <a href="https://www.evaluationz.com/services" target="_blank">SERVICES</a>
                                             </div>
                                             <div className="col">
-                                                <Link to="/case-studies" className="no-wrap text-uppercase">Case Studies</Link>
+                                                <a href="https://www.evaluationz.com/case-studies" target="_blank" className="no-wrap text-uppercase">Case Studies</a>
                                             </div>
                                             <div className="col">
-                                                <Link to="/technology">TECHNOLOGY</Link>
+                                                <a href="https://www.evaluationz.com/technology" target="_blank">TECHNOLOGY</a>
                                             </div>
                                             <div className="col">
-                                                <Link to="/about-us">ABOUT</Link>
+                                                <a href="https://www.evaluationz.com/about-us" target="_blank">ABOUT</a>
                                             </div>
                                             <div className="col">
-                                                <Link to="/careers">CAREERS</Link>
+                                                <a href="https://www.evaluationz.com/careers" target="_blank">CAREERS</a>
                                             </div>
                                             <div className="col">
-                                                <Link to="/contact">CONTACT</Link>
+                                                <a href="https://www.evaluationz.com/contact" target="_blank">CONTACT</a>
                                             </div>
                                         </div>
                                     </li>
@@ -77,7 +74,7 @@ const Footer = () => {
                                 <div className="footer-details footer-address">
                                     <div className="footer-address-item">
                                         <div className="footer-address-text">
-                                            <p>Evaluationz India Private Limited<br/>
+                                            <p>Evaluationz India Private Limited,<br/>
                                                 BHIVE Workspace, 29 MG Road,<br/>
                                                 7th Floor-Mahalaxmi Chambers,<br/>
                                                 Next to Trinity Metro Station,<br/>
