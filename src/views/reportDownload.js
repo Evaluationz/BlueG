@@ -12,21 +12,21 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import configData from "../config/index.json"
 import Footer from "../components/Footer/Footer";
 
-const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
+const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') };
 
 const alertSettings = {
   variant: '', msg: '', alertStatus: false
-}
+};
 
 function ReportDownload(props) {
 
   const [pageState, updatePageState] = useState(pageData);
   const [alertState, updateAlertState] = useState(alertSettings);
-  const client_id = props.clientid
+  const client_id = props.clientid;
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, []);
 
   function handleChange(e) {
     updatePageState(() => ({ ...pageState, [e.target.name]: e.target.value }))
@@ -41,8 +41,8 @@ function ReportDownload(props) {
 
   function loadData() {
     const { startDate, endDate } = pageState;
-    let url = configData.express_url
-    const postData = { from_date: startDate, to_date: endDate, client_id: client_id }
+    let url = configData.express_url;
+    const postData = { from_date: startDate, to_date: endDate, client_id: client_id };
     axios.post(url + "report/GetReportData", postData)
         .then(res => {
           updatePageState(() => ({ ...pageState, ReportData: res.data }))
@@ -50,8 +50,8 @@ function ReportDownload(props) {
   }
 
   function getReport(row) {
-    let url = configData.express_url
-    let postData = { case_no: row.case_id }
+    let url = configData.express_url;
+    let postData = { case_no: row.case_id };
     axios.post(url + "report/DownloadReportData", postData,
         { responseType: 'blob' })
         .then((res) => {
@@ -62,8 +62,8 @@ function ReportDownload(props) {
           a.download = 'FinalReport.pdf';
           a.click();
         }).catch(err => {
-      let msg = 'Final report not avaliable to download.'
-      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+      let msg = 'Final report not avaliable to download.';
+      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }));
       setTimeout(() => {
         updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
 
@@ -83,7 +83,7 @@ function ReportDownload(props) {
     {
       dataField: "resume_id",
       text: "Resume Id",
-      filter: textFilter(),
+      // filter: textFilter(),
     },
     {
       dataField: "candidate_name",
@@ -93,7 +93,6 @@ function ReportDownload(props) {
       dataField: "client_name",
       text: "Client Name",
       sort: true
-
     },
     {
       dataField: "subclient_name",
@@ -121,7 +120,6 @@ function ReportDownload(props) {
             </div>
         );
       }
-
     }
   ];
   return (
@@ -132,7 +130,6 @@ function ReportDownload(props) {
             <Container fluid className="py-3 bg-white shadow-sm">
               <Breadcrumb>
                 <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
-
                 <Breadcrumb.Item active>Reports</Breadcrumb.Item>
               </Breadcrumb>
 
@@ -140,34 +137,39 @@ function ReportDownload(props) {
                 <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                 <Form method="POST">
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
-                    <Col sm="4">
+                    <Col sm="3">
                       <Form.Label column>From Date</Form.Label>
                       <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
                     </Col>
 
-                    <Col sm="4">
+                    <Col sm="3">
                       <Form.Label column>To Date</Form.Label>
                       <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
                     </Col>
-                    <Col sm="4" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
-                      <Form.Label column></Form.Label>
+
+                    <Col sm="3">
+                      <Form.Label column>By Resume ID</Form.Label>
+                      <Form.Control type="search" name="resumeID"/>
+                    </Col>
+                    <Col sm="3" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
+                      <Form.Label column/>
                       <Button type="Submit" variant="primary" onClick={getData}>Search</Button>
                     </Col>
                   </Form.Group>
                 </Form>
               </Container>
 
-              <br />
-
-              <BootstrapTable keyField="case_id"
-                              data={ReportData}
-                              columns={columns}
-                              striped
-                              hover
-                              condensed
-                              pagination={paginationFactory()}
-                              filter={filterFactory()}>
-              </BootstrapTable>
+              <Container fluid className="px-0 mt-3">
+                <BootstrapTable keyField="case_id"
+                                data={ReportData}
+                                columns={columns}
+                                striped={false}
+                                hover
+                                condensed
+                                pagination={paginationFactory()}
+                                filter={filterFactory()}>
+                </BootstrapTable>
+              </Container>
             </Container>
           </Container>
         </div>
