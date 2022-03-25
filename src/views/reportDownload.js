@@ -138,6 +138,11 @@ function ReportDownload(props) {
                 <Form method="POST">
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
                     <Col sm="3">
+                      <Form.Label column>By Resume ID</Form.Label>
+                      <Form.Control type="search" name="resumeID"/>
+                    </Col>
+
+                    <Col sm="3">
                       <Form.Label column>From Date</Form.Label>
                       <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
                     </Col>
@@ -147,10 +152,6 @@ function ReportDownload(props) {
                       <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
                     </Col>
 
-                    <Col sm="3">
-                      <Form.Label column>By Resume ID</Form.Label>
-                      <Form.Control type="search" name="resumeID"/>
-                    </Col>
                     <Col sm="3" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
                       <Form.Label column/>
                       <Button type="Submit" variant="primary" onClick={getData}>Search</Button>

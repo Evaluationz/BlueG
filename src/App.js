@@ -333,7 +333,7 @@ function App() {
                         <Row>
                           <Col>
                             <Card.Body className="d-flex align-items-center justify-content-center">
-                              <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
+                              <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
                             </Card.Body>
                             <Card.Body className="d-flex align-items-center justify-content-center py-0">
                               <h6 className="mb-0" style={{ fontWeight: '600' }}>
@@ -504,7 +504,7 @@ function App() {
                         <Row>
                           <Col>
                             <Card.Body className="d-flex align-items-center justify-content-center">
-                              <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
+                              <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
                             </Card.Body>
                             <Card.Body className="d-flex align-items-center justify-content-center py-0">
                               <h6 className="mb-0" style={{ fontWeight: '600' }}>
