@@ -252,12 +252,12 @@ function Profile(props) {
                 <div className="card-body">
                   <h5 className="card-title border-bottom pb-2 text-left">Basic Information <i className="mdi mdi-pencil edit-profile cursor-pointer" onClick={handleShowBasicInfo}></i></h5>
                   <div className="row">
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                       <div className="text-left mb-1">
                         <h6 className="mb-1">About Me</h6>
                         <p className="f-14">About Me section</p>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-md-6">
                       <div className="text-left mb-1">
                         <h6 className="mb-1">Name</h6>
@@ -274,6 +274,11 @@ function Profile(props) {
                       <div className="text-left mb-1">
                         <h6 className="mb-1">Contact Number</h6>
                         <p className="mb-1 f-14">{pageState.ReportData.contact_no}</p>
+                      </div>
+                    </div>
+                    <div className="col-md-12 border-top pt-3 mt-2">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-0">Change Password <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h6>
                       </div>
                     </div>
                   </div>

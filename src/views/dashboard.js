@@ -9,15 +9,12 @@ import configData from "../config/index.json"
 import HighchartsReact from 'highcharts-react-official';
 import Footer from "../components/Footer/Footer";
 
-
-const pageData = { case_completed_date: [], case_completed_count: [] }
-
-
+const pageData = { case_completed_date: [], case_completed_count: [] };
 
 function Dashboard(props) {
   const [pageState, updatePageState] = useState(pageData);
-  const client_id = props.clientid
-  const navigate = useNavigate()
+  const client_id = props.clientid;
+  const navigate = useNavigate();
 
   function RedirectToReport() {
     navigate('/reportDownload', { replace: true });
@@ -29,12 +26,12 @@ function Dashboard(props) {
 
   function loadData() {
     let url = configData.express_url;
-    const postData = { client_id: client_id }
+    const postData = { client_id: client_id };
     axios.post(url + 'graphDashboard/GetGraphData', postData).then((res) => {
       let completed_date = [];
-      let completed_count = []
+      let completed_count = [];
       res.data.forEach(graphdata => {
-        completed_date.push(Moment(graphdata.case_completed_date).format("DD/MM/YYYY"))
+        completed_date.push(Moment(graphdata.case_completed_date).format("DD/MM/YYYY"));
         completed_count.push(graphdata.completed_case_count)
       });
       updatePageState(() => ({ ...pageState, case_completed_date: completed_date, case_completed_count: completed_count }))
@@ -42,7 +39,7 @@ function Dashboard(props) {
 
   }
 
-  const { case_completed_date, case_completed_count } = pageState
+  const { case_completed_date, case_completed_count } = pageState;
 
   const Config = {
     title: {
