@@ -56,8 +56,8 @@ function App() {
 
   async function addressAuto() {
     let autocomplete = new window.google.maps.places.Autocomplete(
-      document.getElementById('address'),
-      { types: ['geocode'] }
+        document.getElementById('address'),
+        { types: ['geocode'] }
     );
     autocomplete.addListener('place_changed', () => {
       let place = autocomplete.getPlace()
@@ -136,9 +136,9 @@ function App() {
         setPasswordValidity(true);
       }
     }
-    
+
     if (e.target.name === 'contactno') {
-     
+
       if (e.target.value === '' || e.target.value.length === 10) {
 
         setContactValidity(false);
@@ -150,7 +150,7 @@ function App() {
     }
 
     if (e.target.name === 'authCode') {
-     
+
       if (e.target.value === '' || e.target.value.length === 6) {
 
         setConfirmationcodeValidity(false);
@@ -172,34 +172,34 @@ function App() {
     else {
       //Add Data Captured to Kompass
       navigator.geolocation.getCurrentPosition(
-        async position => {
-          const { latitude, longitude } = position.coords;
-          var postion_coords = 'Lat: ' + latitude + ' Long: ' + longitude;
-          const { companyname, cin, contactno, address } = formState;
-          let url = configData.express_url
-          var postData = { 'client_name': companyname, 'cin': cin, 'email': username, 'contact_no': contactno, 'address': address, 'postions': postion_coords }
-          let updateClient = await axios.post(url + "client/createMClient", postData)
-          if (updateClient.data === 'success') {
-            try {
-              await Auth.signUp({ username, password })
-              updateFormState(() => ({ ...formState, formType: 'confirmSignUp' }))
+          async position => {
+            const { latitude, longitude } = position.coords;
+            var postion_coords = 'Lat: ' + latitude + ' Long: ' + longitude;
+            const { companyname, cin, contactno, address } = formState;
+            let url = configData.express_url
+            var postData = { 'client_name': companyname, 'cin': cin, 'email': username, 'contact_no': contactno, 'address': address, 'postions': postion_coords }
+            let updateClient = await axios.post(url + "client/createMClient", postData)
+            if (updateClient.data === 'success') {
+              try {
+                await Auth.signUp({ username, password })
+                updateFormState(() => ({ ...formState, formType: 'confirmSignUp' }))
+              }
+              catch (err) {
+                msg = 'An account with the given email already exists.'
+                updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+                setTimeout(() => {
+                  updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+                }, 3000);
+              }
             }
-            catch (err) {
-              msg = 'An account with the given email already exists.'
+            else {
+              var msg = 'Unable to create account.Please try again'
               updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
               setTimeout(() => {
                 updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
               }, 3000);
             }
-          }
-          else {
-            var msg = 'Unable to create account.Please try again'
-            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
-            setTimeout(() => {
-              updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-            }, 3000);
-          }
-        })
+          })
 
     }
   }
@@ -210,23 +210,23 @@ function App() {
     e.preventDefault();
     const { username, authCode } = formState;
     await Auth.confirmSignUp(username, authCode)
-      .then(data => {
-        updateFormState(() => ({ ...formState, formType: 'singIn' }))
-        var msg = 'SignUp  Success'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-        }, 3000);
-      })
-      .catch(err => {
+        .then(data => {
+          updateFormState(() => ({ ...formState, formType: 'singIn' }))
+          var msg = 'SignUp  Success'
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+        })
+        .catch(err => {
 
-        var msg = 'Invalid code please enter valid code'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-        }, 3000);
+          var msg = 'Invalid code please enter valid code'
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
 
-      })
+        })
 
   }
   async function signIn(event) {
@@ -249,42 +249,42 @@ function App() {
     e.preventDefault();
     const { username, authCode, password } = formState;
     Auth.forgotPasswordSubmit(username, authCode, password)
-      .then(data => {
-        updateFormState(() => ({ ...formState, formType: 'singIn' }))
-        var msg = 'Password Reset Success'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-        }, 3000);
-      })
-      .catch(err => {
-        var msg = 'Invalid code'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-        }, 3000);
-      });
+        .then(data => {
+          updateFormState(() => ({ ...formState, formType: 'singIn' }))
+          var msg = 'Password Reset Success'
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+        })
+        .catch(err => {
+          var msg = 'Invalid code'
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+        });
   }
 
   async function forgotPassword() {
     const { username } = formState;
     Auth.forgotPassword(username)
-      .then(data => {
-        updateFormState(() => ({ ...formState, formType: 'newPassword' }))
-        var msg = 'Verification code sent to email'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-        }, 3000);
-      })
-      .catch(err => {
-        console.log(err)
-        var msg = 'Plase enter email id'
-        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
-        setTimeout(() => {
-          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-        }, 3000);
-      });
+        .then(data => {
+          updateFormState(() => ({ ...formState, formType: 'newPassword' }));
+          var msg = 'Verification code sent to email';
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }));
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+        })
+        .catch(err => {
+          console.log(err);
+          var msg = 'Plase enter email id';
+          updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }));
+          setTimeout(() => {
+            updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+          }, 3000);
+        });
   }
 
   const [values, setValues] = React.useState({
@@ -301,280 +301,286 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {
-        formType === 'signUp' && (
-          <div>
-            <Modal show={show} onHide={closeContract}>
-              <Modal.Header closeButton>
-                <Modal.Title>Service Agreement</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Stack gap={4} className="mx-auto">
-                  <InputGroup>
-                    <Contract formState={formState} />
-                  </InputGroup>
-                  <Form.Check type='checkbox'>
-                    <Form.Check.Input onChange={onChange} name='checkConfirm' />
-                    <Form.Check.Label style={{ fontSize: 13 }}>I have read and agreed to the service agreement for Pre-Employment Screening Service</Form.Check.Label>
-                  </Form.Check>
-                </Stack>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button className='btn-blue' onClick={confirmContract}>I Agree</Button>
-              </Modal.Footer>
-            </Modal>
+      <div className="App">
+        {
+          formType === 'signUp' && (
+              <div>
+                <Modal show={show} onHide={closeContract}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Service Agreement</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Stack gap={4} className="mx-auto">
+                      <InputGroup>
+                        <Contract formState={formState} />
+                      </InputGroup>
+                      <Form.Check type='checkbox'>
+                        <Form.Check.Input onChange={onChange} name='checkConfirm' />
+                        <Form.Check.Label style={{ fontSize: 13 }}>I have read and agreed to the service agreement for Pre-Employment Screening Service</Form.Check.Label>
+                      </Form.Check>
+                    </Stack>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button className='btn-blue' onClick={confirmContract}>I Agree</Button>
+                  </Modal.Footer>
+                </Modal>
 
-            <Container fluid className="bg-block bg-light-gray login-card-block">
-              <Row>
-                <Col>
-                  <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded signup-card'>
-                    <Row>
-                      <Col>
-                        <Card.Body className="d-flex align-items-center justify-content-center">
-                          <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
-                        </Card.Body>
-                        <Card.Body className="d-flex align-items-center justify-content-center py-0">
-                          <h6 className="mb-0" style={{ fontWeight: '600' }}>
-                            SIGN UP with BlueG
-                          </h6>
-                        </Card.Body>
+                <Container fluid className="bg-block bg-light-gray login-card-block">
+                  <Row>
+                    <Col>
+                      <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                      <Card border="light" className='shadow rounded signup-card'>
+                        <Row>
+                          <Col>
+                            <Card.Body className="d-flex align-items-center justify-content-center">
+                              <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
+                            </Card.Body>
+                            <Card.Body className="d-flex align-items-center justify-content-center py-0">
+                              <h6 className="mb-0" style={{ fontWeight: '600' }}>
+                                SIGN UP with BlueG
+                              </h6>
+                            </Card.Body>
+                            <Card.Body>
+                              <Form noValidate validated={validatesignUp} onSubmit={signUp}>
+                                <Form.Group className="mb-1">
+                                  <div className="row">
+                                    <div className="col-md-6 pb-3">
+                                      <FormControl name='companyname' required type='text' className="shadow-sm" placeholder="Company name" onChange={onChange} />
+                                      <Form.Control.Feedback type="invalid" className="text-left">
+                                        Please provide a company name.
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-md-6 pb-3">
+                                      <FormControl name='username' required type='email' className="shadow-sm" placeholder="Email address" onChange={onChange} />
+                                      <Form.Control.Feedback type="invalid" className="text-left">
+                                        Please provide a user name.
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-md-6 pb-3">
+                                      <FormControl name='cin' required type='text' maxLength={21} className="shadow-sm" placeholder="CIN" onChange={onChange} />
+                                      <Form.Control.Feedback type="invalid" className="text-left">
+                                        Please provide a CIN number.
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-md-6 pb-3">
+                                      <FormControl name='address' id='address' className="shadow-sm" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange} />
+                                      <Form.Control.Feedback type="invalid" className="text-left">
+                                        Please provide a address.
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-md-6 pb-3">
+                                      <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm" type='number' placeholder="Contact number" onChange={onChange} />
+                                      <Form.Control.Feedback type="invalid" className="text-left">
+                                        Please provide a valid contact number.
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-md-6 pb-3">
+                                      <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={values.showPassword ? "text" : "password"} placeholder="Password" onChange={onChange} />
+                                      <i className="toggle-password" onClick={handleClickShowPassword}
+                                         onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+
+                                      <Form.Control.Feedback type="invalid" className="text-left">
+                                        Password between 7 to 15 characters which contain at least one numeric digit and a special character.
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-12 pt-2">
+                                      <a className="float-left c-blue font-bold cursor-pointer mt-2" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back to Sign In</a>
+                                      <Button type='submit' className="float-right btn-blue"> Sign Up</Button>
+                                    </div>
+                                  </div>
+                                </Form.Group>
+                              </Form>
+                            </Card.Body>
+                          </Col>
+                        </Row>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+          )
+        }
+        {
+          formType === 'confirmSignUp' && (
+              <div>
+                <Container fluid className="bg-block bg-light-gray login-card-block">
+                  <Row>
+                    <Col>
+                      <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                      <Card border="light" className='shadow rounded login-card'>
                         <Card.Body>
-                          <Form noValidate validated={validatesignUp} onSubmit={signUp}>
-                            <Form.Group className="mb-1">
-                              <div className="row">
-                                <div className="col-md-6 pb-3">
-                                  <FormControl name='companyname' required type='text' className="shadow-sm" placeholder="Company name" onChange={onChange} />
-                                  <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a company name.
-                                  </Form.Control.Feedback>
-                                </div>
-
-                                <div className="col-md-6 pb-3">
-                                  <FormControl name='username' required type='email' className="shadow-sm" placeholder="Email address" onChange={onChange} />
-                                  <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a user name.
-                                  </Form.Control.Feedback>
-                                </div>
-
-                                <div className="col-md-6 pb-3">
-                                  <FormControl name='cin' required type='text' maxLength={21} className="shadow-sm" placeholder="CIN" onChange={onChange} />
-                                  <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a CIN number.
-                                  </Form.Control.Feedback>
-                                </div>
-
-                                <div className="col-md-6 pb-3">
-                                  <FormControl name='address' id='address' className="shadow-sm" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange} />
-                                  <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a address.
-                                  </Form.Control.Feedback>
-                                </div>
-
-                                <div className="col-md-6 pb-3">
-                                  <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm" type='number' placeholder="Contact number" onChange={onChange} />
-                                  <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a valid contact number.
-                                  </Form.Control.Feedback>
-                                </div>
-
-                                <div className="col-md-6 pb-3">
-                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={values.showPassword ? "text" : "password"} placeholder="Password" onChange={onChange} />
-                                  <i className="toggle-password" onClick={handleClickShowPassword}
-                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
-
-                                  <Form.Control.Feedback type="invalid" className="text-left">
-                                    Password between 7 to 15 characters which contain at least one numeric digit and a special character.
-                                  </Form.Control.Feedback>
-                                </div>
-
-                                <div className="col-12 pt-2">
-                                  <a className="float-left c-blue font-bold cursor-pointer" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back to Sign In</a>
-                                  <Button type='submit' className="float-right btn-blue"> Sign Up</Button>
-                                </div>
-                              </div>
-                            </Form.Group>
-                          </Form>
-                        </Card.Body>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        )
-      }
-      {
-        formType === 'confirmSignUp' && (
-          <div>
-            <Container fluid className="bg-block bg-light-gray login-card-block">
-              <Row>
-                <Col>
-                  <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded login-card'>
-                    <Card.Body>
-                      <Form>
-                        <Form.Group className="">
-                          <div className="row align-items-center ">
-                            <div className="col-lg-12 pb-3">
-                              <Form.Label className="mb-0">Confirmation code</Form.Label>
-                              <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' placeholder="Confirmation code" onChange={onChange} />
-                              <Form.Control.Feedback type="invalid" className="text-left">
-                               Please provide 6 digit number.
-                              </Form.Control.Feedback>
-                            </div>
-                          </div>
-
-                          <div className="col-lg-12 py-3">
-                            <Button className='btn-blue' type="submit" onClick={confirmSignUp}> Confirm Sign-Up</Button>
-                          </div>
-                        </Form.Group>
-                      </Form>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        )
-      }
-      {
-        formType === 'newPassword' && (
-          <div>
-            <Container fluid className="bg-block bg-light-gray login-card-block">
-              <Row>
-                <Col>
-                  <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded password-card'>
-                    <Card.Body>
-                      <Form.Group className="mb-1">
-                        <div className="row align-items-center ">
-                          <div className="col-lg-12 pb-3">
-                            <Form.Label className="mb-0">Confirmation code</Form.Label>
-                            <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' required placeholder="Confirmation code" onChange={onChange} />
-                            <Form.Control.Feedback type="invalid" className="text-left">
-                               Please provide 6 digit number
-                            </Form.Control.Feedback>
-                          </div>
-
-                          <div className="col-lg-12 pb-1">
-                            <Form.Label className="mb-0">Password</Form.Label>
-                            <FormControl isInvalid={passwordValidity} name='password' required type={values.showPassword ? "text" : "password"} id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange} />
-                            <i className="toggle-password" onClick={handleClickShowPassword}
-                               onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
-
-                            <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                              Password between 7 to 15 characters which contain at least one numeric digit and a special character.
-                            </Form.Control.Feedback>
-                          </div>
-
-                          <div className="col-lg-12 py-3">
-                            <Button variant="primary" type="submit" onClick={resetPassword} >Reset Password</Button>
-                          </div>
-
-                          <div className="col-lg-12">
-                            <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Request code again</a>
-                          </div>
-                        </div>
-                      </Form.Group>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        )
-      }
-      {
-        formType === 'singIn' && (
-          <div>
-            <Container fluid className="bg-block bg-light-gray login-card-block">
-              <Row>
-                <Col>
-                  <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded signin-card'>
-                    <Row>
-                      <Col>
-                        <Card.Body className="d-flex align-items-center justify-content-center">
-                          <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
-                        </Card.Body>
-                        <Card.Body className="d-flex align-items-center justify-content-center py-0">
-                          <h6 className="mb-0" style={{ fontWeight: '600' }}>
-                            SIGN IN with BlueG
-                          </h6>
-                        </Card.Body>
-                        <Card.Body>
-                          <Form noValidate validated={validatesignIn} onSubmit={signIn}>
+                          <Form>
                             <Form.Group className="">
                               <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-3">
-                                  <Form.Label className="mb-0">Email</Form.Label>
-                                  <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange} />
-                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                                    Enter Your Email
+                                  <Form.Label className="mb-0">Confirmation code</Form.Label>
+                                  <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' placeholder="Confirmation code" onChange={onChange} />
+                                  <Form.Control.Feedback type="invalid" className="text-left">
+                                    Please provide 6 digit number.
                                   </Form.Control.Feedback>
                                 </div>
+                              </div>
 
-                                <div className="col-lg-12 pb-1">
-                                  <Form.Label className="mb-0">Password</Form.Label>
-                                  <FormControl name='password' className="shadow-sm" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} />
-                                  <i className="toggle-password" onClick={handleClickShowPassword}
-                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
-                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                                    Enter Your Password.
-                                  </Form.Control.Feedback>
-
-                                  <div className="row mt-1">
-                                    <div className="col-6">
-                                      <div className="form-check pl-0">
-                                        <input className="form-check-input ml-0"
-                                               type="checkbox"
-                                               value="" id="flexCheckDefault"/>
-                                               <label className="form-check-label f-14"
-                                                      htmlFor="flexCheckDefault"> Remember me </label>
-                                      </div>
-                                    </div>
-                                    <div className="col-6">
-                                      <div className="mb-2 d-flex justify-content-end align-items-end">
-                                        <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="col-lg-12 py-3">
-                                  <Button className='btn-blue' type='submit'> Sign In</Button>
-                                </div>
-
-                                <div className="col-lg-12 f-14">
-                                  Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
-                                </div>
+                              <div className="col-lg-12 py-3">
+                                <Button className='btn-blue' type="submit" onClick={confirmSignUp}> Confirm Sign-Up</Button>
                               </div>
                             </Form.Group>
                           </Form>
                         </Card.Body>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        )
-      }
-      {
-        formType === 'confirmSingIn' && (
-          <Routes>
-            <Route path="/" element={<Dashboard clientid={clientid} />} />
-            <Route path="dashboard" element={<Dashboard clientid={clientid} />} />
-            <Route path="profile" element={<Profile clientid={clientid} />} />
-            <Route path="reportDownload" element={<ReportDownload clientid={clientid} />} />
-          </Routes>
-        )
-      }
-    </div>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+          )
+        }
+        {
+          formType === 'newPassword' && (
+              <div>
+                <Container fluid className="bg-block bg-light-gray login-card-block">
+                  <Row>
+                    <Col>
+                      <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                      <Card border="light" className='shadow rounded password-card'>
+                        <Card.Body className="d-flex align-items-center justify-content-center pt-3 pb-1">
+                          <h5 className="mb-0" style={{ fontWeight: '600' }}>
+                            Change Password
+                          </h5>
+                        </Card.Body>
+                        <Card.Body>
+                          <Form.Group className="mb-1">
+                            <div className="row align-items-center ">
+                              <div className="col-lg-12 pb-3">
+                                <Form.Label className="mb-0">Confirmation code</Form.Label>
+                                <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' required placeholder="Confirmation code" onChange={onChange} />
+                                <Form.Control.Feedback type="invalid" className="text-left">
+                                  Please provide 6 digit number
+                                </Form.Control.Feedback>
+                              </div>
+
+                              <div className="col-lg-12 pb-1">
+                                <Form.Label className="mb-0">Password</Form.Label>
+                                <FormControl isInvalid={passwordValidity} name='password' required type={values.showPassword ? "text" : "password"} id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange} />
+                                <i className="toggle-password" onClick={handleClickShowPassword}
+                                   onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+
+                                <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                  Password between 7 to 15 characters which contain at least one numeric digit and a special character.
+                                </Form.Control.Feedback>
+                              </div>
+
+                              <div className="col-lg-12 py-3">
+                                <a className="float-left c-blue font-bold cursor-pointer mt-2" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back</a>
+                                <Button type='submit' className="float-right btn-blue" onClick={resetPassword}>Submit</Button>
+                              </div>
+
+                              <div className="col-lg-12">
+                                <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Request code again</a>
+                              </div>
+                            </div>
+                          </Form.Group>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+          )
+        }
+        {
+          formType === 'singIn' && (
+              <div>
+                <Container fluid className="bg-block bg-light-gray login-card-block">
+                  <Row>
+                    <Col>
+                      <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                      <Card border="light" className='shadow rounded signin-card'>
+                        <Row>
+                          <Col>
+                            <Card.Body className="d-flex align-items-center justify-content-center">
+                              <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '50px' }} />
+                            </Card.Body>
+                            <Card.Body className="d-flex align-items-center justify-content-center py-0">
+                              <h6 className="mb-0" style={{ fontWeight: '600' }}>
+                                SIGN IN with BlueG
+                              </h6>
+                            </Card.Body>
+                            <Card.Body>
+                              <Form noValidate validated={validatesignIn} onSubmit={signIn}>
+                                <Form.Group className="">
+                                  <div className="row align-items-center ">
+                                    <div className="col-lg-12 pb-3">
+                                      <Form.Label className="mb-0">Email</Form.Label>
+                                      <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange} />
+                                      <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                        Enter Your Email
+                                      </Form.Control.Feedback>
+                                    </div>
+
+                                    <div className="col-lg-12 pb-1">
+                                      <Form.Label className="mb-0">Password</Form.Label>
+                                      <FormControl name='password' className="shadow-sm" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} />
+                                      <i className="toggle-password" onClick={handleClickShowPassword}
+                                         onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                      <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                        Enter Your Password.
+                                      </Form.Control.Feedback>
+
+                                      <div className="row mt-1">
+                                        <div className="col-6">
+                                          <div className="form-check pl-0">
+                                            <input className="form-check-input ml-0"
+                                                   type="checkbox"
+                                                   value="" id="flexCheckDefault"/>
+                                            <label className="form-check-label f-14"
+                                                   htmlFor="flexCheckDefault"> Remember me </label>
+                                          </div>
+                                        </div>
+                                        <div className="col-6">
+                                          <div className="mb-2 d-flex justify-content-end align-items-end">
+                                            <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div className="col-lg-12 py-3">
+                                      <Button className='btn-blue' type='submit'> Sign In</Button>
+                                    </div>
+
+                                    <div className="col-lg-12 f-14">
+                                      Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
+                                    </div>
+                                  </div>
+                                </Form.Group>
+                              </Form>
+                            </Card.Body>
+                          </Col>
+                        </Row>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+          )
+        }
+        {
+          formType === 'confirmSingIn' && (
+              <Routes>
+                <Route path="/" element={<Dashboard clientid={clientid} />} />
+                <Route path="dashboard" element={<Dashboard clientid={clientid} />} />
+                <Route path="profile" element={<Profile clientid={clientid} />} />
+                <Route path="reportDownload" element={<ReportDownload clientid={clientid} />} />
+              </Routes>
+          )
+        }
+      </div>
   );
 }
 
