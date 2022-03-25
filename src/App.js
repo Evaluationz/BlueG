@@ -7,20 +7,20 @@ import ReportDownload from "./views/reportDownload";
 import Profile from "./views/Profile";
 import Contract from "./components/Contract"
 import configData from "./config/index.json"
-
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 import './App.css';
 
 import { Auth, Hub } from 'aws-amplify';
-import Layout from "./components/Layout";
 
 const initialFormState = {
   username: '', cin: '', address: '', contactno: '', companyname: '', postion_coords: '', password: '', authCode: '', checkConfirm: false, formType: 'singIn'
-}
+};
 
 const alertSettings = {
   variant: '', msg: '', alertStatus: false
-}
+};
 
 function App() {
   const [alertState, updateAlertState] = useState(alertSettings);
@@ -35,7 +35,6 @@ function App() {
   const [contactValidity, setContactValidity] = useState(false);
   const [confirmationcodeValidity, setConfirmationcodeValidity] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
-  
 
   const signUp = (event) => {
     event.preventDefault();
@@ -53,7 +52,7 @@ function App() {
   useEffect(() => {
     checkUser()
     setAuthListener()
-  }, [])
+  }, []);
 
   async function addressAuto() {
     let autocomplete = new window.google.maps.places.Autocomplete(
@@ -86,7 +85,7 @@ function App() {
     }
   }
 
-  const { alertStatus, variant, msg } = alertState
+  const { alertStatus, variant, msg } = alertState;
 
   async function setAuthListener() {
     var msg = '';
@@ -110,7 +109,7 @@ function App() {
     });
   }
 
-  const { formType } = formState
+  const { formType } = formState;
 
   async function createAccount() {
     updateFormState(() => ({ ...formState, formType: 'signUp' }))
@@ -123,11 +122,6 @@ function App() {
     updateAlertState(() => ({ ...alertState, alertStatus: false }))
     setPasswordValidity(false);
   }
-
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
-
 
   function onChange(e) {
     e.persist();
@@ -245,7 +239,7 @@ function App() {
     }
     else {
       const { username, password } = formState;
-      await Auth.signIn(username, password)
+      await Auth.signIn(username, password);
       updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
     }
     setValidatedSignIn(true);
@@ -292,6 +286,19 @@ function App() {
         }, 3000);
       });
   }
+
+  const [values, setValues] = React.useState({
+    password: "",
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div className="App">
@@ -340,43 +347,45 @@ function App() {
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='companyname' required type='text' className="shadow-sm" placeholder="Company name" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a company name
+                                    Please provide a company name.
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='username' required type='email' className="shadow-sm" placeholder="Email address" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a user name
+                                    Please provide a user name.
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='cin' required type='text' maxLength={21} className="shadow-sm" placeholder="CIN" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a CIN number
+                                    Please provide a CIN number.
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='address' id='address' className="shadow-sm" required type='text' placeholder="Address" onFocus={addressAuto} onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a address
+                                    Please provide a address.
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
                                   <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm" type='number' placeholder="Contact number" onChange={onChange} />
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    Please provide a valid contact number
+                                    Please provide a valid contact number.
                                   </Form.Control.Feedback>
                                 </div>
 
                                 <div className="col-md-6 pb-3">
-                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={passwordShown ? "text" : "password"} placeholder="Password" onChange={onChange} />
-                                  <i className="toggle-password mdi mdi-eye-off" onClick={togglePassword}></i>
+                                  <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-sm" id="password" autoComplete="off" required type={values.showPassword ? "text" : "password"} placeholder="Password" onChange={onChange} />
+                                  <i className="toggle-password" onClick={handleClickShowPassword}
+                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+
                                   <Form.Control.Feedback type="invalid" className="text-left">
-                                    password between 7 to 15 characters which contain at least one numeric digit and a special character
+                                    Password between 7 to 15 characters which contain at least one numeric digit and a special character.
                                   </Form.Control.Feedback>
                                 </div>
 
@@ -413,7 +422,7 @@ function App() {
                               <Form.Label className="mb-0">Confirmation code</Form.Label>
                               <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' placeholder="Confirmation code" onChange={onChange} />
                               <Form.Control.Feedback type="invalid" className="text-left">
-                               Please provide 6 digit number
+                               Please provide 6 digit number.
                               </Form.Control.Feedback>
                             </div>
                           </div>
@@ -452,10 +461,12 @@ function App() {
 
                           <div className="col-lg-12 pb-1">
                             <Form.Label className="mb-0">Password</Form.Label>
-                            <FormControl isInvalid={passwordValidity} name='password' required type='password' id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange} />
-                            <i className="toggle-password mdi mdi-eye-off" id="toggleEye1"></i>
+                            <FormControl isInvalid={passwordValidity} name='password' required type={values.showPassword ? "text" : "password"} id="cnfpassword" placeholder="Password" autoComplete="off" onChange={onChange} />
+                            <i className="toggle-password" onClick={handleClickShowPassword}
+                               onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+
                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                              password between 7 to 15 characters which contain at least one numeric digit and a special character
+                              Password between 7 to 15 characters which contain at least one numeric digit and a special character.
                             </Form.Control.Feedback>
                           </div>
 
@@ -508,13 +519,15 @@ function App() {
 
                                 <div className="col-lg-12 pb-1">
                                   <Form.Label className="mb-0">Password</Form.Label>
-                                  <FormControl name='password' className="shadow-sm" type='password' maxLength={15} id="password" autoComplete="off" required onChange={onChange} />
-                                  <i className="toggle-password mdi mdi-eye-off" id="toggleEye"></i>
+                                  <FormControl name='password' className="shadow-sm" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} />
+                                  <i className="toggle-password" onClick={handleClickShowPassword}
+                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                   <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
                                   </Form.Control.Feedback>
                                 </div>
-                                <div className="mb-2 d-flex justify-content-md-end align-items-end">
+
+                                <div className="mb-2 d-flex justify-content-end align-items-end">
                                   <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
                                 </div>
 
