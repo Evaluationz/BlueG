@@ -525,10 +525,23 @@ function App() {
                                   <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                     Enter Your Password.
                                   </Form.Control.Feedback>
-                                </div>
 
-                                <div className="mb-2 d-flex justify-content-end align-items-end">
-                                  <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
+                                  <div className="row mt-1">
+                                    <div className="col-6">
+                                      <div className="form-check pl-0">
+                                        <input className="form-check-input ml-0"
+                                               type="checkbox"
+                                               value="" id="flexCheckDefault"/>
+                                               <label className="form-check-label f-14"
+                                                      htmlFor="flexCheckDefault"> Remember me </label>
+                                      </div>
+                                    </div>
+                                    <div className="col-6">
+                                      <div className="mb-2 d-flex justify-content-end align-items-end">
+                                        <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
 
                                 <div className="col-lg-12 py-3">

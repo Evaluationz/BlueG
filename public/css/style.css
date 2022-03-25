@@ -6720,7 +6720,21 @@ select.form-control {
   color: #dc3545 !important;
   border-color: #dc3545 !important;
 }
-
+.form-check-label{
+  float: left;
+  margin-left: 0.3rem;
+  margin-top: 0.1rem;
+}
+.invalid-feedback{
+  font-size: .8rem;
+}
+.alert{
+  padding: .5rem;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+.form-check-input{
+  cursor: pointer;
+}
 
 /*Box Shadow*/
 .shadow-xl {
@@ -6746,12 +6760,10 @@ select.form-control {
   float: right;
 }
 
-
 /*Anchor CSS*/
 a.c-blue{
   text-decoration: none;
 }
-
 
 /*Margin CSS*/
 .ml-auto{
@@ -6759,6 +6771,14 @@ a.c-blue{
 }
 .mr-auto{
   margin-right: auto;
+}
+.ml-0{
+  margin-left: 0 !important;
+}
+
+/*Padding CSS*/
+.pl-0{
+  padding-left: 0 !important;
 }
 
 /*Navbar*/
@@ -6836,4 +6856,15 @@ table tr td .btn:hover{
 .react-bs-table-sizePerPage-dropdown.dropdown .dropdown-menu .dropdown-item a{
   text-decoration: none;
   color: #000000;
+}
+
+/*Eye Icon*/
+.toggle-password {
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: -31px;
+}
+.toggle-password .MuiSvgIcon-root{
+  font-size: 1.2rem;
 }
