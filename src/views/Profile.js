@@ -22,6 +22,7 @@ import filterFactory from "react-bootstrap-table2-filter";
 import Footer from "../components/Footer/Footer";
 import BasicinfoModalForm from "../components/Modal/BasicinfoModalForm";
 import CompanyInfoModalForm from "../components/Modal/ComanyInfoModalForm";
+import ChangePasswordModalForm from "../components/Modal/ChangePasswordModalForm";
 
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
@@ -30,12 +31,16 @@ function Profile(props) {
   const [pageState, updatePageState] = useState(pageData);
   const [BasicInfoModalshow, setShowBasicInfo] = useState(false);
   const [BasicCompanyModalshow, setShowCompanyInfo] = useState(false);
+  const [ChangePasswordModalshow, setShowChangePassword] = useState(false);
 
   const handleCloseBasicInfo = () => setShowBasicInfo(false);
   const handleShowBasicInfo = () => setShowBasicInfo(true);
 
   const handleCloseCompanyInfo = () => setShowCompanyInfo(false);
   const handleShowCompanyInfo = () => setShowCompanyInfo(true);
+
+  const handleCloseChangePassword = () => setShowChangePassword(false);
+  const handleShowChangePassword = () => setShowChangePassword(true);
 
   const clientemail = props.clientemail;
   console.log("client email",clientemail)
@@ -80,7 +85,6 @@ function Profile(props) {
         <Modal.Body>
           <BasicinfoModalForm pageState={pageState} />
         </Modal.Body>
-       
       </Modal>
 
       <Modal show={BasicCompanyModalshow} onHide={handleCloseCompanyInfo}>
@@ -90,7 +94,15 @@ function Profile(props) {
         <Modal.Body>
           <CompanyInfoModalForm pageState={pageState}/>
         </Modal.Body>
+      </Modal>
 
+      <Modal show={ChangePasswordModalshow} onHide={handleCloseChangePassword}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ChangePasswordModalForm/>
+        </Modal.Body>
       </Modal>
 
       <Layout />
@@ -279,7 +291,7 @@ function Profile(props) {
                     </div>
                     <div className="col-md-12 border-top pt-3 mt-2">
                       <div className="text-left mb-1">
-                        <h6 className="mb-0">Change Password <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h6>
+                        <h6 className="mb-0">Change Password <i className="mdi mdi-pencil edit-profile cursor-pointer" onClick={handleShowChangePassword}></i></h6>
                       </div>
                     </div>
                   </div>
