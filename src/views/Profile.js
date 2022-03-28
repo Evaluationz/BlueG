@@ -10,9 +10,9 @@ import {
   Col,
   Table,
   AccordionButton,
-  Accordion, Breadcrumb, Alert,
+  Accordion, Breadcrumb, Alert, Modal
 } from "react-bootstrap";
-import React, { useState, Component,useEffect } from "react";
+import React, { useState, Component, useEffect } from "react";
 import axios from "axios";
 import configData from "../config/index.json";
 import Moment from "moment";
@@ -20,43 +20,84 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
 import Footer from "../components/Footer/Footer";
+import BasicinfoModalForm from "../components/Modal/BasicinfoModalForm";
+import CompanyInfoModalForm from "../components/Modal/ComanyInfoModalForm";
+
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
 function Profile(props) {
-  const [pageState, updatePageState] = useState(pageData);
-  const client_id = props.clientid;
-//  this.state = {
-//       apiResponse: [],
-//       startDate: "",
-//       endDate: "",
-//     };
-   useEffect(() => {
-    loadData()
-   }, [])
-    function handleChange(e) {
-      updatePageState(() => ({
-        ...pageState,
-        [e.target.name]: e.target.value,
-      }));
-    }
- function loadData() {
 
-      axios
-        .get(configData.express_url + "bgProfile/GetUserProfile/" + client_id)
-        .then((res) => {
-          //this.setState({ apiResponse: res.data[0] });
-            updatePageState(() => ({ ...pageState, ReportData: res.data[0] }));
-          console.log("result", res.data[0]);
-        });
-      } 
-  
-    return (
-      <>
-        <Layout />
-        <div className="container-fluid body-container mt-70 pt-2">
-          <Container fluid className="py-3">
-           
-              {/*<Row>
+  const [pageState, updatePageState] = useState(pageData);
+  const [BasicInfoModalshow, setShowBasicInfo] = useState(false);
+  const [BasicCompanyModalshow, setShowCompanyInfo] = useState(false);
+
+  const handleCloseBasicInfo = () => setShowBasicInfo(false);
+  const handleShowBasicInfo = () => setShowBasicInfo(true);
+
+  const handleCloseCompanyInfo = () => setShowCompanyInfo(false);
+  const handleShowCompanyInfo = () => setShowCompanyInfo(true);
+
+  const clientemail = props.clientemail;
+  console.log("client email",clientemail)
+  //  this.state = {
+  //       apiResponse: [],
+  //       startDate: "",
+  //       endDate: "",
+  //     };
+  useEffect(() => {
+    loadData()
+  }, [])
+
+
+  // const setBasicmodal = (props) => {
+  //   console.log("props", props)
+  //   return <BasicinfoModal showModal={props} />
+  // }
+
+  function handleChange(e) {
+    updatePageState(() => ({
+      ...pageState,
+      [e.target.name]: e.target.value,
+    }));
+  }
+  function loadData() {
+    let postData = { clientemail: clientemail };
+    axios
+      .post(configData.express_url + "bgProfile/GetUserProfile",postData)
+      .then((res) => {
+        //this.setState({ apiResponse: res.data[0] });
+        updatePageState(() => ({ ...pageState, ReportData: res.data[0] }));
+        console.log("result", res.data[0]);
+      });
+  }
+
+  return (
+    <>
+      <Modal show={BasicInfoModalshow} onHide={handleCloseBasicInfo}>
+        <Modal.Header closeButton>
+          <Modal.Title>Basic Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <BasicinfoModalForm pageState={pageState} />
+        </Modal.Body>
+       
+      </Modal>
+
+      <Modal show={BasicCompanyModalshow} onHide={handleCloseCompanyInfo}>
+        <Modal.Header closeButton>
+          <Modal.Title>Company Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <CompanyInfoModalForm pageState={pageState}/>
+        </Modal.Body>
+
+      </Modal>
+
+      <Layout />
+      <div className="container-fluid body-container mt-70 pt-2">
+        <Container fluid className="py-3">
+
+          {/*<Row>
                   <Col className="col-xl-4">
                     <Card className="overflow-hidden shadow">
                       <Card.Body>
@@ -188,122 +229,119 @@ function Profile(props) {
                   </Col>
                 </Row>*/}
 
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="card card-profile">
-                    <div className="card-header"></div>
-                    <div className="card-body text-center">
-                      <div className="profile-img-block">
-                        <img src="./images/user.png" className="card-profile-img"/>
+          <div className="row">
+            <div className="col-md-4">
+              <div className="card card-profile">
+                <div className="card-header"></div>
+                <div className="card-body text-center">
+                  <div className="profile-img-block">
+                    <img src="./images/user.png" className="card-profile-img" />
 
-                        <a className="edit-camera-icon">
-                          <i className="mdi mdi-camera cursor-pointer"></i>
-                        </a>
-                      </div>
-
-                      <h4 className="mb-1">{pageState.ReportData.client_name}</h4>
-                      <p className="mb-1">Bangalore</p>
-                    </div>
+                    <a className="edit-camera-icon">
+                      <i className="mdi mdi-camera cursor-pointer"></i>
+                    </a>
                   </div>
+
+                  <h4 className="mb-1">{pageState.ReportData.client_name}</h4>
+                  <p className="mb-1">Bangalore</p>
                 </div>
+              </div>
+            </div>
 
-                <div className="col-md-8">
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title border-bottom pb-2 text-left">Basic Information <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h5>
-                      <div className="row">
-                        {/*<div className="col-md-12">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">About Me</h6>
-                            <p className="f-14">About Me section</p>
-                          </div>
-                        </div>*/}
-                        <div className="col-md-6">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Name</h6>
-                          <p className="f-14">{pageState.ReportData.client_name}</p>
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Email</h6>
-                            <p className="f-14">{pageState.ReportData.email}</p>
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Contact Number</h6>
-                            <p className="mb-1 f-14">{pageState.ReportData.contact_no}</p>
-                          </div>
-                        </div>
-
-                        <div className="col-md-12 border-top pt-3 mt-2">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-0">Change Password <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h6>
-                          </div>
-                        </div>
+            <div className="col-md-8">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title border-bottom pb-2 text-left">Basic Information <i className="mdi mdi-pencil edit-profile cursor-pointer" onClick={handleShowBasicInfo}></i></h5>
+                  <div className="row">
+                    {/* <div className="col-md-12">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">About Me</h6>
+                        <p className="f-14">About Me section</p>
+                      </div>
+                    </div> */}
+                    <div className="col-md-6">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Name</h6>
+                        <p className="f-14">{pageState.ReportData.client_name}</p> 
                       </div>
                     </div>
-                  </div>
-
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title border-bottom pb-2 text-left">Company Information <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h5>
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Company Name</h6>
-                          <p className="f-14">{pageState.ReportData.client_name}</p>
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Address</h6>
-                            <p className="f-14">{pageState.ReportData.address}</p>
-                          </div>
-                        </div>
-                        <div className="col-sm-6 col-md-4">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">City</h6>
-                            <p className="f-14">{pageState.ReportData.address}</p>
-                          </div>
-                        </div>
-                        <div className="col-sm-6 col-md-4">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">ZIP</h6>
-                            <p className="f-14">560064</p>
-                          </div>
-                        </div>
-                        <div className="col-sm-6 col-md-4">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Country</h6>
-                            <p className="f-14">India</p>
-                          </div>
-                        </div>
-                        <div className="col-md-4">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Tier</h6>
-                            <p className="mb-1 f-14">Monthly</p>
-                          </div>
-                        </div>
-
-                        <div className="col-md-4">
-                          <div className="text-left mb-1">
-                            <h6 className="mb-1">Valid Till</h6>
-                            <p className="mb-1 f-14">26-April-2022</p>
-                          </div>
-                        </div>
+                    <div className="col-md-6">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Email</h6>
+                        <p className="f-14">{pageState.ReportData.email}</p>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Contact Number</h6>
+                        <p className="mb-1 f-14">{pageState.ReportData.contact_no}</p>
+                      </div>
+                    </div>
+                    <div className="col-md-12 border-top pt-3 mt-2">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-0">Change Password <i className="mdi mdi-pencil edit-profile cursor-pointer"></i></h6>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-        
-          </Container>
-        </div>
-        <Footer/>
-      </>
-    );
+
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title border-bottom pb-2 text-left">Company Information <i className="mdi mdi-pencil edit-profile cursor-pointer" onClick={handleShowCompanyInfo}></i></h5>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Company Name</h6>
+                        <p className="f-14">{pageState.ReportData.client_name}</p>
+                      </div>
+                    </div>
+                    <div className="col-md-12">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Address</h6>
+                        <p className="f-14">{pageState.ReportData.address}</p>
+                      </div>
+                    </div>
+                    <div className="col-sm-6 col-md-4">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">City</h6>
+                        <p className="f-14">Test</p>
+                      </div>
+                    </div>
+                    <div className="col-sm-6 col-md-4">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">ZIP</h6>
+                        <p className="f-14">560064</p>
+                      </div>
+                    </div>
+                    <div className="col-sm-6 col-md-4">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Country</h6>
+                        <p className="f-14">India</p>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Tier</h6>
+                        <p className="mb-1 f-14">Monthly</p>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="text-left mb-1">
+                        <h6 className="mb-1">Valid Till</h6>
+                        <p className="mb-1 f-14">26-April-2022</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </div>
+      <Footer />
+    </>
+  );
 
 }
 

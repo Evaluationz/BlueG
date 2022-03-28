@@ -12,7 +12,7 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import configData from "../config/index.json"
 import Footer from "../components/Footer/Footer";
 
-const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') };
+const pageData = { ReportData: [],resumeID:'', startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') };
 
 const alertSettings = {
   variant: '', msg: '', alertStatus: false
@@ -37,12 +37,13 @@ function ReportDownload(props) {
   function getData(e) {
     e.preventDefault();
     loadData()
+
   };
 
-  function loadData() {
-    const { startDate, endDate } = pageState;
+  function loadData(e) {
+    const { startDate, endDate,resumeID } = pageState;
     let url = configData.express_url;
-    const postData = { from_date: startDate, to_date: endDate, client_id: client_id };
+    const postData = { from_date: startDate, to_date: endDate, client_id: client_id,resumeID:resumeID };
     axios.post(url + "report/GetReportData", postData)
         .then(res => {
           updatePageState(() => ({ ...pageState, ReportData: res.data }))
@@ -152,6 +153,10 @@ function ReportDownload(props) {
                       <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
                     </Col>
 
+                    <Col sm="3">
+                      <Form.Label column>By Resume ID</Form.Label>
+                      <Form.Control type="search" name="resumeID" onChange={handleChange}/>
+                    </Col>
                     <Col sm="3" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
                       <Form.Label column/>
                       <Button type="Submit" variant="primary" onClick={getData}>Search</Button>
