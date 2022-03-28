@@ -21,6 +21,8 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
 import Footer from "../components/Footer/Footer";
 import BasicinfoModalForm from "../components/Modal/BasicinfoModalForm";
+import CompanyInfoModalForm from "../components/Modal/ComanyInfoModalForm";
+
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
 function Profile(props) {
@@ -35,7 +37,8 @@ function Profile(props) {
   const handleCloseCompanyInfo = () => setShowCompanyInfo(false);
   const handleShowCompanyInfo = () => setShowCompanyInfo(true);
 
-  const client_id = props.clientid;
+  const clientemail = props.clientemail;
+  console.log("client email",clientemail)
   //  this.state = {
   //       apiResponse: [],
   //       startDate: "",
@@ -58,9 +61,9 @@ function Profile(props) {
     }));
   }
   function loadData() {
-
+    let postData = { clientemail: clientemail };
     axios
-      .get(configData.express_url + "bgProfile/GetUserProfile/" + client_id)
+      .post(configData.express_url + "bgProfile/GetUserProfile",postData)
       .then((res) => {
         //this.setState({ apiResponse: res.data[0] });
         updatePageState(() => ({ ...pageState, ReportData: res.data[0] }));
@@ -77,8 +80,7 @@ function Profile(props) {
         <Modal.Body>
           <BasicinfoModalForm pageState={pageState} />
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
+       
       </Modal>
 
       <Modal show={BasicCompanyModalshow} onHide={handleCloseCompanyInfo}>
@@ -86,10 +88,9 @@ function Profile(props) {
           <Modal.Title>Company Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <BasicinfoModalForm />
+          <CompanyInfoModalForm pageState={pageState}/>
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
+
       </Modal>
 
       <Layout />
@@ -261,7 +262,7 @@ function Profile(props) {
                     <div className="col-md-6">
                       <div className="text-left mb-1">
                         <h6 className="mb-1">Name</h6>
-                        <p className="f-14">{pageState.ReportData.client_name}</p>
+                        <p className="f-14">{pageState.ReportData.client_name}</p> 
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -304,7 +305,7 @@ function Profile(props) {
                     <div className="col-sm-6 col-md-4">
                       <div className="text-left mb-1">
                         <h6 className="mb-1">City</h6>
-                        <p className="f-14">{pageState.ReportData.address}</p>
+                        <p className="f-14">Test</p>
                       </div>
                     </div>
                     <div className="col-sm-6 col-md-4">
@@ -325,7 +326,6 @@ function Profile(props) {
                         <p className="mb-1 f-14">Monthly</p>
                       </div>
                     </div>
-
                     <div className="col-md-4">
                       <div className="text-left mb-1">
                         <h6 className="mb-1">Valid Till</h6>
@@ -337,7 +337,6 @@ function Profile(props) {
               </div>
             </div>
           </div>
-
         </Container>
       </div>
       <Footer />

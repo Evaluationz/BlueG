@@ -27,6 +27,7 @@ function App() {
   const [formState, updateFormState] = useState(initialFormState);
   const [user, updateUser] = useState(null);
   const [clientid, updateClientId] = useState(null);
+  const [clientemail, updateEmailId] = useState(null);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [validatesignIn, setValidatedSignIn] = useState(false);
@@ -35,6 +36,7 @@ function App() {
   const [contactValidity, setContactValidity] = useState(false);
   const [confirmationcodeValidity, setConfirmationcodeValidity] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
+ // const [logininfo, setUserLoginInfo] = useState()
 
   const signUp = (event) => {
     event.preventDefault();
@@ -73,9 +75,12 @@ function App() {
         var postData = { email: user.attributes.email }
         let clientDetails = await axios.post(url + "client/getClientId", postData)
         let kompass_id = clientDetails.data.client_id
+        let email_id = clientDetails.data.client_email
         if (kompass_id !== "undifined" && kompass_id !== '') {
-          updateClientId(kompass_id)
+          updateClientId(kompass_id);
+          updateEmailId(email_id)
         }
+        
 
         updateUser(user)
         updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
@@ -241,6 +246,10 @@ function App() {
       const { username, password } = formState;
       await Auth.signIn(username, password);
       updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
+     // setUserLoginInfo(username,password)
+      // store the user in localStorage
+      // localStorage.setItem('user', username,password)
+      // console.log(username,password)
     }
     setValidatedSignIn(true);
   }
@@ -533,7 +542,7 @@ function App() {
                                       </Form.Control.Feedback>
 
                                       <div className="row mt-1">
-                                        <div className="col-6">
+                                        {/* <div className="col-6">
                                           <div className="form-check pl-0">
                                             <input className="form-check-input ml-0"
                                                    type="checkbox"
@@ -541,8 +550,8 @@ function App() {
                                             <label className="form-check-label f-14"
                                                    htmlFor="flexCheckDefault"> Remember me </label>
                                           </div>
-                                        </div>
-                                        <div className="col-6">
+                                        </div> */}
+                                        <div className="col-12">
                                           <div className="mb-2 d-flex justify-content-end align-items-end">
                                             <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
                                           </div>
@@ -575,7 +584,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Dashboard clientid={clientid} />} />
                 <Route path="dashboard" element={<Dashboard clientid={clientid} />} />
-                <Route path="profile" element={<Profile clientid={clientid} />} />
+                <Route path="profile" element={<Profile clientemail={clientemail} />} />
                 <Route path="reportDownload" element={<ReportDownload clientid={clientid} />} />
               </Routes>
           )

@@ -1,107 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom";
-import { Form, Modal, Button, FormControl, Row, Col, Card } from 'react-bootstrap';
+import axios from "axios";
+import configData from "../../config/index.json"
+import { Form, Modal, Button, FormControl, Row, Col, Card, Alert, Container } from 'react-bootstrap';
+
+
+const alertSettings = {
+    variant: '', msg: '', alertStatus: false
+};
+const BasicinfoModalForm = (props) => {
+    const [alertState, updateAlertState] = useState(alertSettings);
+    const pageState = props.pageState.ReportData
+
+    const [formState, updateFormState] = useState(pageState);
+    const { alertStatus, variant, msg } = alertState;
+    async function updateBasicInfo() {
+
+        let url = configData.express_url;
+        const postData = { contactno: formState.contact_no, email: formState.email, name: formState.client_name };
+        axios.post(url + "bgProfile/UpdateBasicInfo", postData)
+            .then(res => {
+                var msg = 'Update Successfully';
+                updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }));
+                setTimeout(() => {
+                    updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+                }, 3000);
+            })
+    }
 
 
 
-const BasicinfoModalForm = (props,{ onSubmit }) => {
-    const { pageState } = props
+    function handleChange(e) {
+        updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
+    }
 
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
     return (
-        <Row>
-            <Col>
-                <Form onSubmit={onSubmit}>
-                    <Form.Group className="mb-1">
-                        <div className="row align-items-center ">
-                            <div className="col-lg-12 pb-3">
-                                <Form.Label className="mb-0">Email Id</Form.Label>
-                                <FormControl name='email' type='email' required placeholder="Email id" value={pageState.ReportData.client_name} />
-                            </div>
-                            <div className="col-lg-12 pb-1">
-                                <Form.Label className="mb-0">Name</Form.Label>
-                                <FormControl name='name' required type='text' placeholder="Name" />
-                            </div>
-                            <div className="col-lg-12 pb-1">
-                                <Form.Label className="mb-0">Contact Number</Form.Label>
-                                <FormControl name='contactno' required type='number' placeholder="Contact Number" />
-                            </div>
-                            <div className="col-lg-12 py-3">
-                                <Button className='btn-blue' type="submit"  >Update</Button>
-                            </div>
-                        </div>
-                    </Form.Group>
-                </Form>
+        <>
+            <div>
+                <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                <Row>
+                    <Col>
+                        <Form onSubmit={updateBasicInfo}>
+                            <Form.Group className="mb-1">
+                                <div className="row align-items-center ">
 
-            </Col>
-        </Row>
-
+                                    <div className="col-lg-12 pb-1">
+                                        <Form.Label className="mb-0">Email</Form.Label>
+                                        <FormControl name='email' required type='text' defaultValue={formState.email} readOnly={true} />
+                                    </div>
+                                    <div className="col-lg-12 pb-1">
+                                        <Form.Label className="mb-0">Name</Form.Label>
+                                        <FormControl name='client_name' required type='text' defaultValue={formState.client_name} placeholder="Name" onChange={handleChange} />
+                                    </div>
+                                    <div className="col-lg-12 pb-1">
+                                        <Form.Label className="mb-0">Contact Number</Form.Label>
+                                        <FormControl name='contact_no' required type='number' defaultValue={formState.contact_no} onChange={handleChange} />
+                                    </div>
+                                    <div className="col-lg-12 pt-3">
+                                        <Button className='btn-blue float-right' type="submit">Update</Button>
+                                    </div>
+                                </div>
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+            </div>
+        </>
     );
 };
 
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { Routes, Route } from "react-router-dom";
-// import { Form, Modal, Button, FormControl, Row, Col, Card } from 'react-bootstrap';
-
-
-// function BasicinfoModal(props) {
-//     const [show, setBasicmodal] =props;
-//      const handleClose = () => setBasicmodal(false);
-//      const handleShow = () => setBasicmodal(true);
-
-//     return (
-//         <>
-//             <Modal show={show} onHide={handleClose}>
-//                 <Modal.Header closeButton>
-//                     <Modal.Title>Modal heading</Modal.Title>
-//                 </Modal.Header>
-//                 <Modal.Body>
-//                     <Row>
-//                         <Col>
-//                             <Card border="light" className='shadow rounded password-card'>
-//                                 <Card.Body>
-//                                     <Form.Group className="mb-1">
-//                                         <div className="row align-items-center ">
-//                                             <div className="col-lg-12 pb-3">
-//                                                 <Form.Label className="mb-0">Email Id</Form.Label>
-//                                                 <FormControl name='email' type='email' required placeholder="Email id" />
-//                                             </div>
-//                                             <div className="col-lg-12 pb-1">
-//                                                 <Form.Label className="mb-0">Name</Form.Label>
-//                                                 <FormControl name='name' required type='text' placeholder="Name" />
-//                                             </div>
-//                                             <div className="col-lg-12 pb-1">
-//                                                 <Form.Label className="mb-0">Contact Number</Form.Label>
-//                                                 <FormControl name='contactno' required type='number' placeholder="Contact Number" />
-//                                             </div>
-//                                             <div className="col-lg-12 py-3">
-//                                                 <Button variant="primary" type="submit"  >Submit</Button>
-//                                             </div>
-//                                         </div>
-//                                     </Form.Group>
-//                                 </Card.Body>
-//                             </Card>
-//                         </Col>
-//                     </Row>
-//                 </Modal.Body>
-//                 <Modal.Footer>
-//                     <Button variant="secondary" onClick={handleClose}>
-//                         Close
-//                     </Button>
-//                     <Button variant="primary" onClick={handleClose}>
-//                         Save Changes
-//                     </Button>
-//                 </Modal.Footer>
-//             </Modal>
-//         </>
-//     );
-// }
 
 export default BasicinfoModalForm;
