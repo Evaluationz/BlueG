@@ -139,11 +139,6 @@ function ReportDownload(props) {
                 <Form method="POST">
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
                     <Col sm="3">
-                      <Form.Label column>By Resume ID</Form.Label>
-                      <Form.Control type="search" name="resumeID"/>
-                    </Col>
-
-                    <Col sm="3">
                       <Form.Label column>From Date</Form.Label>
                       <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
                     </Col>
