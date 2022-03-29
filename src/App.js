@@ -9,6 +9,7 @@ import Contract from "./components/Contract"
 import configData from "./config/index.json"
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { useCookies } from 'react-cookie';
 
 import './App.css';
 

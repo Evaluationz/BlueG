@@ -38,6 +38,19 @@ jQuery(function ($) {
         }
     });
 
+     $("#changepassword").validate({
+        rules: {
+            new_password: "required",
+            cnf_password: {
+                equalTo: "#new_password"
+            }
+        },
+        messages: {
+            new_password: " Enter Password",
+            cnf_password: " Enter Confirm Password Same as Password"
+        }
+    });
+    
 
     /*Refresh Page click on Browser back button*/
     window.onpopstate = function () {
