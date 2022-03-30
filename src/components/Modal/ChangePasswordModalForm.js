@@ -5,15 +5,20 @@ import { Form, Button, FormControl, Row, Col, Card, Alert } from 'react-bootstra
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
+import { Auth } from 'aws-amplify';
+
 const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
+
+const initialFormState = { oldPassword:'',newPassword:'',matchPassword:'' }
 
 const ChangePasswordModalForm = () => {
     const [alertState, updateAlertState] = useState(alertSettings);
     const [passwordValidity, setPasswordValidity] = useState(false);
     const [cnfpasswordValidity, setcnfPasswordValidity] = useState(false);
     const { alertStatus, variant, msg } = alertState;
+    const [formState, updateFormState] = useState(initialFormState);
 
     
   const [values, setValues] = React.useState({
@@ -29,8 +34,20 @@ const ChangePasswordModalForm = () => {
     event.preventDefault();
   };
 
+  async function changePassword(){
+    const { oldPassword, newPassword } = formState;
+    Auth.currentAuthenticatedUser()
+    .then(user => {
+        return Auth.changePassword(user,oldPassword,newPassword);
+    })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+
+  }
+
   function onChange(e) {
     e.persist();
+    updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
     if (e.target.name === 'current_password') {
       var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
       if (e.target.value.match(paswd)) {
@@ -73,14 +90,14 @@ const ChangePasswordModalForm = () => {
                             <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-1">
                                     <Form.Label className="mb-0">Current Password</Form.Label>
-                                    <FormControl name='current_password' maxLength={15}   type={values.showPassword ? "text" : "password"} onChange={onChange}/>
+                                    <FormControl name='oldPassword' maxLength={15}   type={values.showPassword ? "text" : "password"} onChange={onChange}/>
                                     <i className="toggle-password" onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                 </div>
 
                                 <div className="col-lg-12 pb-1">
                                     <Form.Label className="mb-0">New password</Form.Label>
-                                    <FormControl name='new_password' maxLength={15} required isInvalid={passwordValidity}  id="new_password"  type={values.showPassword ? "text" : "password"} onChange={onChange}/>
+                                    <FormControl name='matchPassword' maxLength={15} required isInvalid={passwordValidity}  id="new_password"  type={values.showPassword ? "text" : "password"} onChange={onChange}/>
                                     <i className="toggle-password" onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                     <Form.Control.Feedback type="invalid" className="text-left">
@@ -89,7 +106,7 @@ const ChangePasswordModalForm = () => {
                                 </div>
                                 <div className="col-lg-12 pb-1">
                                     <Form.Label className="mb-0">Confirm password</Form.Label>
-                                    <FormControl name='cnf_password' maxLength={15} required  isInvalid={cnfpasswordValidity} id="cnf_password"  type={values.showPassword ? "text" : "password"} onChange={onChange}/>
+                                    <FormControl name='newPassword' maxLength={15} required  isInvalid={cnfpasswordValidity} id="cnf_password"  type={values.showPassword ? "text" : "password"} onChange={onChange}/>
                                     <i className="toggle-password" onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                     <Form.Control.Feedback type="invalid" className="text-left">
@@ -97,7 +114,7 @@ const ChangePasswordModalForm = () => {
                                     </Form.Control.Feedback>
                                 </div>
                                 <div className="col-lg-12 pt-3">
-                                    <Button className='btn-blue float-right' type="submit">Change Password</Button>
+                                    <Button className='btn-blue float-right' type="submit" onClick={changePassword}>Change Password</Button>
                                 </div>
                             </div>
                         </Form.Group>
