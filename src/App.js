@@ -9,7 +9,8 @@ import Contract from "./components/Contract"
 import configData from "./config/index.json"
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { useCookies } from 'react-cookie';
+
+
 
 import './App.css';
 
@@ -37,6 +38,7 @@ function App() {
   const [contactValidity, setContactValidity] = useState(false);
   const [confirmationcodeValidity, setConfirmationcodeValidity] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
+  
  // const [logininfo, setUserLoginInfo] = useState()
 
   const signUp = (event) => {
@@ -254,6 +256,7 @@ function App() {
     }
     setValidatedSignIn(true);
   }
+
 
   async function resetPassword(e) {
     e.preventDefault();
@@ -543,15 +546,15 @@ function App() {
                                       </Form.Control.Feedback>
 
                                       <div className="row mt-1">
-                                        {/* <div className="col-6">
+                                        <div className="col-6">
                                           <div className="form-check pl-0">
-                                            <input className="form-check-input ml-0"
+                                            <input  className="form-check-input ml-0"
                                                    type="checkbox"
                                                    value="" id="flexCheckDefault"/>
                                             <label className="form-check-label f-14"
                                                    htmlFor="flexCheckDefault"> Remember me </label>
                                           </div>
-                                        </div> */}
+                                        </div>
                                         <div className="col-12">
                                           <div className="mb-2 d-flex justify-content-end align-items-end">
                                             <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
