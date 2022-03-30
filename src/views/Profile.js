@@ -244,14 +244,14 @@ function Profile(props) {
           <div className="row">
             <div className="col-md-4">
               <div className="card card-profile">
-                <div className="card-header"></div>
+                <div className="card-header border-0 shadow-none"> </div>
                 <div className="card-body text-center">
                   <div className="profile-img-block">
                     <img src="./images/user.png" className="card-profile-img" />
 
-                    <a className="edit-camera-icon">
+                    {/*<a className="edit-camera-icon">
                       <i className="mdi mdi-camera cursor-pointer"></i>
-                    </a>
+                    </a>*/}
                   </div>
 
                   <h4 className="mb-1">{pageState.ReportData.client_name}</h4>
