@@ -16,7 +16,7 @@ import './App.css';
 import { Auth, Hub } from 'aws-amplify';
 
 const initialFormState = {
-  username: '', cin: '', address: '', contactno: '', companyname: '', postion_coords: '', password: '', authCode: '', checkConfirm: false, formType: 'singIn'
+  rememberme:'', username: '', cin: '', address: '', contactno: '', companyname: '', postion_coords: '', password: '', authCode: '', checkConfirm: false, formType: 'singIn'
 };
 
 const alertSettings = {
@@ -244,9 +244,16 @@ function App() {
       event.stopPropagation();
     }
     else {
-      const { username, password } = formState;
+       const { username, password,rememberme } = formState;
       await Auth.signIn(username, password);
       updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
+      if(rememberme === 'on'){
+        try{
+          const result = await Auth.rememberDevice();
+          }catch (error) {
+              console.log('Error remembering device', error)
+          }
+      }
      // setUserLoginInfo(username,password)
       // store the user in localStorage
       // localStorage.setItem('user', username,password)
@@ -543,15 +550,15 @@ function App() {
                                       </Form.Control.Feedback>
 
                                       <div className="row mt-1">
-                                        {/* <div className="col-6">
+                                        <div className="col-6">
                                           <div className="form-check pl-0">
                                             <input className="form-check-input ml-0"
                                                    type="checkbox"
-                                                   value="" id="flexCheckDefault"/>
+                                                   name="rememberme" onChange={onChange} id="flexCheckDefault"/>
                                             <label className="form-check-label f-14"
                                                    htmlFor="flexCheckDefault"> Remember me </label>
                                           </div>
-                                        </div> */}
+                                        </div>
                                         <div className="col-12">
                                           <div className="mb-2 d-flex justify-content-end align-items-end">
                                             <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
