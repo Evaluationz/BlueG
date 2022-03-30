@@ -6868,3 +6868,30 @@ table tr td .btn:hover{
 .toggle-password .MuiSvgIcon-root{
   font-size: 1.2rem;
 }
+
+/*Loader CSS*/
+.loader-container{
+  position: absolute;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.loader-container .loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3e72fe;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+@media screen and (min-width: 1280px){
+  .loader-container{
+    max-width: 100% !important;
+  }
+}
+@keyframes spin {
+  0%  { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
