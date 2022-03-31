@@ -249,7 +249,7 @@ function App() {
        const { username, password,rememberme } = formState;
       await Auth.signIn(username, password);
       updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
-      if(rememberme === 'on'){
+      if(rememberme==='on'){
         try{
           const result = await Auth.rememberDevice();
           }catch (error) {
