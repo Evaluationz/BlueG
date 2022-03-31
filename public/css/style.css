@@ -6811,6 +6811,10 @@ a.c-blue{
 
 
 /*Table CSS*/
+.react-bootstrap-table{
+  overflow: auto;
+  margin-bottom: 1rem;
+}
 table tr th{
   font-size: 13px;
   font-weight: 600;
@@ -6894,4 +6898,10 @@ table tr td .btn:hover{
 @keyframes spin {
   0%  { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+/*High Chart UI*/
+.highcharts-credits{
+  display: none;
 }

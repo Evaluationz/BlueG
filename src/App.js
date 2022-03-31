@@ -567,7 +567,7 @@ function App() {
                                                          htmlFor="flexCheckDefault"> Remember me </label>
                                                 </div>
                                               </div>
-                                              <div className="col-12">
+                                              <div className="col-6">
                                                 <div className="mb-2 d-flex justify-content-end align-items-end">
                                                   <a onClick={forgotPassword} className="c-blue cursor-pointer f-14 font-bold">Forgot Password?</a>
                                                 </div>
