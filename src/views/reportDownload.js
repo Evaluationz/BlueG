@@ -76,7 +76,7 @@ function ReportDownload(props) {
 
   const columns = [{
     dataField: "SI No",
-    text: "SI NO",
+    text: "#",
     formatter: (cell, row, rowIndex, formatExtraData) => {
       return rowIndex + 1;
     },
@@ -88,16 +88,16 @@ function ReportDownload(props) {
     },
     {
       dataField: "candidate_name",
-      text: "Candidate Name"
+      text: "Candidate"
     },
     {
       dataField: "client_name",
-      text: "Client Name",
+      text: "Client",
       sort: true
     },
     {
       dataField: "subclient_name",
-      text: "SubClient Name"
+      text: "SubClient"
     },
     {
       dataField: "profile_desc",
@@ -105,11 +105,11 @@ function ReportDownload(props) {
     },
     {
       dataField: "submission_date",
-      text: "Submission date"
+      text: "Submission Date"
     },
     {
       dataField: "completion_date",
-      text: "Completion date"
+      text: "Completion Date"
     },
     {
       dataField: "",

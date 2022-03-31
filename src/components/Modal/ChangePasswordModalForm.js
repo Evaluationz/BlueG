@@ -21,11 +21,32 @@ const ChangePasswordModalForm = () => {
     const [formState, updateFormState] = useState(initialFormState);
 
     
+  const [currentvalues, setCurrentValues] = React.useState({
+    password: "",
+    showCurrentPassword: false,
+  });
+  const [newvalues, setNewValues] = React.useState({
+    password: "",
+    showNewPassword: false,
+  });
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
   });
+  
 
+  const handleClickShowCurrentPassword = () => {
+    setCurrentValues({ ...currentvalues, showCurrentPassword: !currentvalues.showCurrentPassword });
+  };
+  const handleMouseDownCurrentPassword = (event) => {
+    event.preventDefault();
+  };
+  const handleClickShowNewPassword = () => {
+    setNewValues({ ...newvalues, showNewPassword: !newvalues.showNewPassword });
+  };
+  const handleMouseDownNewPassword = (event) => {
+    event.preventDefault();
+  };
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
@@ -40,7 +61,14 @@ const ChangePasswordModalForm = () => {
     .then(user => {
         return Auth.changePassword(user,oldPassword,newPassword);
     })
-    .then(data => console.log(data))
+    .then(data => {
+      updateFormState(() => ({ ...formState, formType: 'newPassword' }));
+      var msg = 'Password Changed Successfully';
+      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }));
+      setTimeout(() => {
+        updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+      }, 3000);
+    })
     .catch(err => console.log(err));
 
   }
@@ -90,16 +118,16 @@ const ChangePasswordModalForm = () => {
                             <div className="row align-items-center ">
                                 <div className="col-lg-12 pb-1">
                                     <Form.Label className="mb-0">Current Password</Form.Label>
-                                    <FormControl name='oldPassword' maxLength={15}   type={values.showPassword ? "text" : "password"} onChange={onChange}/>
-                                    <i className="toggle-password" onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                    <FormControl name='oldPassword' maxLength={15}   type={currentvalues.showCurrentPassword ? "text" : "password"} onChange={onChange}/>
+                                    <i className="toggle-password" onClick={handleClickShowCurrentPassword}
+                                    onMouseDown={handleMouseDownCurrentPassword}>{currentvalues.showCurrentPassword ? <Visibility /> : <VisibilityOff />}</i>
                                 </div>
 
                                 <div className="col-lg-12 pb-1">
                                     <Form.Label className="mb-0">New password</Form.Label>
-                                    <FormControl name='matchPassword' maxLength={15} required isInvalid={passwordValidity}  id="new_password"  type={values.showPassword ? "text" : "password"} onChange={onChange}/>
-                                    <i className="toggle-password" onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                    <FormControl name='matchPassword' maxLength={15} required isInvalid={passwordValidity}  id="new_password"  type={newvalues.showNewPassword ? "text" : "password"} onChange={onChange}/>
+                                    <i className="toggle-password" onClick={handleClickShowNewPassword}
+                                    onMouseDown={handleMouseDownNewPassword}>{newvalues.showNewPassword ? <Visibility /> : <VisibilityOff />}</i>
                                     <Form.Control.Feedback type="invalid" className="text-left">
                                         Password between 7 to 15 characters which contain at least one numeric digit and a special character.
                                     </Form.Control.Feedback>
