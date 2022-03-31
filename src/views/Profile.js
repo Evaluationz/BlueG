@@ -267,25 +267,25 @@ function Profile(props) {
                   <div className="row">
                     {/* <div className="col-md-12">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">About Me</h6>
+                        <h6 className="mb-0 f-14 font-bold">About Me</h6>
                         <p className="f-14">About Me section</p>
                       </div>
                     </div> */}
                     <div className="col-md-6">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Name</h6>
+                        <p className="mb-0 f-14 font-bold">Name</p>
                         <p className="f-14">{pageState.ReportData.client_name}</p> 
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Email</h6>
+                        <p className="mb-0 f-14 font-bold">Email</p>
                         <p className="f-14">{pageState.ReportData.email}</p>
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Contact Number</h6>
+                        <p className="mb-0 f-14 font-bold">Contact Number</p>
                         <p className="mb-1 f-14">{pageState.ReportData.contact_no}</p>
                       </div>
                     </div>
@@ -304,43 +304,43 @@ function Profile(props) {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Company Name</h6>
+                        <p className="mb-0 f-14 font-bold">Company Name</p>
                         <p className="f-14">{pageState.ReportData.client_name}</p>
                       </div>
                     </div>
                     <div className="col-md-12">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Address</h6>
+                        <p className="mb-0 f-14 font-bold">Address</p>
                         <p className="f-14">{pageState.ReportData.address}</p>
                       </div>
                     </div>
                     <div className="col-sm-6 col-md-4">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">City</h6>
+                        <p className="mb-0 f-14 font-bold">City</p>
                         <p className="f-14">Test</p>
                       </div>
                     </div>
                     <div className="col-sm-6 col-md-4">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">ZIP</h6>
+                        <p className="mb-0 f-14 font-bold">ZIP</p>
                         <p className="f-14">560064</p>
                       </div>
                     </div>
                     <div className="col-sm-6 col-md-4">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Country</h6>
+                        <p className="mb-0 f-14 font-bold">Country</p>
                         <p className="f-14">India</p>
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Tier</h6>
+                        <p className="mb-0 f-14 font-bold">Tier</p>
                         <p className="mb-1 f-14">Monthly</p>
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="text-left mb-1">
-                        <h6 className="mb-1">Valid Till</h6>
+                        <p className="mb-0 f-14 font-bold">Valid Till</p>
                         <p className="mb-1 f-14">26-April-2022</p>
                       </div>
                     </div>
