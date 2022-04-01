@@ -380,9 +380,12 @@ function App() {
                                             </Form.Control.Feedback>
                                           </div>
                                           <div className="col-12 pt-2">
-                                            <a className="float-left c-blue font-bold cursor-pointer mt-2" onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back To Sign In</a>
-                                            <a className="float-right c-blue font-bold cursor-pointer mt-2" onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'signUpNext' }))}}>Next<i className="mdi mdi-chevron-right"></i></a>
-
+                                            <a className="float-left c-blue font-bold cursor-pointer mt-2"
+                                               onClick={Backtosignin}><i className="mdi mdi-chevron-left"></i>Back To Sign In
+                                            </a>
+                                            <a className="float-right c-blue font-bold cursor-pointer mt-2"
+                                               onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'signUpNext' }))}}>Next<i className="mdi mdi-chevron-right"></i>
+                                            </a>
                                           </div>
                                         </div>
                                       </Form.Group>
@@ -454,7 +457,11 @@ function App() {
 
                                           <div className="col-lg-12 pb-3">
                                           <Form.Label className="mb-0">Contact No</Form.Label>
-                                            <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm" type='number'  onChange={onChange} />
+                                            <InputGroup className="p-0">
+                                              <InputGroup.Text id="basic-addon1" className="shadow-sm f-14">+91</InputGroup.Text>
+                                              <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-sm" type='number' onChange={onChange} />
+                                            </InputGroup>
+
                                             <Form.Control.Feedback type="invalid" className="text-left">
                                               Please provide a valid contact number.
                                             </Form.Control.Feedback>

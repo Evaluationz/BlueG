@@ -158,11 +158,14 @@ body {
   border: 1px solid #e1e1e1;
 }
 
-p {
+p, label {
   color: #000000;
   line-height: 1.6;
 }
-
+.highcharts-title{
+  color: #000000 !important;
+  fill: #000000 !important;
+}
 a {
   color: #7684ea;
   text-decoration: none;
@@ -741,7 +744,7 @@ button:focus, button:active {
 
 .form-control {
   padding: 15px 25px;
-  color: #000;
+  color: #000 !important;
   font-size: 15px;
   background-color: #f4f8ff;
   height: auto;

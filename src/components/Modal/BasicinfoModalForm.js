@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import configData from "../../config/index.json"
-import { Form, Modal, Button, FormControl, Row, Col, Card, Alert, Container } from 'react-bootstrap';
+import {Form, Modal, Button, FormControl, Row, Col, Card, Alert, Container, InputGroup} from 'react-bootstrap';
 
 
 const alertSettings = {
@@ -53,7 +53,10 @@ const BasicinfoModalForm = (props) => {
                                     </div>
                                     <div className="col-lg-12 pb-2">
                                         <Form.Label className="mb-0 f-14">Contact Number</Form.Label>
-                                        <FormControl name='contact_no' required type='number' defaultValue={formState.contact_no} onChange={handleChange} className="f-14"/>
+                                        <InputGroup className="p-0">
+                                            <InputGroup.Text id="basic-addon1" className="shadow-sm f-14">+91</InputGroup.Text>
+                                            <FormControl name='contact_no' required type='number' defaultValue={formState.contact_no} onChange={handleChange} className="f-14"/>
+                                        </InputGroup>
                                     </div>
                                     <div className="col-lg-12 pt-3">
                                         <Button className='btn-blue float-right f-14' type="submit">Update</Button>
