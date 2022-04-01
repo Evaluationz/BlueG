@@ -352,7 +352,7 @@ function App() {
                       </Modal>
 
                       <Container fluid className="bg-block bg-light-gray login-card-block">
-                        <Row>
+                        <Row className="m-0">
                           <Col>
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                             <Card border="light" className='shadow rounded signup-card'>
@@ -532,7 +532,7 @@ function App() {
                           <Col className="py-4">
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                             <Card border="light" className='shadow rounded signin-card'>
-                              <Row>
+                              <Row className="m-0">
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center">
                                     <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
