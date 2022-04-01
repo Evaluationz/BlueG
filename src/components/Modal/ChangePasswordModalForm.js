@@ -116,33 +116,33 @@ const ChangePasswordModalForm = () => {
                     <Form id="changepassword">
                         <Form.Group className="mb-1">
                             <div className="row align-items-center ">
-                                <div className="col-lg-12 pb-1">
-                                    <Form.Label className="mb-0">Current Password</Form.Label>
-                                    <FormControl name='oldPassword' maxLength={15}   type={currentvalues.showCurrentPassword ? "text" : "password"} onChange={onChange}/>
+                                <div className="col-lg-12 pb-2">
+                                    <Form.Label className="mb-0 f-14">Current Password</Form.Label>
+                                    <FormControl name='oldPassword' maxLength={15} type={currentvalues.showCurrentPassword ? "text" : "password"} onChange={onChange}/>
                                     <i className="toggle-password" onClick={handleClickShowCurrentPassword}
                                     onMouseDown={handleMouseDownCurrentPassword}>{currentvalues.showCurrentPassword ? <Visibility /> : <VisibilityOff />}</i>
                                 </div>
 
-                                <div className="col-lg-12 pb-1">
-                                    <Form.Label className="mb-0">New password</Form.Label>
+                                <div className="col-lg-12 pb-2">
+                                    <Form.Label className="mb-0 f-14">New password</Form.Label>
                                     <FormControl name='matchPassword' maxLength={15} required isInvalid={passwordValidity}  id="new_password"  type={newvalues.showNewPassword ? "text" : "password"} onChange={onChange}/>
                                     <i className="toggle-password" onClick={handleClickShowNewPassword}
                                     onMouseDown={handleMouseDownNewPassword}>{newvalues.showNewPassword ? <Visibility /> : <VisibilityOff />}</i>
-                                    <Form.Control.Feedback type="invalid" className="text-left">
+                                    <Form.Control.Feedback type="invalid" className="text-left f-13">
                                         Password between 7 to 15 characters which contain at least one numeric digit and a special character.
                                     </Form.Control.Feedback>
                                 </div>
-                                <div className="col-lg-12 pb-1">
-                                    <Form.Label className="mb-0">Confirm password</Form.Label>
+                                <div className="col-lg-12 pb-2">
+                                    <Form.Label className="mb-0 f-14">Confirm password</Form.Label>
                                     <FormControl name='newPassword' maxLength={15} required  isInvalid={cnfpasswordValidity} id="cnf_password"  type={values.showPassword ? "text" : "password"} onChange={onChange}/>
                                     <i className="toggle-password" onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
-                                    <Form.Control.Feedback type="invalid" className="text-left">
+                                    <Form.Control.Feedback type="invalid" className="text-left f-13">
                                         Password between 7 to 15 characters which contain at least one numeric digit and a special character.
                                     </Form.Control.Feedback>
                                 </div>
                                 <div className="col-lg-12 pt-3">
-                                    <Button className='btn-blue float-right' type="submit" onClick={changePassword}>Change Password</Button>
+                                    <Button className='btn-blue float-right f-14' type="submit" onClick={changePassword}>Change Password</Button>
                                 </div>
                             </div>
                         </Form.Group>

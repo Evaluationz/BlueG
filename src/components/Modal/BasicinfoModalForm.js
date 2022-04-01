@@ -43,21 +43,20 @@ const BasicinfoModalForm = (props) => {
                         <Form onSubmit={updateBasicInfo}>
                             <Form.Group className="mb-1">
                                 <div className="row align-items-center ">
-
-                                    <div className="col-lg-12 pb-1">
-                                        <Form.Label className="mb-0">Email</Form.Label>
-                                        <FormControl name='email' required type='text' defaultValue={formState.email} readOnly={true} />
+                                    <div className="col-lg-12 pb-2">
+                                        <Form.Label className="mb-0 f-14">Email</Form.Label>
+                                        <FormControl name='email' required type='text' defaultValue={formState.email} readOnly={true} className="f-14"/>
                                     </div>
-                                    <div className="col-lg-12 pb-1">
-                                        <Form.Label className="mb-0">Name</Form.Label>
-                                        <FormControl name='client_name' required type='text' defaultValue={formState.client_name} placeholder="Name" onChange={handleChange} />
+                                    <div className="col-lg-12 pb-2">
+                                        <Form.Label className="mb-0 f-14">Name</Form.Label>
+                                        <FormControl name='client_name' required type='text' defaultValue={formState.client_name} placeholder="Name" onChange={handleChange} className="f-14"/>
                                     </div>
-                                    <div className="col-lg-12 pb-1">
-                                        <Form.Label className="mb-0">Contact Number</Form.Label>
-                                        <FormControl name='contact_no' required type='number' defaultValue={formState.contact_no} onChange={handleChange} />
+                                    <div className="col-lg-12 pb-2">
+                                        <Form.Label className="mb-0 f-14">Contact Number</Form.Label>
+                                        <FormControl name='contact_no' required type='number' defaultValue={formState.contact_no} onChange={handleChange} className="f-14"/>
                                     </div>
                                     <div className="col-lg-12 pt-3">
-                                        <Button className='btn-blue float-right' type="submit">Update</Button>
+                                        <Button className='btn-blue float-right f-14' type="submit">Update</Button>
                                     </div>
                                 </div>
                             </Form.Group>

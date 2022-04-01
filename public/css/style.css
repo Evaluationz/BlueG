@@ -6905,3 +6905,20 @@ table tr td .btn:hover{
 .highcharts-credits{
   display: none;
 }
+
+@media screen and (max-width: 767px){
+  .big-screen-block{
+    display: none !important;
+  }
+  .small-screen-block .top-image-block{
+    display: block !important;
+  }
+}
+@media screen and (min-width: 768px){
+  .big-screen-block{
+    display: block !important;
+  }
+  .small-screen-block .top-image-block{
+    display: none !important;
+  }
+}
