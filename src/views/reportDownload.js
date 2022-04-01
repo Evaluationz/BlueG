@@ -149,13 +149,13 @@ function ReportDownload(props) {
                     </Col>
 
                     <Col sm="4">
-                      <Form.Label column className="pb-0 f-14">By Resume ID</Form.Label>
+                      <Form.Label column className="pb-0 f-14">Resume Id</Form.Label>
                       <Form.Control type="search" name="resumeID" onChange={handleChange} className="f-14"/>
                     </Col>
 
                     <Col sm="2" className="mt-4 pt-1" style={{ textAlign: 'right' }}>
                       <Form.Label column/>
-                      <Button type="Submit" variant="primary" onClick={getData} className="f-14">Search</Button>
+                      <Button type="Submit" variant="primary" onClick={getData} className="btn-blue f-14">Search</Button>
                     </Col>
                   </Form.Group>
                 </Form>

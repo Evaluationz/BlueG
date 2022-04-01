@@ -6821,11 +6821,14 @@ table tr th{
   vertical-align: middle;
   text-align: left;
 }
-table tr th:first-child,
+
 table tr td:last-child,
-table tr td:first-child,
 table tr td:last-child{
   text-align: center;
+}
+table tr th:first-child,
+table tr td:first-child{
+  text-align: right;
 }
 table tr td{
   font-size: 13px;
