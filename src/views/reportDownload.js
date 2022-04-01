@@ -139,22 +139,23 @@ function ReportDownload(props) {
                 <Form method="POST">
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
                     <Col sm="3">
-                      <Form.Label column>From Date</Form.Label>
-                      <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} />
+                      <Form.Label column className="pb-0 f-14">From Date</Form.Label>
+                      <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} className="f-14"/>
                     </Col>
 
                     <Col sm="3">
-                      <Form.Label column>To Date</Form.Label>
-                      <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} />
+                      <Form.Label column className="pb-0 f-14">To Date</Form.Label>
+                      <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} className="f-14"/>
                     </Col>
 
-                    <Col sm="3">
-                      <Form.Label column>By Resume ID</Form.Label>
-                      <Form.Control type="search" name="resumeID" onChange={handleChange}/>
+                    <Col sm="4">
+                      <Form.Label column className="pb-0 f-14">By Resume ID</Form.Label>
+                      <Form.Control type="search" name="resumeID" onChange={handleChange} className="f-14"/>
                     </Col>
-                    <Col sm="3" className="mt-4 pt-2" style={{ textAlign: 'right' }}>
+
+                    <Col sm="2" className="mt-4 pt-1" style={{ textAlign: 'right' }}>
                       <Form.Label column/>
-                      <Button type="Submit" variant="primary" onClick={getData}>Search</Button>
+                      <Button type="Submit" variant="primary" onClick={getData} className="f-14">Search</Button>
                     </Col>
                   </Form.Group>
                 </Form>

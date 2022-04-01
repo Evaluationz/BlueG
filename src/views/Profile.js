@@ -80,7 +80,7 @@ function Profile(props) {
     <>
       <Modal show={BasicInfoModalshow} onHide={handleCloseBasicInfo}>
         <Modal.Header closeButton>
-          <Modal.Title>Basic Information</Modal.Title>
+          <Modal.Title className="f-20">Basic Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <BasicinfoModalForm pageState={pageState} />
@@ -89,7 +89,7 @@ function Profile(props) {
 
       <Modal show={BasicCompanyModalshow} onHide={handleCloseCompanyInfo}>
         <Modal.Header closeButton>
-          <Modal.Title>Company Information</Modal.Title>
+          <Modal.Title className="f-20">Company Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <CompanyInfoModalForm pageState={pageState}/>
@@ -98,7 +98,7 @@ function Profile(props) {
 
       <Modal show={ChangePasswordModalshow} onHide={handleCloseChangePassword}>
         <Modal.Header closeButton>
-          <Modal.Title>Change password</Modal.Title>
+          <Modal.Title className="f-20">Change password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ChangePasswordModalForm/>

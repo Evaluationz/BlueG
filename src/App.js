@@ -357,11 +357,16 @@ function App() {
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                             <Card border="light" className='shadow rounded signup-card'>
                               <Row>
-                                <Col>
+                                <Col className="col-md-4 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center">
                                     <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
                                   </Card.Body>
-                                  <Card.Body className="d-flex align-items-center justify-content-center py-0">
+                                </Col>
+                                <Col className="col-md-8 px-4 bg-light small-screen-block">
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                                    <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
+                                  </Card.Body>
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h6 className="mb-0" style={{ fontWeight: '600' }}>
                                       SIGN UP with BlueG
                                     </h6>
@@ -475,9 +480,9 @@ function App() {
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                             <Card border="light" className='shadow rounded password-card'>
                               <Card.Body className="d-flex align-items-center justify-content-center pt-3 pb-1">
-                                <h5 className="mb-0" style={{ fontWeight: '600' }}>
+                                <h6 className="mb-0" style={{ fontWeight: '600' }}>
                                   Change Password
-                                </h5>
+                                </h6>
                               </Card.Body>
                               <Card.Body>
                                 <Form.Group className="mb-1">
@@ -524,15 +529,20 @@ function App() {
                     <div>
                       <Container fluid className="bg-block bg-light-gray login-card-block">
                         <Row>
-                          <Col>
+                          <Col className="py-4">
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                             <Card border="light" className='shadow rounded signin-card'>
                               <Row>
-                                <Col>
+                                <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center">
                                     <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
                                   </Card.Body>
-                                  <Card.Body className="d-flex align-items-center justify-content-center py-0">
+                                </Col>
+                                <Col className="col-md-7 px-4 bg-light small-screen-block">
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                                    <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} /><Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />
+                                  </Card.Body>
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h6 className="mb-0" style={{ fontWeight: '600' }}>
                                       SIGN IN with BlueG
                                     </h6>
