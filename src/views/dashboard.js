@@ -68,8 +68,8 @@ function Dashboard(props) {
       <>
         <Layout />
         <div className="container-fluid body-container mt-70 pt-2">
-          <Container fluid="true" className="my-3" onClick={RedirectToReport}>
-            <Container fluid="true" className="py-3 bg-white shadow-sm">
+          <Container fluid className="my-3" onClick={RedirectToReport}>
+            <Container fluid className="py-3 bg-white shadow-sm">
               <Breadcrumb>
                 <Breadcrumb.Item><i className="mdi mdi-home"/> Dashboard</Breadcrumb.Item>
               </Breadcrumb>

@@ -5,7 +5,7 @@ function Loader() {
 
     return (
         <>
-            <Container fluid="true" className="d-flex align-items-center justify-content-center loader-container">
+            <Container fluid className="d-flex align-items-center justify-content-center loader-container">
                 <p className="loader"> </p>
             </Container>
         </>

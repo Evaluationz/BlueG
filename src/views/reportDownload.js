@@ -127,14 +127,14 @@ function ReportDownload(props) {
       <>
         <Layout />
         <div className="container-fluid body-container mt-70 pt-2">
-          <Container fluid="true" className="my-3">
-            <Container fluid="true" className="py-3 bg-white shadow-sm">
+          <Container fluid className="my-3">
+            <Container fluid className="py-3 bg-white shadow-sm">
               <Breadcrumb>
                 <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
                 <Breadcrumb.Item active>Reports</Breadcrumb.Item>
               </Breadcrumb>
 
-              <Container fluid="true" className="px-0">
+              <Container fluid className="px-0">
                 <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                 <Form method="POST">
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
@@ -161,7 +161,7 @@ function ReportDownload(props) {
                 </Form>
               </Container>
 
-              <Container fluid="true" className="px-0 mt-3">
+              <Container fluid className="px-0 mt-3">
                 <BootstrapTable keyField="case_id"
                                 data={ReportData}
                                 columns={columns}
