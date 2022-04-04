@@ -6,16 +6,35 @@ import {FaHome} from "react-icons/fa"
 import {GiNotebook} from "react-icons/gi"
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import swal from 'sweetalert';
 
 
 
 
 import { Auth } from 'aws-amplify';
+import { useNavigate } from "react-router-dom";
 
 function Layout() {
-    async function signOut(){
-        await Auth.signOut();
-        window.location.reload(false);
+    const navigate = useNavigate();
+
+     function signOut(){
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (value) => {
+            if (value) {
+              await  Auth.signOut();
+              window.location.reload(false);
+             
+            } else {
+              
+            }
+          });
+        //await Auth.signOut();
+        //window.location.reload(false);
     }
 
     return (

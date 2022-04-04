@@ -582,7 +582,7 @@ function App() {
                     </div>
                 )
               }
-              {
+               {
                 formType === 'singIn' && (
                     <div>
                       <Container fluid="true" className="bg-block bg-light-gray login-card-block">
@@ -617,6 +617,55 @@ function App() {
                                             </Form.Control.Feedback>
                                           </div>
 
+                                          
+
+                                          <div className="col-lg-12 py-3">
+                                            <Button className='btn-blue' type='submit' onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singInNext' }))}}>Proceed</Button>
+                                          </div>
+
+                                          <div className="col-lg-12 f-14">
+                                            Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
+                                          </div>
+                                        </div>
+                                      </Form.Group>
+                                    </Form>
+                                  </Card.Body>
+                                </Col>
+                              </Row>
+                            </Card>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </div>
+                )
+              }
+              {
+                formType === 'singInNext' && (
+                    <div>
+                      <Container fluid="true" className="bg-block bg-light-gray login-card-block">
+                        <Row>
+                          <Col className="py-4">
+                            <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                            <Card border="light" className='shadow rounded signin-card'>
+                              <Row className="m-0">
+                                <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
+                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                    <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} />{/*<Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />*/}
+                                  </Card.Body>
+                                </Col>
+                                <Col className="col-md-7 px-4 bg-light small-screen-block">
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                                    <Card.Img variant="top" src={require('./logo-black.png')} style={{ width: '200px' }} />{/*<Card.Img variant="top" src={require('./logo.png')} style={{ width: '35px' }} />*/}
+                                  </Card.Body>
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
+                                    <h6 className="mb-0" style={{ fontWeight: '600' }}>
+                                      SIGN IN with BlueG
+                                    </h6>
+                                  </Card.Body>
+                                  <Card.Body>
+                                    <Form noValidate validated={validatesignIn} onSubmit={signIn}>
+                                      <Form.Group className="">
+                                        <div className="row align-items-center">
                                           <div className="col-lg-12 pb-1">
                                             <Form.Label className="mb-0">Password</Form.Label>
                                             <FormControl name='password' className="shadow-sm" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} />
@@ -645,7 +694,8 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 py-3">
-                                            <Button className='btn-blue' type='submit'> Sign In</Button>
+                                           <Button className='btn-blue float-left'  onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singIn' }))}}>Back</Button>
+                                            <Button className='btn-blue float-right' type='submit'> Sign In</Button>
                                           </div>
 
                                           <div className="col-lg-12 f-14">
