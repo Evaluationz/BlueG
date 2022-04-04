@@ -1,5 +1,6 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');*/
+@import url("https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,800,900&display=swap");
 
 body {
   background-color: #fff;
@@ -7,7 +8,8 @@ body {
   color: #767676;
 }
 *{
-  font-family: 'Montserrat', sans-serif;
+  /*font-family: 'Montserrat', sans-serif;*/
+  font-family: 'Muli', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: none;
 }
@@ -6178,6 +6180,14 @@ select.form-control {
 .c-blue{
   color: #3e72fe;
 }
+.c-blue-link{
+  color: #064666;
+  text-decoration: none;
+}
+.c-blue-link:hover{
+  color: #064666;
+  text-decoration: underline;
+}
 .c-red{
   color: #ff1717;
 }
@@ -6191,6 +6201,9 @@ select.form-control {
 .bg-red{
   background-color: #ff1717 !important;
 }
+.bg-gray{
+  background-color: #f7f7f7 !important;
+}
 .bg-light-gray{
   background-color: #cfd2d3 !important;
 }
@@ -6200,8 +6213,14 @@ select.form-control {
 
 /*Button UI*/
 .btn{
-  font-weight: 500 !important;
-  text-transform: uppercase;
+  border: 1px solid #f68c1f !important;
+  text-align: center;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+  font-size: 12px !important;
+  line-height: 31px !important;
+  padding: 0 14px !important;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
 }
 .btn-red{
   background-color: #ff1717 !important;
@@ -6224,7 +6243,46 @@ select.form-control {
   border-color: #ffffff !important;
   color: #000000 !important;
 }
+.google-button {
+  background-color:#fafafa;
+  flex-direction: row;
+  padding: 10px 10px;
+  border: 1px solid #dddddd;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.google-button img{
+  width: 1.1em;
+  margin-left: 1em;
+}
+.google-button-container div{
+  font-size: 18px;
+}
 
+h2.divide-section {
+  position: relative;
+  z-index: 1;
+}
+h2.divide-section:before{
+  border-top: 1px solid #e8e8e8;
+  content:"";
+  margin: 0 auto;
+  position: absolute;
+  top: 70%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 95%;
+  z-index: -1;
+}
+h2.divide-section span{
+  background: #fff;
+  color: #000000;
+  font-weight: 700;
+  font-size: .4125em;
+}
 /*Image UI*/
 .blue-image-left{
   border-left: 1rem solid #3e72fe;
@@ -6731,7 +6789,7 @@ select.form-control {
   margin-top: 0.1rem;
 }
 .invalid-feedback{
-  font-size: .8rem;
+  font-size: .7rem !important;
 }
 .alert{
   padding: .5rem;
@@ -6967,3 +7025,35 @@ table tr td .btn:hover{
     display: none !important;
   }
 }
+
+/*Label UI*/
+.form-label{
+  color: #231f20 !important;
+  font-size: 0.75em;
+}
+
+/*Input Field UI*/
+.form-control{
+  color: #58595b !important;
+  font-weight: normal !important;
+  border-radius: 0.25rem !important;
+  background: #ffffff !important;
+  border: 1px solid #e6e7e8 !important;
+  font-size: 0.8rem !important;
+}
+.form-control:focus{
+  border: 1px solid #ced4da !important;
+}
+
+/*Placeholder UI*/
+.form-control::placeholder{
+  color: #999999 !important;
+  opacity: 0.6 !important;
+}
+.form-control:-ms-input-placeholder {
+  color: #999999 !important;
+}
+.form-control::-ms-input-placeholder {
+  color: #999999 !important;
+}
+
