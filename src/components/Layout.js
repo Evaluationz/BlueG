@@ -21,7 +21,7 @@ function Layout() {
     return (
         <>
             <Navbar collapseOnSelect variant="dark" expand={true} fixed="top" className="bg-black shadow-sm">
-                <Container fluid="true" className="mx-lg-5">
+                <Container fluid className="mx-lg-5">
                     <Navbar.Brand className="d-flex">
                         <Link className="navbar-brand mr-0"
                               to="/" onClick={() => { window.location.href = "/" }}>
