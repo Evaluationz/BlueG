@@ -107,7 +107,7 @@ function Profile(props) {
 
       <Layout />
       <div className="container-fluid body-container mt-70 pt-2">
-        <Container fluid className="py-3">
+        <Container fluid="true" className="py-3">
 
           {/*<Row>
                   <Col className="col-xl-4">

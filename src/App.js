@@ -332,7 +332,7 @@ function App() {
               {
                 formType === 'signUp' && (
                     <div>
-                      <Container fluid className="bg-block bg-light-gray login-card-block">
+                      <Container fluid="true" className="bg-block bg-light-gray login-card-block">
                         <Row>
                           <Col>
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -423,7 +423,7 @@ function App() {
                         </Modal.Footer>
                       </Modal>
 
-                      <Container fluid className="bg-block bg-light-gray login-card-block">
+                      <Container fluid="true" className="bg-block bg-light-gray login-card-block">
                         <Row className="m-0">
                           <Col className='py-4'>
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -498,7 +498,7 @@ function App() {
               {
                 formType === 'confirmSignUp' && (
                     <div>
-                      <Container fluid className="bg-block bg-light-gray login-card-block">
+                      <Container fluid="true" className="bg-block bg-light-gray login-card-block">
                         <Row>
                           <Col>
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -532,7 +532,7 @@ function App() {
               {
                 formType === 'newPassword' && (
                     <div>
-                      <Container fluid className="bg-block bg-light-gray login-card-block">
+                      <Container fluid="true" className="bg-block bg-light-gray login-card-block">
                         <Row>
                           <Col>
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
@@ -585,7 +585,7 @@ function App() {
               {
                 formType === 'singIn' && (
                     <div>
-                      <Container fluid className="bg-block bg-light-gray login-card-block">
+                      <Container fluid="true" className="bg-block bg-light-gray login-card-block">
                         <Row>
                           <Col className="py-4">
                             <Alert show={alertStatus} variant={variant}>{msg}</Alert>
