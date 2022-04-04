@@ -6747,7 +6747,7 @@ select.form-control {
 }
 
 .shadow-2xl	{
- box-shadow: 0 5px 20px rgb(0 0 0 / 0.7);
+  box-shadow: 0 5px 20px rgb(0 0 0 / 0.7);
 }
 .short-text{
   color: #000000;
@@ -6845,7 +6845,7 @@ table tr td:last-child{
 }
 table tr td .btn,
 table tr td .btn:hover{
- background: none;
+  background: none;
   border: none;
   color: #0d6efd;
   box-shadow: none;
@@ -6882,30 +6882,67 @@ table tr td .btn:hover{
 }
 
 /*Loader CSS*/
-.loader-container{
+.spinner-block{
   position: absolute;
-  width: 100%;
-  max-width: 100%;
   height: 100%;
+  width: 100%;
   left: 0;
   top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.loader-container .loader {
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #3e72fe;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 2s linear infinite;
+.spinner {
+  margin: 100px auto;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  font-size: 10px;
 }
-@media screen and (min-width: 1280px){
-  .loader-container{
-    max-width: 100% !important;
-  }
+
+.spinner > div {
+  background-color: #3e72fe;
+  height: 100%;
+  width: 7px;
+  margin: 3px;
+  display: inline-block;
+  -webkit-animation: sk-stretchdelay 1.4s infinite ease-in-out;
+  animation: sk-stretchdelay 1.4s infinite ease-in-out;
 }
-@keyframes spin {
-  0%  { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+       transform: scaleY(1.0);
+       -webkit-transform: scaleY(1.0);
+     }
 }
 
 
