@@ -11,6 +11,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Loader from "./components/Loader";
 
+
 import './App.scss';
 import './assets/scss/style.scss';
 
@@ -93,7 +94,10 @@ function App() {
         if (kompass_id !== "undifined" && kompass_id !== '') {
           updateClientId(kompass_id);
           updateEmailId(email_id)
+          
         }
+        
+        
 
 
         updateUser(user)
@@ -415,7 +419,7 @@ function App() {
                                     </h4>
                                   </Card.Body>
                                   <Card.Body>
-                                    <div className="col-lg-12">
+                                    {/* <div className="col-lg-12">
                                       <div className="col-lg-12 p-0 form-group">
                                         <div className="google-button img-fluid w-100 cursor-pointer">
                                           <img src={require('./google-icon.png')} alt="google" loading="lazy"/>
@@ -424,12 +428,12 @@ function App() {
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
+                                    </div> */}
                                   </Card.Body>
 
-                                  <div className="col-lg-12 px-4">
+                                  {/* <div className="col-lg-12 px-4">
                                     <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                  </div>
+                                  </div> */}
 
                                   <Card.Body>
                                     <Form noValidate validated={validatesignUp} onSubmit={signUp}>
@@ -723,7 +727,7 @@ function App() {
 
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h4 className="mb-0">
-                                      Verfiy your Account
+                                      Verify your Account
                                     </h4>
                                   </Card.Body>
 
@@ -811,7 +815,7 @@ function App() {
                                     </h4>
                                   </Card.Body>
                                   <Card.Body>
-                                    <div className="col-lg-12">
+                                    {/* <div className="col-lg-12">
                                       <div className="col-lg-12 p-0 form-group">
                                         <div className="google-button img-fluid w-100 cursor-pointer">
                                           <img src={require('./google-icon.png')} alt="google" loading="lazy"/>
@@ -820,12 +824,12 @@ function App() {
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
+                                    </div> */}
                                   </Card.Body>
 
-                                  <div className="col-lg-12 px-4">
+                                  {/* <div className="col-lg-12 px-4">
                                     <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                  </div>
+                                  </div> */}
 
                                   <Card.Body>
                                     <Form noValidate validated={validatesignIn} onSubmit={signIn}>
@@ -964,6 +968,7 @@ function App() {
               {
                 formType === 'confirmSingIn' && (
                     <Routes>
+                      
                       <Route path="/" element={<Dashboard clientid={clientid} />} />
                       <Route path="dashboard" element={<Dashboard clientid={clientid} />} />
                       <Route path="profile" element={<Profile clientemail={clientemail} />} />
