@@ -477,7 +477,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 f-14">
-                                            <span className="f-11">By signing up, you agree to the Moonlyte</span>
+                                            <span className="f-11">By signing up, you agree to the blueG</span>
                                           </div>
 
                                           <div className="col-lg-12 f-14">
@@ -609,7 +609,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 f-14">
-                                            <span className="f-11">By signing up, you agree to the Moonlyte</span>
+                                            <span className="f-11">By signing up, you agree to the blueG</span>
                                           </div>
 
                                           <div className="col-lg-12 f-14">
