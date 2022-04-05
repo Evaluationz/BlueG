@@ -11,7 +11,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Loader from "./components/Loader";
 
-import './App.css';
+import './App.scss';
+import './assets/scss/style.scss';
 
 import { Auth, Hub } from 'aws-amplify';
 import Layout from "./components/Layout";
@@ -339,7 +340,7 @@ function App() {
                             <Card border="light" className='shadow rounded signup-card'>
                               <Row className="m-0">
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                  <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
                                       <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
                                       <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
@@ -377,7 +378,7 @@ function App() {
                                       <Form.Group className="mb-1">
                                         <div className="row">
                                           <div className="col-lg-12 pb-3">
-                                            <Form.Label className="mb-0">Company Name</Form.Label>
+                                            <Form.Label className="mb-0">Company Name*</Form.Label>
                                             <FormControl name='companyname'
                                                          required
                                                          type='text'
@@ -390,7 +391,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 pb-3">
-                                            <Form.Label className="mb-0">Email</Form.Label>
+                                            <Form.Label className="mb-0">Email*</Form.Label>
                                             <FormControl name='username'
                                                          required
                                                          type='email'
@@ -402,7 +403,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 pb-3">
-                                            <Form.Label className="mb-0">CIN</Form.Label>
+                                            <Form.Label className="mb-0">CIN*</Form.Label>
                                             <FormControl name='cin'
                                                          required
                                                          type='text'
@@ -474,7 +475,7 @@ function App() {
                             <Card border="light" className='shadow rounded signup-card'>
                               <Row>
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                  <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
                                       <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
                                       <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
@@ -496,7 +497,7 @@ function App() {
                                       <Form.Group className="">
                                         <div className="row align-items-center">
                                           <div className="col-lg-12 pb-3">
-                                            <Form.Label className="mb-0">Address</Form.Label>
+                                            <Form.Label className="mb-0">Address*</Form.Label>
                                             <FormControl name='address'
                                                          id='address'
                                                          className="shadow-none"
@@ -510,7 +511,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 pb-3">
-                                            <Form.Label className="mb-0">Contact No</Form.Label>
+                                            <Form.Label className="mb-0">Contact No*</Form.Label>
                                             <InputGroup className="p-0">
                                               <InputGroup.Text id="basic-addon1" className="shadow-none f-12">+91</InputGroup.Text>
                                               <FormControl name='contactno'
@@ -527,7 +528,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 pb-3">
-                                            <Form.Label className="mb-0">Password</Form.Label>
+                                            <Form.Label className="mb-0">Password*</Form.Label>
                                             <FormControl isInvalid={passwordValidity}
                                                          name='password'
                                                          maxLength={15}
@@ -586,7 +587,7 @@ function App() {
                             <Card border="light" className='shadow rounded signin-card'>
                               <Row className="m-0">
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                  <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
                                       <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
                                       <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
@@ -648,7 +649,7 @@ function App() {
                             <Card border="light" className='shadow rounded signin-card'>
                               <Row className="m-0">
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                  <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
                                       <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
                                       <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
@@ -733,7 +734,7 @@ function App() {
                             <Card border="light" className='shadow rounded signin-card'>
                               <Row className="m-0">
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                  <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
                                       <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
                                       <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
@@ -821,7 +822,7 @@ function App() {
                             <Card border="light" className='shadow rounded signin-card'>
                               <Row className="m-0">
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                  <Card.Body className="d-flex align-items-center justify-content-center">
+                                  <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
                                       <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
                                       <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
