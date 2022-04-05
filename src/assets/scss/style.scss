@@ -2,16 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
 /*@import url("https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,800,900&display=swap");*/
 
+@import "./font.scss";
+@import "./label.scss";
+@import "./card.scss";
+@import "./form.scss";
+@import "./table.scss";
+@import "./loader.scss";
+@import "./animate.min.scss";
+@import "./bootstrap.min.scss";
+@import "./responsive.scss";
+
 body {
   background-color: #fff;
   font-size: 16px;
   color: #767676;
-}
-*{
-  font-family: 'Montserrat', sans-serif;
-  /*font-family: 'Muli', sans-serif !important;*/
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -745,7 +749,6 @@ button:focus, button:active {
 }
 
 .form-control {
-  padding: 15px 25px;
   color: #000 !important;
   font-size: 15px;
   background-color: #f4f8ff;
@@ -799,7 +802,6 @@ button:focus, button:active {
 }
 
 select.form-control {
-  background-image: url(../images/chevron.png);
   background-repeat: no-repeat;
   background-position: right 25px center;
   background-size: 15px;
@@ -987,14 +989,6 @@ select.form-control {
   top: 0;
   left: 0;
   background-color: rgba(31, 18, 253, 0.58);
-}
-
-.page-bg-1 {
-  background-image: url(../images/page-bg/page-bg-1.jpg);
-}
-
-.page-bg-2 {
-  background-image: url(../images/page-bg/page-bg-2.jpg);
 }
 
 .topbar {
@@ -2043,12 +2037,6 @@ select.form-control {
   padding-bottom: 200px;
 }
 
-.header-bg-image {
-  position: relative;
-  background: url(../images/homepage-three/bg.jpg) no-repeat right;
-  background-size: cover;
-}
-
 .header-bg-image:before {
   content: "";
   width: 100%;
@@ -2061,7 +2049,6 @@ select.form-control {
 
 .header-bg-shape {
   position: relative;
-  background-image: url(../images/homepage-one/header-bg-shape.png);
   background-repeat: no-repeat;
   background-position: center bottom;
 }
@@ -2548,7 +2535,6 @@ select.form-control {
 
 .service-card-image-2:before {
   content: "";
-  background-image: url(../images/frame-1.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: absolute;
@@ -3214,7 +3200,6 @@ select.form-control {
   content: "";
   position: absolute;
   left: 0;
-  background-image: url(../images/process/process-shape.png);
   background-repeat: no-repeat;
   background-size: contain;
   width: 100px;
@@ -6053,7 +6038,6 @@ select.form-control {
 
 /*Coming Soon*/
 #coming-soon {
-  background: url("../images/bg-image.jpg") top center no-repeat;
   background-size: cover;
   position: relative;
   min-height: 100vh;
@@ -6082,7 +6066,6 @@ select.form-control {
 
 /*Contact Us CSS*/
 #contact {
-  background: url("../images/bg-image.jpg") top center no-repeat;
   background-size: cover;
   position: relative;
   min-height: 100vh;
@@ -6306,7 +6289,6 @@ h2.divide-section span{
 }
 
 .about-section-bg{
-  background: url('../images/landing/image-8.jpg') no-repeat center center;
   min-height: 100vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -6940,76 +6922,11 @@ table tr td .btn:hover{
   float: right;
   cursor: pointer;
   margin-right: 10px;
-  margin-top: -31px;
+  margin-top: -30px;
 }
 .toggle-password .MuiSvgIcon-root{
   font-size: 1rem;
 }
-
-/*Loader CSS*/
-.spinner-block{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.spinner {
-  margin: 100px auto;
-  width: 100%;
-  height: 50px;
-  text-align: center;
-  font-size: 10px;
-}
-
-.spinner > div {
-  background-color: #3e72fe;
-  height: 100%;
-  width: 7px;
-  margin: 3px;
-  display: inline-block;
-  -webkit-animation: sk-stretchdelay 1.4s infinite ease-in-out;
-  animation: sk-stretchdelay 1.4s infinite ease-in-out;
-}
-
-.spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
-}
-
-.spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-.spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
-}
-
-.spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
-}
-
-@-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
-  20% { -webkit-transform: scaleY(1.0) }
-}
-
-@keyframes sk-stretchdelay {
-  0%, 40%, 100% {
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
-  }  20% {
-       transform: scaleY(1.0);
-       -webkit-transform: scaleY(1.0);
-     }
-}
-
 
 /*High Chart UI*/
 .highcharts-credits{
