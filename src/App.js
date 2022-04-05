@@ -35,6 +35,7 @@ function App() {
   const [validated, setValidated] = useState(false);
   const [validatesignIn, setValidatedSignIn] = useState(false);
   const [validatesignUp, setValidatedSignUp] = useState(false);
+  const [emailValidity, setEmailValidity] = useState(false);
   const [passwordValidity, setPasswordValidity] = useState(false);
   const [contactValidity, setContactValidity] = useState(false);
   const [confirmationcodeValidity, setConfirmationcodeValidity] = useState(false);
@@ -146,7 +147,7 @@ function App() {
     e.persist();
     updateAlertState(() => ({ ...alertState, alertStatus: false }))
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
-    if(e.target.name==="email"  ||  e.target.value==="")
+    if(e.target.name==='username'  &&  e.target.value==="")
     {
     setactivesigninButton(true)
     setactiveforgotButton(true)
@@ -158,9 +159,7 @@ function App() {
     }
 
     //sigin password
-    console.log("name",e.target.name)
-    console.log("pass",e.target.value)
-    if(e.target.name==="password"  &&  e.target.value==="")
+    if(e.target.name==='password'  &&  e.target.value==="" ||   e.target.value===null ||  e.target.value===undefined)
     {
     
     setactivesigninnextButton(true)
@@ -190,6 +189,16 @@ function App() {
     }
     
     
+    if (e.target.name === 'username') {
+      var email = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+      if (e.target.value.match(email)) {
+        setEmailValidity(false);
+      }
+      else {
+        setEmailValidity(true);
+      }
+    }
+
     if (e.target.name === 'password') {
       var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
       if (e.target.value.match(paswd)) {
@@ -442,6 +451,7 @@ function App() {
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Email*</Form.Label>
                                             <FormControl name='username'
+                                            isInvalid={emailValidity}
                                                          required
                                                          type='email'
                                                          className="shadow-none"
@@ -824,6 +834,7 @@ function App() {
                                           <div className="col-lg-12">
                                             <Form.Label className="mb-0">Email*</Form.Label>
                                             <FormControl name='username'
+                                                         isInvalid={emailValidity}
                                                          type='email'
                                                          placeholder="Enter Your Email*"
                                                          autocomplete="off"
@@ -900,7 +911,7 @@ function App() {
                                                          type={values.showPassword ? "text" : "password"}
                                                          maxLength={15}
                                                          autoComplete="off"
-                                                         autoFocus="TRUE"
+                                                         
                                                          required
                                                          onChange={onChange} />
                                             <i className="toggle-password" onClick={handleClickShowPassword}
