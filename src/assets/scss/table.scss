@@ -37,12 +37,12 @@ table tr td .btn:hover{
 }
 .pagination.react-bootstrap-table-page-btns-ul{
   margin-bottom: 0;
-}
-.pagination.react-bootstrap-table-page-btns-ul .page-item{
-  margin-top: 0;
-}
-.pagination.react-bootstrap-table-page-btns-ul .page-item .page-link{
-  display: flex;
+  .page-item{
+    margin-top: 0;
+    .page-link{
+      display: flex;
+    }
+  }
 }
 .react-bs-table-sizePerPage-dropdown.dropdown .dropdown-menu{
   right: -6rem;
