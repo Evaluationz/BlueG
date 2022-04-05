@@ -56,8 +56,70 @@ code {
   font-size: 40px;
 }
 .f-50{
-  font-size: 50px;
+  font-size: 50px !important;
 }
 .f-60{
   font-size: 60px;
+}
+
+p, label {
+  color: #000000;
+  line-height: 1.6;
+}
+.highcharts-title{
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+a {
+  color: #7684ea;
+  text-decoration: none;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+a:hover, a:active {
+  text-decoration: none;
+  color: #7684ea;
+}
+
+a:hover.redirect-link i, a:active.redirect-link i {
+  -webkit-transform: translateX(5px);
+  transform: translateX(5px);
+}
+
+a:focus {
+  outline: 0;
+}
+
+a.redirect-link {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+a.redirect-link i {
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.25, 0.55, 0.4, 2.1) 0s;
+  transition: -webkit-transform 0.3s cubic-bezier(0.25, 0.55, 0.4, 2.1) 0s;
+  transition: transform 0.3s cubic-bezier(0.25, 0.55, 0.4, 2.1) 0s;
+  transition: transform 0.3s cubic-bezier(0.25, 0.55, 0.4, 2.1) 0s, -webkit-transform 0.3s cubic-bezier(0.25, 0.55, 0.4, 2.1) 0s;
+  margin-left: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000;
+}
+
+
+/*Text Align*/
+.text-left{
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
 }
