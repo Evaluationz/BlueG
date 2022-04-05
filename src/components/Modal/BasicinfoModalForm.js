@@ -54,7 +54,7 @@ const BasicinfoModalForm = (props) => {
                                     <div className="col-lg-12 pb-2">
                                         <Form.Label className="mb-0 f-14">Contact Number</Form.Label>
                                         <InputGroup className="p-0">
-                                            <InputGroup.Text id="basic-addon1" className="shadow-sm f-14">+91</InputGroup.Text>
+                                            <InputGroup.Text id="basic-addon1" className="shadow-none f-12">+91</InputGroup.Text>
                                             <FormControl name='contact_no' required type='number' defaultValue={formState.contact_no} onChange={handleChange} className="f-14"/>
                                         </InputGroup>
                                     </div>

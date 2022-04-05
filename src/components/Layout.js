@@ -37,15 +37,18 @@ function Layout() {
     return (
         <>
             <Modal show={BasicModalShow} onHide={handleCloseModal}>
-                
                 <Modal.Body>
-                <Modal.Title className="f-20">Are you sure want to logout</Modal.Title>
-                    <div className="col-lg-12 py-3">
-                        <Button className='btn-red float-left' onClick={Cancel}>cancel</Button>
-                        <Button className='btn-blue float-right' onClick={signOut} >Ok</Button>
+                <Modal.Title className="f-50 text-center">
+                    <i className="mdi mdi-alert-circle-outline c-blue"> </i>
+                </Modal.Title>
+                <Modal.Title className="f-18 text-center">Are you sure want to Logout?</Modal.Title>
+                    <div className="col-lg-12 d-flex align-items-center justify-content-center">
+                        <Button className='btn-white' onClick={Cancel}>NO</Button>
+                        <Button className='btn-blue m-sm-3' onClick={signOut} >YES</Button>
                     </div>
                 </Modal.Body>
             </Modal>
+
             <Navbar collapseOnSelect variant="dark" expand={true} fixed="top" className="bg-black shadow-sm">
                 <Container fluid className="mx-lg-5">
                     <Navbar.Brand className="d-flex">
