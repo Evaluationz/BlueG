@@ -1,9 +1,9 @@
-import { Button, Offcanvas, Navbar, Container, NavDropdown, Nav } from 'react-bootstrap';
+import { Button, Offcanvas, Navbar, Container, Nav } from 'react-bootstrap';
 
 // import React, { useState } from "react";
-import { IconName } from "react-icons/fa";
-import { FaHome } from "react-icons/fa"
-import { GiNotebook } from "react-icons/gi"
+// import { IconName } from "react-icons/fa";
+// import { FaHome } from "react-icons/fa"
+// import { GiNotebook } from "react-icons/gi"
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,14 +11,9 @@ import {
     Modal
 } from "react-bootstrap";
 
-
-
-
 import { Auth } from 'aws-amplify';
 
-
 function Layout() {
-
     const [BasicModalShow, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false);
     //const handleShowCompanyInfo = () => setShowCompanyInfo(true);
@@ -38,10 +33,10 @@ function Layout() {
         <>
             <Modal show={BasicModalShow} onHide={handleCloseModal}>
                 <Modal.Body>
-                <Modal.Title className="f-50 text-center">
-                    <i className="mdi mdi-alert-circle-outline c-blue"> </i>
-                </Modal.Title>
-                <Modal.Title className="f-18 text-center">Are you sure want to Logout?</Modal.Title>
+                    <Modal.Title className="f-50 text-center">
+                        <i className="mdi mdi-alert-circle-outline c-blue"> </i>
+                    </Modal.Title>
+                    <Modal.Title className="f-18 text-center">Are you sure want to Logout?</Modal.Title>
                     <div className="col-lg-12 d-flex align-items-center justify-content-center">
                         <Button className='btn-white' onClick={Cancel}>NO</Button>
                         <Button className='btn-blue m-sm-3' onClick={signOut} >YES</Button>
@@ -53,9 +48,9 @@ function Layout() {
                 <Container fluid className="mx-lg-5">
                     <Navbar.Brand className="d-flex">
                         <Link className="navbar-brand mr-0"
-                            to="/" onClick={() => { window.location.href = "/" }}>
+                              to="/" onClick={() => { window.location.href = "/" }}>
                             <div className="d-flex align-items-center justify-content-start">
-                                <img src="images/logo.png" alt="logo" className="logo logo-image" />
+                                <img src="./images/logo.png" alt="logo" className="logo logo-image" />
                             </div>
                         </Link>
                     </Navbar.Brand>
@@ -72,14 +67,14 @@ function Layout() {
                     <Navbar.Toggle aria-controls="offcanvasNavbar" className="sidebar-toggle"></Navbar.Toggle>
 
                     <Navbar.Offcanvas id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel"
-                        placement="start">
+                                      aria-labelledby="offcanvasNavbarLabel"
+                                      placement="start">
                         <center>
                             <Offcanvas.Header style={{ color: 'black' }}>
                                 <Offcanvas.Title id="offcanvasNavbarLabel" className="d-flex align-items-center justify-content-center">
                                     <img src="./images/user.png"
-                                        width="40"
-                                        className="d-inline-block align-top" alt="logo" />
+                                         width="40"
+                                         className="d-inline-block align-top" alt="logo" />
                                     <span>Kompass +</span>
                                 </Offcanvas.Title>
                             </Offcanvas.Header></center>

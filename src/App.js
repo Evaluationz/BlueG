@@ -11,8 +11,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Loader from "./components/Loader";
 
-import './App.scss';
-import './assets/scss/style.scss';
+import './styles.scss';
 
 import { Auth, Hub } from 'aws-amplify';
 import Layout from "./components/Layout";
@@ -342,14 +341,14 @@ function App() {
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
-                                      <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
                                 </Col>
                                 <Col className="col-md-7 px-4 small-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                    <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
+                                    <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
                                   </Card.Body>
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h4 className="mb-0">
@@ -360,7 +359,7 @@ function App() {
                                     <div className="col-lg-12">
                                       <div className="col-lg-12 p-0 form-group">
                                         <div className="google-button img-fluid w-100 cursor-pointer">
-                                          <img src={require('./google-icon.png')} alt="google" loading="lazy"/>
+                                          <img src={require('./assets/images/google-icon.png')} alt="google" loading="lazy"/>
                                           <div className="google-button-container w-100 text-center">
                                             Continue with Google
                                           </div>
@@ -477,15 +476,15 @@ function App() {
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
-                                      <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
                                 </Col>
 
                                 <Col className="col-md-7 px-4 small-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                    <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
+                                    <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
                                   </Card.Body>
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h4 className="mb-0">
@@ -589,14 +588,14 @@ function App() {
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
-                                      <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
                                 </Col>
                                 <Col className="col-md-7 px-4 small-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                    <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
+                                    <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
                                   </Card.Body>
 
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
@@ -651,14 +650,14 @@ function App() {
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
-                                      <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
                                 </Col>
                                 <Col className="col-md-7 px-4 small-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                    <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
+                                    <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
                                   </Card.Body>
 
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
@@ -736,14 +735,14 @@ function App() {
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
-                                      <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
                                 </Col>
                                 <Col className="col-md-7 px-4 small-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                    <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
+                                    <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
                                   </Card.Body>
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h4 className="mb-0">
@@ -754,7 +753,7 @@ function App() {
                                     <div className="col-lg-12">
                                       <div className="col-lg-12 p-0 form-group">
                                         <div className="google-button img-fluid w-100 cursor-pointer">
-                                          <img src={require('./google-icon.png')} alt="google" loading="lazy"/>
+                                          <img src={require('./assets/images/google-icon.png')} alt="google" loading="lazy"/>
                                           <div className="google-button-container w-100 text-center">
                                             Continue with Google
                                           </div>
@@ -824,14 +823,14 @@ function App() {
                                 <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
                                   <Card.Body className="h-100 d-flex align-items-center justify-content-center">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
-                                      <Card.Img variant="top" src={require('./illustration.png')} style={{ width: '350px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
                                 </Col>
                                 <Col className="col-md-7 px-4 small-screen-block">
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                    <Card.Img variant="top" src={require('./blueg-logo.png')} style={{ width: '150px' }} />
+                                    <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '150px' }} />
                                   </Card.Body>
                                   <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
                                     <h4 className="mb-0">

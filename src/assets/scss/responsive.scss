@@ -181,9 +181,6 @@
   .inner-header-content h1 {
     font-size: 30px;
   }
-  .process-content-line {
-    display: none;
-  }
   .newsletter-form {
     max-width: 100%;
   }
@@ -675,9 +672,6 @@
   }
   .recent-post-details .post-entry li {
     font-size: 14px;
-  }
-  .page-link {
-    font-size: 17px;
   }
   .review-holder-item {
     padding: 10px 20px;
@@ -1207,17 +1201,6 @@
   }
   .header-image-shape img {
     max-width: 725px;
-  }
-  .process-content-line:before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #fd6a12;
-    position: absolute;
-    top: -3px;
-    -webkit-animation: stepDotRide 15s infinite linear;
-            animation: stepDotRide 15s infinite linear;
   }
 }
 

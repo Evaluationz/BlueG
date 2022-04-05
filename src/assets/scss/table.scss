@@ -1,0 +1,53 @@
+.react-bootstrap-table{
+  overflow: auto;
+  margin-bottom: 1rem;
+}
+table tr th{
+  font-size: 13px;
+  font-weight: 600;
+  vertical-align: middle;
+  text-align: left;
+}
+
+table tr td:last-child,
+table tr td:last-child{
+  text-align: center;
+}
+table tr th:first-child,
+table tr td:first-child{
+  text-align: right;
+}
+table tr td{
+  font-size: 13px;
+  vertical-align: middle;
+  text-align: left;
+}
+table tr td:last-child{
+  padding: 0;
+}
+table tr td .btn,
+table tr td .btn:hover{
+  background: none;
+  border: none;
+  color: #0d6efd;
+  box-shadow: none;
+}
+.react-bootstrap-table-pagination .col-md-6{
+  text-align: left;
+}
+.pagination.react-bootstrap-table-page-btns-ul{
+  margin-bottom: 0;
+}
+.pagination.react-bootstrap-table-page-btns-ul .page-item{
+  margin-top: 0;
+}
+.pagination.react-bootstrap-table-page-btns-ul .page-item .page-link{
+  display: flex;
+}
+.react-bs-table-sizePerPage-dropdown.dropdown .dropdown-menu{
+  right: -6rem;
+}
+.react-bs-table-sizePerPage-dropdown.dropdown .dropdown-menu .dropdown-item a{
+  text-decoration: none;
+  color: #000000;
+}

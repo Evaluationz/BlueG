@@ -123,3 +123,45 @@ h1, h2, h3, h4, h5, h6 {
 .text-right{
   text-align: right;
 }
+.text-justify {
+  text-align: justify;
+}
+
+/*Text Style*/
+.text-muted {
+  font-size: 13px;
+  color: #767676 !important;
+  margin-top: 5px;
+}
+.font-normal{
+  font-weight: normal !important;
+}
+.font-bold{
+  font-weight: 500;
+}
+.font-bolder{
+  font-weight: 700;
+}
+
+a.c-blue{
+  text-decoration: none;
+}
+
+/*Brand Text Color*/
+.c-blue{
+  color: #3e72fe;
+}
+.c-blue-link{
+  color: #064666;
+  text-decoration: none;
+}
+.c-blue-link:hover{
+  color: #064666;
+  text-decoration: underline;
+}
+.c-red{
+  color: #ff1717;
+}
+.c-light-gray{
+  color: #cfd2d3;
+}
