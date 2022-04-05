@@ -611,7 +611,7 @@ function App() {
                                         <div className="row align-items-center">
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Email</Form.Label>
-                                            <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange} />
+                                            <FormControl name='username' type='email' className="shadow-sm" required onChange={onChange} placeholder="Enter your email" />
                                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                               Enter Your Email
                                             </Form.Control.Feedback>
@@ -625,6 +625,9 @@ function App() {
 
                                           <div className="col-lg-12 f-14">
                                             Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
+                                          </div>
+                                          <div className="col-lg-12 f-14">
+                                            <a  className="c-blue cursor-pointer f-14 font-bold">Term of Use  </a>&<a href="https://www.evaluationz.com/privacy" target="_blank" className="c-blue cursor-pointer f-14 font-bold"> Privacy Policy </a>
                                           </div>
                                         </div>
                                       </Form.Group>
@@ -668,7 +671,7 @@ function App() {
                                         <div className="row align-items-center">
                                           <div className="col-lg-12 pb-1">
                                             <Form.Label className="mb-0">Password</Form.Label>
-                                            <FormControl name='password' className="shadow-sm" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} />
+                                            <FormControl name='password' className="shadow-sm" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} placeholder="Enter your password" />
                                             <i className="toggle-password" onClick={handleClickShowPassword}
                                                onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">
@@ -701,6 +704,7 @@ function App() {
                                           <div className="col-lg-12 f-14">
                                             Does not have an account? <a onClick={createAccount} className="c-blue cursor-pointer f-14 font-bold">Create New</a>
                                           </div>
+                                         
                                         </div>
                                       </Form.Group>
                                     </Form>
