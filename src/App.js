@@ -156,6 +156,20 @@ function App() {
     setactivesigninButton(false)  
     setactiveforgotButton(false)
     }
+
+    //sigin password
+    console.log("name",e.target.name)
+    console.log("pass",e.target.value)
+    if(e.target.name==="password"  &&  e.target.value==="")
+    {
+    
+    setactivesigninnextButton(true)
+    }
+    else
+    {
+    setactivesigninnextButton(false)  
+    }
+    
     if(e.target.name==="companyname" || e.target.name==="username" || e.target.name==="cin" &&  e.target.value==="")
     {
     setactivesignupButton(true)
@@ -460,7 +474,7 @@ function App() {
 
                                           <div className="col-lg-12 pt-3 pb-2">
                                             <Button className='btn-blue'
-                                                    type='submit' disabled={activesignupButton}
+                                                     disabled={activesignupButton}
                                                     onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'signUpNext' }))}}>Proceed</Button>
                                           </div>
 
@@ -555,11 +569,12 @@ function App() {
                                                            className="shadow-none-sm"
                                                            type='number'
                                                            onChange={onChange} />
-                                            </InputGroup>
-
-                                            <Form.Control.Feedback type="invalid" className="text-left">
+                                            
+                                            
+                                            <Form.Control.Feedback  type="invalid" className="text-left bg-white">
                                               Please provide a valid contact number.
                                             </Form.Control.Feedback>
+                                            </InputGroup>
                                           </div>
 
                                           <div className="col-lg-12 pb-3">
@@ -823,7 +838,7 @@ function App() {
 
                                           <div className="col-lg-12 pt-3 pb-2">
                                             <Button className='btn-blue'
-                                                    type='submit' disabled={activesigninButton}
+                                                     disabled={activesigninButton}
                                                     onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singInNext' }))}}>Proceed</Button>
                                           </div>
 
@@ -879,7 +894,7 @@ function App() {
                                         <div className="row align-items-center">
                                           <div className="col-lg-12 pb-1">
                                             <Form.Label className="mb-0">Password*</Form.Label>
-                                            <FormControl name='password'
+                                            <FormControl isInvalid={passwordValidity} name='password'
                                                          className="shadow-none"
                                                          placeholder="Enter your Password*"
                                                          type={values.showPassword ? "text" : "password"}
@@ -916,7 +931,7 @@ function App() {
                                             <Button className='btn-white float-left'
                                                     onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singIn' }))}}>Back</Button>
 
-                                            <Button className='btn-blue float-right'  type='submit' > Sign In</Button>
+                                            <Button className='btn-blue float-right' disabled={activesigninnextButton}  type='submit' > Sign In</Button>
                                           </div>
 
                                           <div className="col-lg-12 f-14">
