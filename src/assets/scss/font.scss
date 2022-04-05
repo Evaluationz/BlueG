@@ -56,8 +56,19 @@ code {
   font-size: 40px;
 }
 .f-50{
-  font-size: 50px;
+  font-size: 50px !important;
 }
 .f-60{
   font-size: 60px;
+}
+
+/*Text Align*/
+.text-left{
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
 }
