@@ -378,7 +378,12 @@ function App() {
                                         <div className="row">
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Company Name</Form.Label>
-                                            <FormControl name='companyname' required type='text' className="shadow-none" onChange={onChange} />
+                                            <FormControl name='companyname'
+                                                         required
+                                                         type='text'
+                                                         autoFocus="TRUE"
+                                                         className="shadow-none"
+                                                         onChange={onChange} />
                                             <Form.Control.Feedback type="invalid" className="text-left">
                                               Please provide a company name.
                                             </Form.Control.Feedback>
@@ -386,7 +391,11 @@ function App() {
 
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Email</Form.Label>
-                                            <FormControl name='username' required type='email' className="shadow-none" onChange={onChange} />
+                                            <FormControl name='username'
+                                                         required
+                                                         type='email'
+                                                         className="shadow-none"
+                                                         onChange={onChange} />
                                             <Form.Control.Feedback type="invalid" className="text-left">
                                               Please provide a user name.
                                             </Form.Control.Feedback>
@@ -394,7 +403,12 @@ function App() {
 
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">CIN</Form.Label>
-                                            <FormControl name='cin' required type='text' maxLength={21} className="shadow-none" onChange={onChange} />
+                                            <FormControl name='cin'
+                                                         required
+                                                         type='text'
+                                                         maxLength={21}
+                                                         className="shadow-none"
+                                                         onChange={onChange} />
                                             <Form.Control.Feedback type="invalid" className="text-left">
                                               Please provide a CIN number.
                                             </Form.Control.Feedback>
@@ -483,7 +497,13 @@ function App() {
                                         <div className="row align-items-center">
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Address</Form.Label>
-                                            <FormControl name='address' id='address' className="shadow-none" required type='text' onFocus={addressAuto} onChange={onChange} />
+                                            <FormControl name='address'
+                                                         id='address'
+                                                         className="shadow-none"
+                                                         required
+                                                         type='text'
+                                                         onFocus={addressAuto}
+                                                         onChange={onChange} />
                                             <Form.Control.Feedback type="invalid" className="text-left">
                                               Please provide a address.
                                             </Form.Control.Feedback>
@@ -493,7 +513,12 @@ function App() {
                                             <Form.Label className="mb-0">Contact No</Form.Label>
                                             <InputGroup className="p-0">
                                               <InputGroup.Text id="basic-addon1" className="shadow-none f-12">+91</InputGroup.Text>
-                                              <FormControl name='contactno' required isInvalid={contactValidity} className="shadow-none-sm" type='number' onChange={onChange} />
+                                              <FormControl name='contactno'
+                                                           required
+                                                           isInvalid={contactValidity}
+                                                           className="shadow-none-sm"
+                                                           type='number'
+                                                           onChange={onChange} />
                                             </InputGroup>
 
                                             <Form.Control.Feedback type="invalid" className="text-left">
@@ -503,7 +528,15 @@ function App() {
 
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Password</Form.Label>
-                                            <FormControl isInvalid={passwordValidity} name='password' maxLength={15} className="shadow-none" id="password" autoComplete="off" required type={values.showPassword ? "text" : "password"}  onChange={onChange} />
+                                            <FormControl isInvalid={passwordValidity}
+                                                         name='password'
+                                                         maxLength={15}
+                                                         className="shadow-none"
+                                                         id="password"
+                                                         autoComplete="off"
+                                                         required
+                                                         type={values.showPassword ? "text" : "password"}
+                                                         onChange={onChange} />
                                             <i className="toggle-password" onClick={handleClickShowPassword}
                                                onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
 
@@ -576,7 +609,11 @@ function App() {
                                       <div className="row align-items-center ">
                                         <div className="col-lg-12 pb-3">
                                           <Form.Label className="mb-0">Confirmation Code</Form.Label>
-                                          <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' className="shadow-sm" onChange={onChange} />
+                                          <FormControl name='authCode'
+                                                       isInvalid={confirmationcodeValidity}
+                                                       type='number'
+                                                       className="shadow-sm"
+                                                       onChange={onChange} />
                                           <Form.Control.Feedback type="invalid" className="text-left">
                                             Please provide 6 digit number.
                                           </Form.Control.Feedback>
@@ -634,7 +671,12 @@ function App() {
                                       <div className="row align-items-center ">
                                         <div className="col-lg-12 pb-3">
                                           <Form.Label className="mb-0">Confirmation Code</Form.Label>
-                                          <FormControl name='authCode' isInvalid={confirmationcodeValidity} type='number' required className="shadow-sm" onChange={onChange} />
+                                          <FormControl name='authCode'
+                                                       isInvalid={confirmationcodeValidity}
+                                                       type='number'
+                                                       required
+                                                       className="shadow-sm"
+                                                       onChange={onChange} />
                                           <Form.Control.Feedback type="invalid" className="text-left">
                                             Please provide 6 digit number
                                           </Form.Control.Feedback>
@@ -642,7 +684,14 @@ function App() {
 
                                         <div className="col-lg-12 pb-1">
                                           <Form.Label className="mb-0">New Password</Form.Label>
-                                          <FormControl isInvalid={passwordValidity} name='password' className="shadow-sm" required type={values.showPassword ? "text" : "password"} id="cnfpassword"  autoComplete="off" onChange={onChange} />
+                                          <FormControl isInvalid={passwordValidity}
+                                                       name='password'
+                                                       className="shadow-sm"
+                                                       required
+                                                       type={values.showPassword ? "text" : "password"}
+                                                       id="cnfpassword"
+                                                       autoComplete="off"
+                                                       onChange={onChange} />
                                           <i className="toggle-password" onClick={handleClickShowPassword}
                                              onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
 
@@ -723,14 +772,23 @@ function App() {
                                         <div className="row align-items-center">
                                           <div className="col-lg-12">
                                             <Form.Label className="mb-0">Email*</Form.Label>
-                                            <FormControl name='username' type='email' placeholder="Enter Your Email*" autocomplete="off" className="shadow-none" required onChange={onChange} />
+                                            <FormControl name='username'
+                                                         type='email'
+                                                         placeholder="Enter Your Email*"
+                                                         autocomplete="off"
+                                                         autoFocus="TRUE"
+                                                         className="shadow-none"
+                                                         required
+                                                         onChange={onChange} />
                                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                               Enter Your Email
                                             </Form.Control.Feedback>
                                           </div>
 
                                           <div className="col-lg-12 pt-3 pb-2">
-                                            <Button className='btn-blue' type='submit' onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singInNext' }))}}>Proceed</Button>
+                                            <Button className='btn-blue'
+                                                    type='submit'
+                                                    onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singInNext' }))}}>Proceed</Button>
                                           </div>
 
                                           <div className="col-lg-12 f-14">
@@ -785,7 +843,15 @@ function App() {
                                         <div className="row align-items-center">
                                           <div className="col-lg-12 pb-1">
                                             <Form.Label className="mb-0">Password*</Form.Label>
-                                            <FormControl name='password' className="shadow-none" placeholder="Enter your Password*" type={values.showPassword ? "text" : "password"} maxLength={15} autoComplete="off" required onChange={onChange} />
+                                            <FormControl name='password'
+                                                         className="shadow-none"
+                                                         placeholder="Enter your Password*"
+                                                         type={values.showPassword ? "text" : "password"}
+                                                         maxLength={15}
+                                                         autoComplete="off"
+                                                         autoFocus="TRUE"
+                                                         required
+                                                         onChange={onChange} />
                                             <i className="toggle-password" onClick={handleClickShowPassword}
                                                onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                             <Form.Control.Feedback type="invalid" className="mb-0 text-left">

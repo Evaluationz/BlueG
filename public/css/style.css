@@ -1,6 +1,6 @@
 @charset "UTF-8";
-/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');*/
-@import url("https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,800,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+/*@import url("https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,800,900&display=swap");*/
 
 body {
   background-color: #fff;
@@ -8,8 +8,8 @@ body {
   color: #767676;
 }
 *{
-  /*font-family: 'Montserrat', sans-serif;*/
-  font-family: 'Muli', sans-serif !important;
+  font-family: 'Montserrat', sans-serif;
+  /*font-family: 'Muli', sans-serif !important;*/
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: none;
 }
@@ -6213,7 +6213,6 @@ select.form-control {
 
 /*Button UI*/
 .btn{
-  border: 1px solid #f68c1f !important;
   text-align: center;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
   font-size: 12px !important;

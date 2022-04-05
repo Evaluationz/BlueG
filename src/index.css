@@ -280,6 +280,18 @@ input[type=number]::-webkit-outer-spin-button {
 .f-20{
   font-size: 20px;
 }
+.f-30{
+  font-size: 30px;
+}
+.f-40{
+  font-size: 40px;
+}
+.f-50{
+  font-size: 50px;
+}
+.f-60{
+  font-size: 60px;
+}
 
 @media screen and (max-width: 767px) {
   .nav-user-profile{
