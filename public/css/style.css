@@ -6791,6 +6791,14 @@ h2.divide-section span{
 .invalid-feedback{
   font-size: .7rem !important;
 }
+.form-check-input.is-valid,
+.was-validated .form-check-input:valid{
+  border-color: #000000 !important;
+}
+.form-check-input.is-valid~.form-check-label,
+.was-validated .form-check-input:valid~.form-check-label{
+  color: #000000 !important;
+}
 .alert{
   padding: .5rem;
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);

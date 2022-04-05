@@ -798,7 +798,7 @@ function App() {
                                                   <input className="form-check-input ml-0"
                                                          type="checkbox"
                                                          name="rememberme" onChange={onChange} id="flexCheckDefault"/>
-                                                  <label className="form-check-label f-12"
+                                                  <label className="form-check-label mt-1 f-12"
                                                          htmlFor="flexCheckDefault"> Remember me </label>
                                                 </div>
                                               </div>
