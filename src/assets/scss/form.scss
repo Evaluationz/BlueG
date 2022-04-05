@@ -1,0 +1,274 @@
+
+
+.input-group {
+  border: 0;
+  border-radius: 3px;
+  padding: 15px 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-radius: 3px;
+  background-color: #efefef;
+}
+
+.input-group.input-group-maincolor .form-control {
+  color: #fff;
+}
+
+.input-group.input-group-maincolor .form-control::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.input-group.input-group-maincolor .form-control:-ms-input-placeholder {
+  color: #fff;
+}
+
+.input-group.input-group-maincolor .form-control::-ms-input-placeholder {
+  color: #fff;
+}
+
+.input-group.input-group-maincolor .form-control::placeholder {
+  color: #fff;
+}
+
+.form-control {
+  color: #000 !important;
+  font-size: 15px;
+  background-color: #f4f8ff;
+  height: auto;
+  border: 1px solid #eee;
+  border-radius: 30px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.form-control:focus, .form-control:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: #f4f8ff;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #585858;
+}
+
+.form-control:-ms-input-placeholder {
+  color: #585858;
+}
+
+.form-control::-ms-input-placeholder {
+  color: #585858;
+}
+
+.form-control::placeholder {
+  color: #585858;
+}
+
+.form-control.form-control-white {
+  color: #fff;
+}
+
+.form-control.form-control-white::-webkit-input-placeholder {
+  color: #585858;
+}
+
+.form-control.form-control-white:-ms-input-placeholder {
+  color: #585858;
+}
+
+.form-control.form-control-white::-ms-input-placeholder {
+  color: #585858;
+}
+
+.form-control.form-control-white::placeholder {
+  color: #585858;
+}
+
+select.form-control {
+  background-repeat: no-repeat;
+  background-position: right 25px center;
+  background-size: 15px;
+}
+
+.input-checkbox label {
+  position: relative;
+  padding-left: 35px;
+  color: #767676;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.input-checkbox label a {
+  color: #7684ea;
+}
+
+.input-checkbox label a:hover {
+  color: #7684ea;
+}
+
+.input-checkbox label:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #e1e1e1;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  font-size: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  left: 0;
+  padding-left: 4px;
+  line-height: 1;
+  top: 1px;
+  border-radius: 5px;
+}
+
+.input-checkbox input {
+  display: none;
+}
+
+.input-checkbox input:checked ~ label:before {
+  color: #fff;
+  content: "\f110";
+  background-color: #7684ea;
+  border-color: #7684ea;
+}
+
+.input-radio label {
+  position: relative;
+  padding-left: 35px;
+  color: #767676;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.input-radio label a {
+  color: #7684ea;
+}
+
+.input-radio label:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #B5B5B5;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  font-size: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  left: 0;
+  padding-left: 4px;
+  line-height: 1;
+  top: -2px;
+}
+
+.input-radio input {
+  display: none;
+}
+
+.input-radio input:checked ~ label:before {
+  color: #E6E6E6;
+  content: "\f11c";
+  font-size: 10px;
+}
+
+.input-radio.input-radio-white label {
+  color: #B5B5B5;
+}
+.form-group label {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #000;
+}
+.form-label{
+  color: #231f20 !important;
+  font-size: 0.75em;
+}
+.form-control{
+  color: #58595b !important;
+  font-weight: normal !important;
+  border-radius: 0.25rem !important;
+  background: #ffffff !important;
+  border: 1px solid #e6e7e8 !important;
+  font-size: 0.8rem !important;
+}
+.form-control:focus{
+  border: 1px solid #ced4da !important;
+}
+.form-control::placeholder{
+  color: #999999 !important;
+  opacity: 0.6 !important;
+}
+.form-control:-ms-input-placeholder {
+  color: #999999 !important;
+}
+.form-control::-ms-input-placeholder {
+  color: #999999 !important;
+}
+
+/*Input Fields UI*/
+.form-control.is-valid, .was-validated .form-control:valid,
+.form-control.is-invalid, .was-validated .form-control:invalid{
+  background-image: none !important;
+}
+.form-control.is-invalid::placeholder, .was-validated .form-control:invalid::placeholder,
+.form-control.is-invalid, .was-validated .form-control:invalid{
+  color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+.form-check-label{
+  float: left;
+  margin-left: 0.3rem;
+  margin-top: 0.1rem;
+}
+.invalid-feedback{
+  font-size: .7rem !important;
+}
+.form-check-input.is-valid,
+.was-validated .form-check-input:valid{
+  border-color: #000000 !important;
+}
+.form-check-input.is-valid~.form-check-label,
+.was-validated .form-check-input:valid~.form-check-label{
+  color: #000000 !important;
+}
+.alert{
+  padding: .5rem;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+.form-check-input{
+  cursor: pointer;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.form-label{
+  float: left;
+}
