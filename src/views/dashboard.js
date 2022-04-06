@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import * as Highcharts from 'highcharts';
-import { Breadcrumb, Container } from "react-bootstrap";
+import { Breadcrumb, Container,Alert } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Moment from 'moment';
@@ -9,12 +9,19 @@ import configData from "../config/index.json"
 import HighchartsReact from 'highcharts-react-official';
 import Footer from "../components/Footer/Footer";
 
+
 import { Auth, Hub } from 'aws-amplify';
+const alertSettings = {
+  variant: '', msg: '', alertStatus: false
+};
+
 
 const pageData = { case_completed_date: [], case_completed_count: [] };
 
 function Dashboard() {
   const [pageState, updatePageState] = useState(pageData);
+  const [alertState, updateAlertState] = useState(alertSettings);
+  const { alertStatus, variant, msg } = alertState;
   const navigate = useNavigate();
 
   function RedirectToReport() {
@@ -28,9 +35,11 @@ function Dashboard() {
   async function loadData() {
     const user = await Auth.currentAuthenticatedUser()
       if (user) {
+        console.log("user",user.attributes)
         let url = configData.express_url
-        var postData = { client_id: user.attributes.email }
+        var postData = { email: user.attributes.email }
         let clientDetails = await axios.post(url + "client/getClientId", postData)
+        console.log("client details",clientDetails)
         if(clientDetails.data.client_id){
     const clientCaseData = { client_id: clientDetails.data.client_id };
     axios.post(url + 'graphDashboard/GetGraphData', clientCaseData).then((res) => {
@@ -45,7 +54,8 @@ function Dashboard() {
     })
   }
   else{
-    //Add Onboard alert here..!!
+    let msg = 'Onboarding in progress';
+    updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }));
   }
    }
   }
@@ -79,7 +89,9 @@ function Dashboard() {
       <>
         <Layout />
         <div className="container-fluid body-container mt-70 pt-2">
+        
           <Container fluid className="my-3" onClick={RedirectToReport}>
+          <Alert show={alertStatus} variant={variant}>{msg}</Alert>
             <Container fluid className="py-3 bg-white shadow-sm">
               <Breadcrumb>
                 <Breadcrumb.Item><i className="mdi mdi-home"/> Dashboard</Breadcrumb.Item>
