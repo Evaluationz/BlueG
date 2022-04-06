@@ -144,6 +144,7 @@ function ReportDownload() {
         <Layout />
         <div className="container-fluid body-container mt-70 pt-2">
           <Container fluid className="my-3">
+          <Alert show={alertStatus} variant={variant}>{msg}</Alert>
             <Container fluid className="py-3 bg-white shadow-sm">
               <Breadcrumb>
                 <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
@@ -151,7 +152,6 @@ function ReportDownload() {
               </Breadcrumb>
 
               <Container fluid className="px-0">
-                <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                 <Form method="POST">
                   <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
                     <Col sm="3">
