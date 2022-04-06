@@ -4,8 +4,10 @@ import { Button, Offcanvas, Navbar, Container, Nav } from 'react-bootstrap';
 // import { IconName } from "react-icons/fa";
 // import { FaHome } from "react-icons/fa"
 // import { GiNotebook } from "react-icons/gi"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import configData from "../config/index.json"
+import axios from "axios";
 
 import {
     Modal
@@ -15,15 +17,32 @@ import { Auth } from 'aws-amplify';
 
 function Layout() {
     const [BasicModalShow, setShowModal] = useState(false);
+    const [clientName, updateClientName] = useState('');
+
     const handleCloseModal = () => setShowModal(false);
     //const handleShowCompanyInfo = () => setShowCompanyInfo(true);
+
+    useEffect(() => {
+        loadData()
+    }, []);
+
+    async function loadData() {
+        const user = await Auth.currentAuthenticatedUser()
+        if (user) {
+            let url = configData.express_url
+            var postData = { client_id: user.attributes.email }
+            let clientDetails = await axios.post(url + "client/getClientId", postData)
+            let client_name = clientDetails.data.client_name;
+            updateClientName(client_name)
+        }
+    }
 
     function LogOut() {
         setShowModal(true)
     }
     async function signOut() {
         await Auth.signOut();
-        window.location.reload(false);
+        window.location.href = '/'
     }
     function Cancel() {
         setShowModal(false)
@@ -48,7 +67,7 @@ function Layout() {
                 <Container fluid className="mx-lg-5">
                     <Navbar.Brand className="d-flex">
                         <Link className="navbar-brand mr-0"
-                              to="/" onClick={() => { window.location.href = "/" }}>
+                            to="/" onClick={() => { window.location.href = "/" }}>
                             <div className="d-flex align-items-center justify-content-start">
                                 <img src="./images/logo.png" alt="logo" className="logo logo-image" />
                             </div>
@@ -67,15 +86,15 @@ function Layout() {
                     <Navbar.Toggle aria-controls="offcanvasNavbar" className="sidebar-toggle"></Navbar.Toggle>
 
                     <Navbar.Offcanvas id="offcanvasNavbar"
-                                      aria-labelledby="offcanvasNavbarLabel"
-                                      placement="start">
+                        aria-labelledby="offcanvasNavbarLabel"
+                        placement="start">
                         <center>
                             <Offcanvas.Header style={{ color: 'black' }}>
                                 <Offcanvas.Title id="offcanvasNavbarLabel" className="d-flex align-items-center justify-content-center">
                                     <img src="./images/user.png"
-                                         width="40"
-                                         className="d-inline-block align-top" alt="logo" />
-                                    <span>Kompass +</span>
+                                        width="40"
+                                        className="d-inline-block align-top" alt="logo" />
+                                    <span>{clientName}</span>
                                 </Offcanvas.Title>
                             </Offcanvas.Header></center>
                         <Offcanvas.Body>
