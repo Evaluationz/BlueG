@@ -2,3 +2,12 @@
 .highcharts-credits{
   display: none;
 }
+.highcharts-graph{
+  stroke: #3e72fe;
+}
+.highcharts-point {
+  fill: #3e72fe;
+  .highcharts-point-hover{
+    fill: #3e72fe;
+  }
+}
