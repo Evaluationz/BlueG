@@ -16,6 +16,10 @@ button {
   padding: 0 14px !important;
   cursor: pointer;
   transition: box-shadow 0.2s;
+  &.disabled,
+  &:disabled{
+    box-shadow: none !important;
+  }
 }
 .btn-red{
   background-color: #ff1717 !important;
