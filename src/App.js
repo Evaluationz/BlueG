@@ -371,10 +371,10 @@ function App() {
                       <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                       <Card border="light" className='shadow rounded signup-card'>
                         <Row className="m-0">
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
+                          <Col className="col-md-5 d-md-flex big-screen-block">
+                            <Card.Body className="h-100 d-flex">
                               <Col>
-                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem' }} />
+                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
                                 <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                               </Col>
                             </Card.Body>
@@ -507,10 +507,10 @@ function App() {
                       <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                       <Card border="light" className='shadow rounded signup-card'>
                         <Row>
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
+                          <Col className="col-md-5 d-md-flex big-screen-block">
+                            <Card.Body className="h-100 d-flex">
                               <Col>
-                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem' }} />
+                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
                                 <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                               </Col>
                             </Card.Body>
@@ -620,10 +620,10 @@ function App() {
                       <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                       <Card border="light" className='shadow rounded signin-card'>
                         <Row className="m-0">
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
+                          <Col className="col-md-5 d-md-flex big-screen-block">
+                            <Card.Body className="h-100 d-flex">
                               <Col>
-                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem' }} />
+                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
                                 <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                               </Col>
                             </Card.Body>
@@ -682,10 +682,10 @@ function App() {
                       <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                       <Card border="light" className='shadow rounded signin-card'>
                         <Row className="m-0">
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
+                          <Col className="col-md-5 d-md-flex big-screen-block">
+                            <Card.Body className="h-100 d-flex">
                               <Col>
-                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem' }} />
+                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
                                 <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                               </Col>
                             </Card.Body>
@@ -767,10 +767,10 @@ function App() {
                       <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                       <Card border="light" className='shadow rounded signin-card'>
                         <Row className="m-0">
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
+                          <Col className="col-md-5 d-md-flex big-screen-block">
+                            <Card.Body className="h-100 d-flex">
                               <Col>
-                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem' }} />
+                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
                                 <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                               </Col>
                             </Card.Body>
@@ -857,10 +857,10 @@ function App() {
                       <Alert show={alertStatus} variant={variant}>{msg}</Alert>
                       <Card border="light" className='shadow rounded signin-card'>
                         <Row className="m-0">
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
+                          <Col className="col-md-5 d-md-flex big-screen-block">
+                            <Card.Body className="h-100 d-flex">
                               <Col>
-                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem' }} />
+                                <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
                                 <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                               </Col>
                             </Card.Body>
