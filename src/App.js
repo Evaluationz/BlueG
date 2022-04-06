@@ -28,8 +28,6 @@ function App() {
   const [alertState, updateAlertState] = useState(alertSettings);
   const [formState, updateFormState] = useState(initialFormState);
   const [user, updateUser] = useState(null);
-  const [clientid, updateClientId] = useState(null);
-  const [clientemail, updateEmailId] = useState(null);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [validatesignIn, setValidatedSignIn] = useState(false);
@@ -84,20 +82,6 @@ function App() {
     try {
       const user = await Auth.currentAuthenticatedUser()
       if (user) {
-        let url = configData.express_url
-        var postData = { email: user.attributes.email }
-        let clientDetails = await axios.post(url + "client/getClientId", postData)
-        let kompass_id = clientDetails.data.client_id
-        let email_id = clientDetails.data.client_email
-        if (kompass_id !== "undifined" && kompass_id !== '') {
-          updateClientId(kompass_id);
-          updateEmailId(email_id)
-          
-        }
-        
-        
-
-
         updateUser(user)
         updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
       }
@@ -322,10 +306,6 @@ function App() {
           console.log('Error remembering device', error)
         }
       }
-      // setUserLoginInfo(username,password)
-      // store the user in localStorage
-      // localStorage.setItem('user', username,password)
-      // console.log(username,password)
     }
     setValidatedSignIn(true);
   }
@@ -967,10 +947,10 @@ function App() {
                 formType === 'confirmSingIn' && (
                     <Routes>
                       
-                      <Route path="/" element={<Dashboard clientid={clientid} />} />
-                      <Route path="dashboard" element={<Dashboard clientid={clientid} />} />
-                      <Route path="profile" element={<Profile clientemail={clientemail} />} />
-                      <Route path="reportDownload" element={<ReportDownload clientid={clientid} />} />
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="dashboard" element={<Dashboard />} />
+                      <Route path="profile" element={<Profile />} />
+                      <Route path="reportDownload" element={<ReportDownload />} />
                     </Routes>
                 )
               }

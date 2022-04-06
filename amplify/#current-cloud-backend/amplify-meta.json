@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blueg-dev-124000-authRole",
+      "UnauthRoleArn": "arn:aws:iam::152712286852:role/amplify-blueg-dev-124000-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::152712286852:role/amplify-blueg-dev-124000-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-blueg-dev-124000-deployment",
+      "UnauthRoleName": "amplify-blueg-dev-124000-unauthRole",
+      "StackName": "amplify-blueg-dev-124000",
+      "StackId": "arn:aws:cloudformation:ap-south-1:152712286852:stack/amplify-blueg-dev-124000/25b1def0-8d65-11ec-ab14-028f52b83b4e",
+      "AmplifyAppId": "d1u77tpbo3p0vs"
+    }
+  },
+  "auth": {
+    "blueg40cd1cde": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blueg-dev-124000-deployment/amplify-cfn-templates/auth/blueg40cd1cde-cloudformation-template.json",
+        "logicalId": "authblueg40cd1cde"
+      },
+      "lastPushTimeStamp": "2022-02-14T07:24:56.844Z",
+      "output": {
+        "UserPoolId": "ap-south-1_GlmQ1BTTa",
+        "AppClientIDWeb": "5pmmuu5uhd1o63baq8goip84hu",
+        "AppClientID": "29s3od9i3hcv12asafqgqpbm4l",
+        "IdentityPoolId": "ap-south-1:4aabdd49-b9fd-4d80-8733-3a8b628c08cf",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-south-1:152712286852:userpool/ap-south-1_GlmQ1BTTa",
+        "IdentityPoolName": "blueg40cd1cde_identitypool_40cd1cde__dev",
+        "UserPoolName": "blueg40cd1cde_userpool_40cd1cde"
+      },
+      "lastPushDirHash": "Zr/KbX++NjHkVJ0wyUfoL8yTZas="
+    }
+  }
+}

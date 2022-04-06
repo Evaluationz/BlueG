@@ -12,17 +12,19 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import configData from "../config/index.json"
 import Footer from "../components/Footer/Footer";
 
+
+import { Auth, Hub } from 'aws-amplify';
+
 const pageData = { ReportData: [],resumeID:'', startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') };
 
 const alertSettings = {
   variant: '', msg: '', alertStatus: false
 };
 
-function ReportDownload(props) {
+function ReportDownload() {
 
   const [pageState, updatePageState] = useState(pageData);
   const [alertState, updateAlertState] = useState(alertSettings);
-  const client_id = props.clientid;
 
   useEffect(() => {
     loadData()
@@ -40,14 +42,26 @@ function ReportDownload(props) {
 
   };
 
-  function loadData(e) {
+ async function loadData(e) {
+    const user = await Auth.currentAuthenticatedUser()
+    if (user) {
+      let url = configData.express_url
+      var postData = { client_id: user.attributes.email }
+      let clientDetails = await axios.post(url + "client/getClientId", postData)
+      if (clientDetails.data.client_id) {
+    
     const { startDate, endDate,resumeID } = pageState;
     let url = configData.express_url;
-    const postData = { from_date: startDate, to_date: endDate, client_id: client_id,resumeID:resumeID };
+    const postData = { from_date: startDate, to_date: endDate, client_id: clientDetails.data.client_id,resumeID:resumeID };
     axios.post(url + "report/GetReportData", postData)
         .then(res => {
           updatePageState(() => ({ ...pageState, ReportData: res.data }))
         })
+      }
+      else{
+        //add Onboard msg
+      }
+    }
   }
 
   function getReport(row) {

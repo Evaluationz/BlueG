@@ -24,15 +24,17 @@ import BasicinfoModalForm from "../components/Modal/BasicinfoModalForm";
 import CompanyInfoModalForm from "../components/Modal/ComanyInfoModalForm";
 import ChangePasswordModalForm from "../components/Modal/ChangePasswordModalForm";
 
+import { Auth, Hub } from 'aws-amplify';
+
 const pageData = { ReportData: [], startDate: Moment().startOf('month').format('YYYY-MM-DD'), endDate: Moment().format('YYYY-MM-DD') }
 
-function Profile(props) {
+function Profile() {
 
   const [pageState, updatePageState] = useState(pageData);
   const [BasicInfoModalshow, setShowBasicInfo] = useState(false);
   const [BasicCompanyModalshow, setShowCompanyInfo] = useState(false);
   const [ChangePasswordModalshow, setShowChangePassword] = useState(false);
-
+  
   const handleCloseBasicInfo = () => setShowBasicInfo(false);
   const handleShowBasicInfo = () => setShowBasicInfo(true);
 
@@ -42,22 +44,9 @@ function Profile(props) {
   const handleCloseChangePassword = () => setShowChangePassword(false);
   const handleShowChangePassword = () => setShowChangePassword(true);
 
-  const clientemail = props.clientemail;
-  console.log("client email",clientemail)
-  //  this.state = {
-  //       apiResponse: [],
-  //       startDate: "",
-  //       endDate: "",
-  //     };
   useEffect(() => {
     loadData()
   }, [])
-
-
-  // const setBasicmodal = (props) => {
-  //   console.log("props", props)
-  //   return <BasicinfoModal showModal={props} />
-  // }
 
   function handleChange(e) {
     updatePageState(() => ({
@@ -65,15 +54,23 @@ function Profile(props) {
       [e.target.name]: e.target.value,
     }));
   }
-  function loadData() {
-    let postData = { clientemail: clientemail };
-    axios
-      .post(configData.express_url + "bgProfile/GetUserProfile",postData)
+  async function loadData() {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      if (user) {
+        let url = configData.express_url
+        var postData = { email: user.attributes.email }
+        let clientDetails = await axios.post(url + "client/getClientId", postData)
+        let profileData = { clientemail: clientDetails.data.client_email };
+    await axios
+      .post(configData.express_url + "bgProfile/GetUserProfile",profileData)
       .then((res) => {
-        //this.setState({ apiResponse: res.data[0] });
         updatePageState(() => ({ ...pageState, ReportData: res.data[0] }));
-        console.log("result", res.data[0]);
       });
+      }
+    } catch (err) {
+      console.log('user error')
+    }
   }
 
   return (

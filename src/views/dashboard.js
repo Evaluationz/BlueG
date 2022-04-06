@@ -9,11 +9,12 @@ import configData from "../config/index.json"
 import HighchartsReact from 'highcharts-react-official';
 import Footer from "../components/Footer/Footer";
 
+import { Auth, Hub } from 'aws-amplify';
+
 const pageData = { case_completed_date: [], case_completed_count: [] };
 
-function Dashboard(props) {
+function Dashboard() {
   const [pageState, updatePageState] = useState(pageData);
-  const client_id = props.clientid;
   const navigate = useNavigate();
 
   function RedirectToReport() {
@@ -24,10 +25,16 @@ function Dashboard(props) {
     loadData()
   }, []);
 
-  function loadData() {
-    let url = configData.express_url;
-    const postData = { client_id: client_id };
-    axios.post(url + 'graphDashboard/GetGraphData', postData).then((res) => {
+  async function loadData() {
+    const user = await Auth.currentAuthenticatedUser()
+      if (user) {
+        let url = configData.express_url
+        var postData = { client_id: user.attributes.email }
+        let clientDetails = await axios.post(url + "client/getClientId", postData)
+        if(clientDetails.data.client_id){
+    const clientCaseData = { client_id: clientDetails.data.client_id };
+    axios.post(url + 'graphDashboard/GetGraphData', clientCaseData).then((res) => {
+      console.log(res)
       let completed_date = [];
       let completed_count = [];
       res.data.forEach(graphdata => {
@@ -36,7 +43,11 @@ function Dashboard(props) {
       });
       updatePageState(() => ({ ...pageState, case_completed_date: completed_date, case_completed_count: completed_count }))
     })
-
+  }
+  else{
+    //Add Onboard alert here..!!
+  }
+   }
   }
 
   const { case_completed_date, case_completed_count } = pageState;
