@@ -486,7 +486,7 @@ function App() {
 
                                           <div className="col-lg-12 pt-3 pb-2">
                                             <Button className='btn-blue'
-                                                     disabled={activesignupButton}
+                                                    type="submit"
                                                     onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'signUpNext' }))}}>Proceed</Button>
                                           </div>
 
@@ -851,6 +851,7 @@ function App() {
 
                                           <div className="col-lg-12 pt-3 pb-2">
                                             <Button className='btn-blue'
+                                                     type="submit"
                                                      disabled={activesigninButton}
                                                     onClick={()=>{ updateFormState(() => ({ ...formState, formType: 'singInNext' }))}}>Proceed</Button>
                                           </div>
