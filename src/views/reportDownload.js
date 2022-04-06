@@ -46,7 +46,7 @@ function ReportDownload() {
     const user = await Auth.currentAuthenticatedUser()
     if (user) {
       let url = configData.express_url
-      var postData = { client_id: user.attributes.email }
+      var postData = { email: user.attributes.email }
       let clientDetails = await axios.post(url + "client/getClientId", postData)
       if (clientDetails.data.client_id) {
     
@@ -59,7 +59,9 @@ function ReportDownload() {
         })
       }
       else{
-        //add Onboard msg
+        let msg = 'Onboarding in progress';
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }));
+       
       }
     }
   }
