@@ -16,14 +16,18 @@ button {
   padding: 0 14px !important;
   cursor: pointer;
   transition: box-shadow 0.2s;
+  &.disabled,
+  &:disabled{
+    box-shadow: none !important;
+  }
 }
 .btn-red{
   background-color: #ff1717 !important;
   border-color: #ff1717 !important;
-}
-.btn-red:disabled{
-  background-color: #000 !important;
-  border-color: #000 !important;
+  &:disabled{
+    background-color: #000 !important;
+    border-color: #000 !important;
+  }
 }
 .btn-blue{
   background-color: #3e72fe !important;
@@ -47,10 +51,10 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-}
-.google-button img{
-  width: 1.1em;
-  margin-left: 1em;
+  img{
+    width: 1.1em;
+    margin-left: 1em;
+  }
 }
 .google-button-container div{
   font-size: 18px;
