@@ -26,11 +26,13 @@ table tr td:last-child{
   padding: 0;
 }
 table tr td .btn,
+table tr td .btn:active,
+table tr td .btn:focus,
 table tr td .btn:hover{
   background: none;
   border: none;
   color: #0d6efd;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 .react-bootstrap-table-pagination .col-md-6{
   text-align: left;
