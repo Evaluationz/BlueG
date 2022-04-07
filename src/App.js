@@ -487,8 +487,8 @@ function App() {
                   </Modal.Header>
                   <Modal.Body>
                     <Stack gap={4} className="mx-auto">
-                      <InputGroup>
-                        <Contract formState={formState} />
+                      <InputGroup className="c-black p-0 service-agreement">
+                        <Contract formState={formState}/>
                       </InputGroup>
                       <Form.Check type='checkbox'>
                         <Form.Check.Input onChange={onChange} name='checkConfirm' />
