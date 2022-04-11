@@ -56,9 +56,9 @@ function Layout() {
                         <i className="mdi mdi-alert-circle-outline c-blue"> </i>
                     </Modal.Title>
                     <Modal.Title className="f-18 text-center">Are you sure want to Logout?</Modal.Title>
-                    <div className="col-lg-12 d-flex align-items-center justify-content-center">
+                    <div className="col-lg-12 d-flex align-items-center justify-content-center mt-2">
                         <Button className='btn-white' onClick={Cancel}>NO</Button>
-                        <Button className='btn-blue m-sm-3' onClick={signOut} >YES</Button>
+                        <Button className='btn-blue ml-3' onClick={signOut} >YES</Button>
                     </div>
                 </Modal.Body>
             </Modal>
