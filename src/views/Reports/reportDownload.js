@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Header/Layout";
 import { Button, Alert, Container, Form, Row, Col, Breadcrumb } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,8 +9,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import configData from "../config/index.json"
-import Footer from "../components/Footer/Footer";
+import configData from "../../config/index.json"
+import Footer from "../../components/Footer/Footer";
 
 
 import { Auth, Hub } from 'aws-amplify';
