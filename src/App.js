@@ -453,7 +453,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 f-14">
-                                            <a className="c-blue-link cursor-pointer f-11 font-bolder">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policies</a>
+                                            <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/tnc" target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
                                           </div>
 
                                           <div className="col-lg-12 pt-3 pb-2">
@@ -585,7 +585,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 f-14">
-                                            <a className="c-blue-link cursor-pointer f-11 font-bolder">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policies</a>
+                                            <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/tnc" target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
                                           </div>
 
                                           <div className="col-lg-12 pt-3 pb-2">
@@ -833,7 +833,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 f-14">
-                                            <a className="c-blue-link cursor-pointer f-11 font-bolder">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policies</a>
+                                            <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/tnc" target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
                                           </div>
                                         </div>
                                       </Form.Group>
@@ -921,7 +921,7 @@ function App() {
                                           </div>
 
                                           <div className="col-lg-12 f-14">
-                                            <a className="c-blue-link cursor-pointer f-11 font-bolder">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policies</a>
+                                            <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/tnc" target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
                                           </div>
                                         </div>
                                       </Form.Group>
