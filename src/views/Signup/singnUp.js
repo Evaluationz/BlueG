@@ -17,7 +17,7 @@ const alertSettings = {
 };
 
 const fieldValidationSettings = { contactValidity: false, passwordValidity: false, emailValidity: false, confirmationcodeValidity: false }
-const buttonActiveSettings = { activesignupButton: false, activesignupnextButton: true }
+const buttonActiveSettings = { activesignupButton: true, activesignupnextButton: true }
 function Signup({stateChanger, ...rest}) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
@@ -94,13 +94,15 @@ function Signup({stateChanger, ...rest}) {
         e.persist();
         updateAlertState(() => ({ ...alertState, alertStatus: false }))
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
-        if (e.target.name === "companyname" || e.target.name === "username" || e.target.name === "cin" && e.target.value === "") {
+        if (e.target.name === "companyname" || e.target.name === "username" || e.target.name === "cin" && e.target.value === "" ) {
             updateButtonState(() => ({ ...buttonActiveState, activesignupButton: true }))
+            console.log(buttonActiveState)
         }
         else {
             updateButtonState(() => ({ ...buttonActiveState, activesignupButton: false }))
+            
         }
-        if (e.target.name === "contactno" || e.target.name === "address" || e.target.name === "password" && e.target.value === "") {
+        if (e.target.name === "contactno" || e.target.name === "address" || e.target.name === "password" && e.target.value === "" || e.target.value === null || e.target.value === undefined) {
             updateButtonState(() => ({ ...buttonActiveState, activesignupnextButton: true }))
         }
         else {
@@ -326,6 +328,7 @@ function Signup({stateChanger, ...rest}) {
                                         <div className="col-lg-12 pt-3 pb-2">
                                           <Button className='btn-blue'
                                                   type="submit"
+                                                //   disabled={activesignupButton}
                                                   onClick={() => { updateFormState(() => ({ ...formState, formType: 'signUpNext' })) }}>Proceed</Button>
                                         </div>
 

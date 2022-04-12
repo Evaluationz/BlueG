@@ -17,7 +17,7 @@ const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
 const fieldValidationSettings = {emailValidity:false,passwordValidity:false,confirmationcodeValidity:false}
-const buttonActiveSettings = {emailButton:false,passwordButton:true,forgotButton:true,activesigninButton:false,activeforgotButton:false,activesigninnextButton:false,}
+const buttonActiveSettings = {emailButton:false,passwordButton:true,forgotButton:true}
 function SignIn({stateChanger, ...rest}) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
@@ -105,13 +105,13 @@ function SignIn({stateChanger, ...rest}) {
         updateAlertState(() => ({ ...alertState, alertStatus: false }))
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
         if (e.target.name === 'username' && e.target.value !== "") {
-          updateButtonState(() => ({ ...buttonState, emailButton:true,forgotButton:false,activesigninButton:false}))
+          updateButtonState(() => ({ ...buttonState, emailButton:false,forgotButton:false}))
          
           
           console.log('changing state',buttonState)
         }
         else {
-          updateButtonState(() => ({ ...buttonState, emailButton:true, forgotButton:true,activesigninButton:true}))
+          updateButtonState(() => ({ ...buttonState, emailButton:true, forgotButton:true}))
          
         }
     
@@ -284,7 +284,7 @@ function SignIn({stateChanger, ...rest}) {
                                           <div className="col-lg-12 pt-3 pb-2">
                                             <Button className='btn-blue'
                                                     type="submit"
-                                                    
+                                                    disabled={emailButton}
                                                     onClick={() => { updateFormState(() => ({ ...formState, formType: 'singInNext' })) }}>Proceed</Button>
                                           </div>
 
@@ -367,7 +367,7 @@ function SignIn({stateChanger, ...rest}) {
                                   </div>
                                   <div className="col-6">
                                     <div className="mb-2 d-flex justify-content-end align-items-end">
-                                      <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-12 font-bolder" >Forgot Password?</a>
+                                      <a onClick={forgotPassword}   disabled={forgotButton} className="c-blue-link cursor-pointer f-12 font-bolder" >Forgot Password?</a>
                                     </div>
                                   </div>
                                 </div>
@@ -375,9 +375,9 @@ function SignIn({stateChanger, ...rest}) {
 
                               <div className="col-lg-12 py-3">
                                 <Button className='btn-white float-left'
-                                        onClick={() => { updateFormState(() => ({ ...formState, formType: 'singIn' })) }}>Back</Button>
+                                        onClick={() => { updateFormState(() => ({ ...formState, formType: 'signIn' })) }}>Back</Button>
 
-                                <Button className='btn-blue float-right'  type='submit' > Sign In</Button>
+                                <Button className='btn-blue float-right'   disabled={passwordButton}  type='submit' > Sign In</Button>
                               </div>
 
                               <div className="col-lg-12 f-14">
