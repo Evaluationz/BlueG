@@ -315,27 +315,29 @@ img {
   border-bottom: 1rem solid #3e72fe;
 }
 
-h2.divide-section {
-  position: relative;
-  z-index: 1;
-}
-h2.divide-section:before{
-  border-top: 1px solid #e8e8e8;
-  content:"";
-  margin: 0 auto;
-  position: absolute;
-  top: 70%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 95%;
-  z-index: -1;
-}
-h2.divide-section span{
-  background: #fff;
-  color: #000000;
-  font-weight: 700;
-  font-size: .4125em;
+h2{
+  &.divide-section {
+    position: relative;
+    z-index: 1;
+    &:before{
+      border-top: 1px solid #e8e8e8;
+      content:"";
+      margin: 0 auto;
+      position: absolute;
+      top: 67%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 95%;
+      z-index: -1;
+    }
+    span{
+      background: #fff;
+      color: #000000;
+      font-weight: 700;
+      font-size: .4125em;
+    }
+  }
 }
 
 .logo-image{
@@ -345,13 +347,10 @@ h2.divide-section span{
   background-color: #fff;
   border: 0 solid #eee;
   border-radius: 0;
-}
-.card {
   margin-bottom: 1.5rem;
   -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
   box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
 }
-
 .card-profile .card-header {
   height: 6rem;
   background-size: cover;
@@ -375,15 +374,10 @@ h2.divide-section span{
   padding: 1rem 1.25rem;
   background-color: #fff;
   border-bottom: 1px solid #eee;
-}
-.card-header {
   -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.05);
   box-shadow: 2px 2px 2px rgba(0,0,0,0.05);
-}
-.card-header{
   background-image: url("../../assets/images/bg-image.jpg");
 }
-
 .edit-profile{
   position: absolute;
   right: 1rem;

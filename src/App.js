@@ -389,8 +389,17 @@ function App() {
                                     </h4>
                                   </Card.Body>
                                   <Card.Body>
-                                    {/* <div className="col-lg-12">
-                                      <div className="col-lg-12 p-0 form-group">
+                                     <div className="col-lg-12">
+                                       <div className="col-lg-12 p-0 form-group">
+                                         <div className="facebook-button img-fluid w-100">
+                                           <img src={require('./assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
+                                           <div className="facebook-button-container w-100 text-center">
+                                             Continue with Facebook
+                                           </div>
+                                         </div>
+                                       </div>
+
+                                      <div className="col-lg-12 p-0 form-group mt-3">
                                         <div className="google-button img-fluid w-100 cursor-pointer">
                                           <img src={require('./assets/images/google-icon.png')} alt="google" loading="lazy"/>
                                           <div className="google-button-container w-100 text-center">
@@ -398,12 +407,12 @@ function App() {
                                           </div>
                                         </div>
                                       </div>
-                                    </div> */}
+                                    </div>
                                   </Card.Body>
 
-                                  {/* <div className="col-lg-12 px-4">
+                                   <div className="col-lg-12 px-4">
                                     <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                  </div> */}
+                                  </div>
 
                                   <Card.Body>
                                     <Form noValidate validated={validatesignUp} onSubmit={signUp}>
@@ -785,8 +794,17 @@ function App() {
                                     </h4>
                                   </Card.Body>
                                   <Card.Body>
-                                    {/* <div className="col-lg-12">
+                                    <div className="col-lg-12">
                                       <div className="col-lg-12 p-0 form-group">
+                                        <div className="facebook-button img-fluid w-100">
+                                          <img src={require('./assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
+                                          <div className="facebook-button-container w-100 text-center">
+                                            Continue with Facebook
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div className="col-lg-12 p-0 form-group mt-3">
                                         <div className="google-button img-fluid w-100 cursor-pointer">
                                           <img src={require('./assets/images/google-icon.png')} alt="google" loading="lazy"/>
                                           <div className="google-button-container w-100 text-center">
@@ -794,12 +812,12 @@ function App() {
                                           </div>
                                         </div>
                                       </div>
-                                    </div> */}
+                                    </div>
                                   </Card.Body>
 
-                                  {/* <div className="col-lg-12 px-4">
+                                  <div className="col-lg-12 px-4">
                                     <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                  </div> */}
+                                  </div>
 
                                   <Card.Body>
                                     <Form noValidate validated={validatesignIn} onSubmit={signIn}>
