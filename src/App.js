@@ -374,7 +374,7 @@ function App() {
                                 <Col className="col-md-5 d-md-flex big-screen-block">
                                   <Card.Body className="h-100 d-flex">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.7rem' }} />
                                       <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
@@ -519,7 +519,7 @@ function App() {
                                 <Col className="col-md-5 d-md-flex big-screen-block">
                                   <Card.Body className="h-100 d-flex">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.7rem' }} />
                                       <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
@@ -632,7 +632,7 @@ function App() {
                                 <Col className="col-md-5 d-md-flex big-screen-block">
                                   <Card.Body className="h-100 d-flex">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.7rem' }} />
                                       <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
@@ -694,7 +694,7 @@ function App() {
                                 <Col className="col-md-5 d-md-flex big-screen-block">
                                   <Card.Body className="h-100 d-flex">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.7rem' }} />
                                       <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
@@ -779,7 +779,7 @@ function App() {
                                 <Col className="col-md-5 d-md-flex big-screen-block">
                                   <Card.Body className="h-100 d-flex">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.7rem' }} />
                                       <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
@@ -878,7 +878,7 @@ function App() {
                                 <Col className="col-md-5 d-md-flex big-screen-block">
                                   <Card.Body className="h-100 d-flex">
                                     <Col>
-                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('./assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.7rem' }} />
                                       <Card.Img variant="top" src={require('./assets/images/illustration.png')} style={{ width: '350px' }} />
                                     </Col>
                                   </Card.Body>
