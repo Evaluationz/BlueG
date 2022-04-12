@@ -42,6 +42,38 @@ button {
   border-color: #ffffff !important;
   color: #000000 !important;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .facebook-button-container,
+  .google-button-container{
+    font-size: .7125em;
+  }
+}
+.facebook-button {
+  flex-direction: row;
+  padding: 10px 10px;
+  border: 1px solid #dddddd;
+  border-radius: 0.25rem;
+  background-color: #4267B2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  img{
+    width: 1.1em;
+    margin-left: 1em;
+  }
+}
+
+.facebook-button-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #ffffff;
+  div{
+    font-size: 18px;
+  }
+}
 .google-button {
   background-color:#fafafa;
   flex-direction: row;
