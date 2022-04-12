@@ -62,18 +62,18 @@ button {
     width: 1.1em;
     margin-left: 1em;
   }
-}
-
-.facebook-button-container {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #ffffff;
-  div{
-    font-size: 18px;
+  .facebook-button-container {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+    div{
+      font-size: 18px;
+    }
   }
 }
+
 .google-button {
   background-color:#fafafa;
   flex-direction: row;
@@ -87,10 +87,13 @@ button {
     width: 1.1em;
     margin-left: 1em;
   }
+  .google-button-container {
+    div{
+      font-size: 18px;
+    }
+  }
 }
-.google-button-container div{
-  font-size: 18px;
-}
+
 
 .btn-primary{
   background: rgb(66, 153, 225);
