@@ -2,3 +2,17 @@
 .highcharts-credits{
   display: none;
 }
+.highcharts-graph,
+.highcharts-label-box{
+  stroke: #3e72fe;
+}
+.highcharts-label-box{
+  stroke: #3e72fe;
+  fill: #ffffff;
+}
+.highcharts-point {
+  fill: #3e72fe;
+  .highcharts-point-hover{
+    fill: #3e72fe;
+  }
+}

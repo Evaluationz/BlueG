@@ -1,5 +1,3 @@
-
-
 .input-group {
   border: 0;
   border-radius: 3px;
@@ -259,6 +257,11 @@ input[type=number]::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+.service-agreement{
+  textarea::placeholder {
+    color: #000000 !important;
+  }
 }
 
 input:focus,

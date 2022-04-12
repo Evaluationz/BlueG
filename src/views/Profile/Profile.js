@@ -72,7 +72,6 @@ function Profile() {
       console.log('user error')
     }
   }
-
   return (
     <>
       <Modal show={BasicInfoModalshow} onHide={handleCloseBasicInfo}>

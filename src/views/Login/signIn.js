@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from "axios";
 import { Button, Container, Card, InputGroup, FormControl, Row, Col, Stack, Alert, Form, Modal } from 'react-bootstrap';
 import Contract from "../../components/Contract"
@@ -6,7 +6,7 @@ import configData from "../../config/index.json"
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import '../../styles.scss';
-import { Auth } from 'aws-amplify';
+import { Auth,Hub } from 'aws-amplify';
 
 
 const initialFormState = {
@@ -17,13 +17,19 @@ const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
 const fieldValidationSettings = {emailValidity:false,passwordValidity:false,confirmationcodeValidity:false}
-const buttonActiveSettings = {emailButton:false,passwordButton:true,forgotButton:true}
+const buttonActiveSettings = {emailButton:false,passwordButton:true,forgotButton:true,activesigninButton:false,activeforgotButton:false,activesigninnextButton:false,}
 function SignIn({stateChanger, ...rest}) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
     const [validatesignIn, setValidatedSignIn] = useState(false);
     const [fieldValidityState, updatefieldValidity] = useState(fieldValidationSettings);
     const [buttonState, updateButtonState] = useState(buttonActiveSettings);
+
+
+    useEffect(() => {
+       
+      setAuthListener()
+    }, []);
 
     async function createAccount() {
         stateChanger('signUp')
@@ -36,13 +42,13 @@ function SignIn({stateChanger, ...rest}) {
         updateAlertState(() => ({ ...alertState, alertStatus: false }))
         updatefieldValidity(() => ({ ...fieldValidityState, passwordValidity: false }))
       }
-
+     
       async function resetPassword(e) {
         e.preventDefault();
         const { username, authCode, password } = formState;
         Auth.forgotPasswordSubmit(username, authCode, password)
           .then(data => {
-            updateFormState(() => ({ ...formState, formType: 'singIn' }))
+            updateFormState(() => ({ ...formState, formType: 'signIn' }))
             var msg = 'Password Reset Success'
             updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }))
             setTimeout(() => {
@@ -99,12 +105,14 @@ function SignIn({stateChanger, ...rest}) {
         updateAlertState(() => ({ ...alertState, alertStatus: false }))
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
         if (e.target.name === 'username' && e.target.value !== "") {
-          updateButtonState(() => ({ ...buttonState, emailButton:true,forgotButton:false}))
+          updateButtonState(() => ({ ...buttonState, emailButton:true,forgotButton:false,activesigninButton:false}))
+         
           
           console.log('changing state',buttonState)
         }
         else {
-          updateButtonState(() => ({ ...buttonState, emailButton:true, forgotButton:true}))
+          updateButtonState(() => ({ ...buttonState, emailButton:true, forgotButton:true,activesigninButton:true}))
+         
         }
     
         //sigin password
@@ -150,6 +158,24 @@ function SignIn({stateChanger, ...rest}) {
         }
       }
     
+      async function setAuthListener() {
+        var msg = '';
+        Hub.listen('auth', (data) => {
+          switch (data.payload.event) {
+            case 'signIn_failure':
+              msg = data.payload.data.message
+              updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+              setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+              }, 3000);
+              setValidatedSignIn(false);
+              break;
+          }
+        });
+      }
+    
+      
+
     async function signIn(event) {
         event.preventDefault();
         const form = event.currentTarget;
@@ -161,7 +187,8 @@ function SignIn({stateChanger, ...rest}) {
         else {
           const { username, password, rememberme } = formState;
           await Auth.signIn(username, password);
-          updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
+         // updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }))
+         stateChanger('confirmSingIn')
           if (rememberme === 'on') {
             try {
               const result = await Auth.rememberDevice();
@@ -185,264 +212,273 @@ function SignIn({stateChanger, ...rest}) {
         {
         formType === 'signIn' && (
           <div>
-            <Container fluid className="bg-block bg-gray login-card-block">
-                <Row>
-                    <Col className="py-4">
-                        <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                        <Card border="light" className='shadow rounded signin-card'>
-                            <Row className="m-0">
-                                <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                                    <Card.Body className="h-100 d-flex align-items-center justify-content-center">
-                                        <Col>
-                                            <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
-                                            <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
-                                        </Col>
-                                    </Card.Body>
+                      <Container fluid className="bg-block bg-gray login-card-block">
+                        <Row>
+                          <Col className="py-4">
+                            <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                            <Card border="light" className='shadow rounded signin-card'>
+                              <Row className="m-0">
+                                <Col className="col-md-5 d-md-flex big-screen-block">
+                                  <Card.Body className="h-100 d-flex">
+                                    <Col>
+                                      <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                      <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
+                                    </Col>
+                                  </Card.Body>
                                 </Col>
                                 <Col className="col-md-7 px-4 small-screen-block">
-                                    <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                                        <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
-                                    </Card.Body>
-                                    <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
-                                        <h4 className="mb-0">
-                                            Sign in to your Account
-                                        </h4>
-                                    </Card.Body>
-                                    <Card.Body>
-                                        {/* <div className="col-lg-12">
-                                  <div className="col-lg-12 p-0 form-group">
-                                    <div className="google-button img-fluid w-100 cursor-pointer">
-                                      <img src={require('./assets/images/google-icon.png')} alt="google" loading="lazy"/>
-                                      <div className="google-button-container w-100 text-center">
-                                        Continue with Google
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                                    <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                  </Card.Body>
+                                  <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
+                                    <h4 className="mb-0">
+                                      Sign in to your Account
+                                    </h4>
+                                  </Card.Body>
+                                  <Card.Body>
+                                    <div className="col-lg-12">
+                                      <div className="col-lg-12 p-0 form-group">
+                                        <div className="facebook-button img-fluid w-100">
+                                          <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
+                                          <div className="facebook-button-container w-100 text-center">
+                                            Continue with Facebook
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div className="col-lg-12 p-0 form-group mt-3">
+                                        <div className="google-button img-fluid w-100 cursor-pointer">
+                                          <img src={require('../../assets/images/google-icon.png')} alt="google" loading="lazy"/>
+                                          <div className="google-button-container w-100 text-center">
+                                            Continue with Google
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
+                                  </Card.Body>
+
+                                  <div className="col-lg-12 px-4">
+                                    <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
                                   </div>
-                                </div> */}
-                                    </Card.Body>
 
-                                    {/* <div className="col-lg-12 px-4">
-                                <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                              </div> */}
+                                  <Card.Body>
+                                    <Form noValidate validated={validatesignIn} onSubmit={signIn}>
+                                      <Form.Group className="">
+                                        <div className="row align-items-center">
+                                          <div className="col-lg-12">
+                                            <Form.Label className="mb-0">Email*</Form.Label>
+                                            <FormControl name='username'
+                                                         isInvalid={emailValidity}
+                                                         type='email'
+                                                         placeholder="Enter Your Email*"
+                                                         autocomplete="off"
+                                                         autoFocus="TRUE"
+                                                         className="shadow-none"
+                                                         required
+                                                         onChange={onChange} />
+                                            <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                              Enter Your Email
+                                            </Form.Control.Feedback>
+                                          </div>
 
-                                    <Card.Body>
-                                        <Form noValidate validated={validatesignIn} onSubmit={signIn}>
-                                            <Form.Group className="">
-                                                <div className="row align-items-center">
-                                                    <div className="col-lg-12">
-                                                        <Form.Label className="mb-0">Email*</Form.Label>
-                                                        <FormControl name='username'
-                                                            isInvalid={emailValidity}
-                                                            type='email'
-                                                            placeholder="Enter Your Email*"
-                                                            autocomplete="off"
-                                                            autoFocus="TRUE"
-                                                            className="shadow-none"
-                                                            required
-                                                            onChange={onChange} />
-                                                        <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                                                            Enter Your Email
-                                                        </Form.Control.Feedback>
-                                                    </div>
+                                          <div className="col-lg-12 pt-3 pb-2">
+                                            <Button className='btn-blue'
+                                                    type="submit"
+                                                    
+                                                    onClick={() => { updateFormState(() => ({ ...formState, formType: 'singInNext' })) }}>Proceed</Button>
+                                          </div>
 
-                                                    <div className="col-lg-12 pt-3 pb-2">
-                                                        <Button className='btn-blue'
-                                                            type="submit"
-                                                            disabled={emailButton}
-                                                            onClick={() => { updateFormState(() => ({ ...formState, formType: 'singInNext' })) }}>Proceed</Button>
-                                                    </div>
+                                          <div className="col-lg-12 f-14">
+                                            <span className="f-11">Don't have an account yet?</span> <a onClick={createAccount} className="c-blue-link cursor-pointer f-11 font-bolder text-uppercase">Create One</a>
+                                          </div>
 
-                                                    <div className="col-lg-12 f-14">
-                                                        <span className="f-11">Don't have an account yet?</span> <a onClick={createAccount} className="c-blue-link cursor-pointer f-11 font-bolder text-uppercase">Create One</a>
-                                                    </div>
-
-                                                    <div className="col-lg-12 f-14">
-                                                        <a className="c-blue-link cursor-pointer f-11 font-bolder">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policies</a>
-                                                    </div>
-                                                </div>
-                                            </Form.Group>
-                                        </Form>
-                                    </Card.Body>
+                                          <div className="col-lg-12 f-14">
+                                            <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/tnc" target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
+                                          </div>
+                                        </div>
+                                      </Form.Group>
+                                    </Form>
+                                  </Card.Body>
                                 </Col>
-                            </Row>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                              </Row>
+                            </Card>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </div>
         )
       }
        {
         formType === 'singInNext' && (
           <div>
-            <Container fluid="true" className="bg-block bg-gray login-card-block">
-              <Row className="m-0">
-                <Col className="py-4">
-                  <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                  <Card border="light" className='shadow rounded signin-card'>
-                    <Row className="m-0">
-                      <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                        <Card.Body className="h-100 d-flex align-items-center justify-content-center">
-                          <Col>
-                            <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
-                            <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
-                          </Col>
-                        </Card.Body>
-                      </Col>
-                      <Col className="col-md-7 px-4 small-screen-block">
-                        <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                          <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
-                        </Card.Body>
-                        <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
-                          <h4 className="mb-0">
-                            Enter your Password
-                          </h4>
-                        </Card.Body>
-                        <Card.Body>
-                          <Form noValidate validated={validatesignIn} onSubmit={signIn}>
-                            <Form.Group className="">
-                              <div className="row align-items-center">
-                                <div className="col-lg-12 pb-1">
-                                  <Form.Label className="mb-0">Password*</Form.Label>
-                                  <FormControl isInvalid={passwordValidity} name='password'
-                                    className="shadow-none"
-                                    placeholder="Enter your Password*"
-                                    type={values.showPassword ? "text" : "password"}
-                                    maxLength={15}
-                                    autoComplete="off"
+          <Container fluid="true" className="bg-block bg-gray login-card-block">
+            <Row className="m-0">
+              <Col className="py-4">
+                <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                <Card border="light" className='shadow rounded signin-card'>
+                  <Row className="m-0">
+                    <Col className="col-md-5 d-md-flex big-screen-block">
+                      <Card.Body className="h-100 d-flex">
+                        <Col>
+                          <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                          <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
+                        </Col>
+                      </Card.Body>
+                    </Col>
+                    <Col className="col-md-7 px-4 small-screen-block">
+                      <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                        <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                      </Card.Body>
+                      <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
+                        <h4 className="mb-0">
+                          Enter your Password
+                        </h4>
+                      </Card.Body>
+                      <Card.Body>
+                        <Form noValidate validated={validatesignIn} onSubmit={signIn}>
+                          <Form.Group className="">
+                            <div className="row align-items-center">
+                              <div className="col-lg-12 pb-1">
+                                <Form.Label className="mb-0">Password*</Form.Label>
+                                <FormControl isInvalid={passwordValidity} name='password'
+                                             className="shadow-none"
+                                             placeholder="Enter your Password*"
+                                             type={values.showPassword ? "text" : "password"}
+                                             maxLength={15}
+                                             autoComplete="off"
+                                             autoFocus="TRUE"
+                                             required
+                                             onChange={onChange} />
+                                <i className="toggle-password" onClick={handleClickShowPassword}
+                                   onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                  Enter Your Password.
+                                </Form.Control.Feedback>
 
-                                    required
-                                    onChange={onChange} />
-                                  <i className="toggle-password" onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
-                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                                    Enter Your Password.
-                                  </Form.Control.Feedback>
-
-                                  <div className="row mt-1">
-                                    <div className="col-6">
-                                      <div className="form-check pl-0">
-                                        <input className="form-check-input ml-0"
-                                          type="checkbox"
-                                          name="rememberme" onChange={onChange} id="flexCheckDefault" />
-                                        <label className="form-check-label mt-1 f-12"
-                                          htmlFor="flexCheckDefault"> Remember me </label>
-                                      </div>
+                                <div className="row mt-1">
+                                  <div className="col-6">
+                                    <div className="form-check pl-0">
+                                      <input className="form-check-input ml-0"
+                                             type="checkbox"
+                                             name="rememberme" onChange={onChange} id="flexCheckDefault" />
+                                      <label className="form-check-label mt-1 f-12"
+                                             htmlFor="flexCheckDefault"> Remember me </label>
                                     </div>
-                                    <div className="col-6">
-                                      <div className="mb-2 d-flex justify-content-end align-items-end">
-                                        <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-12 font-bolder" disabled={forgotButton}>Forgot Password?</a>
-                                      </div>
+                                  </div>
+                                  <div className="col-6">
+                                    <div className="mb-2 d-flex justify-content-end align-items-end">
+                                      <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-12 font-bolder" >Forgot Password?</a>
                                     </div>
                                   </div>
                                 </div>
-
-                                <div className="col-lg-12 py-3">
-                                  <Button className='btn-white float-left'
-                                    onClick={() => { updateFormState(() => ({ ...formState, formType: 'signIn' })) }}>Back</Button>
-
-                                  <Button className='btn-blue float-right' disabled={passwordButton} type='submit' > Sign In</Button>
-                                </div>
-
-                                <div className="col-lg-12 f-14">
-                                  <a className="c-blue-link cursor-pointer f-11 font-bolder">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policies</a>
-                                </div>
                               </div>
-                            </Form.Group>
-                          </Form>
-                        </Card.Body>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+
+                              <div className="col-lg-12 py-3">
+                                <Button className='btn-white float-left'
+                                        onClick={() => { updateFormState(() => ({ ...formState, formType: 'singIn' })) }}>Back</Button>
+
+                                <Button className='btn-blue float-right'  type='submit' > Sign In</Button>
+                              </div>
+
+                              <div className="col-lg-12 f-14">
+                                <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/tnc" target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
+                              </div>
+                            </div>
+                          </Form.Group>
+                        </Form>
+                      </Card.Body>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
         )
       }
        {
             formType === 'newPassword' && (
               <div>
-                <Container fluid className="bg-block bg-gray login-card-block">
-                  <Row>
-                    <Col>
-                      <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-                      <Card border="light" className='shadow rounded signin-card'>
-                        <Row className="m-0">
-                          <Col className="col-md-5 d-md-flex align-items-center justify-content-center big-screen-block">
-                            <Card.Body className="h-100 d-flex align-items-center justify-content-center">
-                              <Col>
-                                <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
-                                <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
-                              </Col>
-                            </Card.Body>
-                          </Col>
-                          <Col className="col-md-7 px-4 small-screen-block">
-                            <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
-                              <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
-                            </Card.Body>
+              <Container fluid className="bg-block bg-gray login-card-block">
+                <Row>
+                  <Col>
+                    <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                    <Card border="light" className='shadow rounded signin-card'>
+                      <Row className="m-0">
+                        <Col className="col-md-5 d-md-flex big-screen-block">
+                          <Card.Body className="h-100 d-flex">
+                            <Col>
+                              <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                              <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
+                            </Col>
+                          </Card.Body>
+                        </Col>
+                        <Col className="col-md-7 px-4 small-screen-block">
+                          <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                            <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                          </Card.Body>
 
-                            <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
-                              <h4 className="mb-0">
-                                Verify your Account
-                              </h4>
-                            </Card.Body>
+                          <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
+                            <h4 className="mb-0">
+                              Verify your Account
+                            </h4>
+                          </Card.Body>
 
-                            <Card.Body>
-                              <Form.Group className="mb-1">
-                                <div className="row align-items-center ">
-                                  <div className="col-lg-12 pb-3">
-                                    <Form.Label className="mb-0">Confirmation Code</Form.Label>
-                                    <FormControl name='authCode'
-                                      isInvalid={confirmationcodeValidity}
-                                      type='number'
-                                      required
-                                      className="shadow-sm"
-                                      onChange={onChange} />
-                                    <Form.Control.Feedback type="invalid" className="text-left">
-                                      Please provide 6 digit number
-                                    </Form.Control.Feedback>
-                                  </div>
-
-                                  <div className="col-lg-12 pb-1">
-                                    <Form.Label className="mb-0">New Password</Form.Label>
-                                    <FormControl isInvalid={passwordValidity}
-                                      name='password'
-                                      className="shadow-sm"
-                                      required
-                                      type={values.showPassword ? "text" : "password"}
-                                      id="cnfpassword"
-                                      autoComplete="off"
-                                      onChange={onChange} />
-                                    <i className="toggle-password" onClick={handleClickShowPassword}
-                                      onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
-
-                                    <Form.Control.Feedback type="invalid" className="mb-0 text-left">
-                                      Password between 7 to 15 characters which contain at least one numeric digit and a special character.
-                                    </Form.Control.Feedback>
-                                  </div>
-
-                                  <div className="col-lg-12 pt-2">
-                                    <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-11 font-bolder">Request confirmation code</a>
-                                  </div>
-
-                                  <div className="col-lg-12 py-3">
-                                    <Button type='submit' className="btn-blue" onClick={resetPassword}>Proceed</Button>
-                                  </div>
-
-                                  <div className="col-lg-12">
-                                    <a className="c-blue-link cursor-pointer f-11 font-bolder" onClick={Backtosignin}>Return to Sign IN</a>
-                                  </div>
+                          <Card.Body>
+                            <Form.Group className="mb-1">
+                              <div className="row align-items-center ">
+                                <div className="col-lg-12 pb-3">
+                                  <Form.Label className="mb-0">Confirmation Code</Form.Label>
+                                  <FormControl name='authCode'
+                                               isInvalid={confirmationcodeValidity}
+                                               type='number'
+                                               required
+                                               className="shadow-sm"
+                                               onChange={onChange} />
+                                  <Form.Control.Feedback type="invalid" className="text-left">
+                                    Please provide 6 digit number
+                                  </Form.Control.Feedback>
                                 </div>
-                              </Form.Group>
-                            </Card.Body>
-                          </Col>
-                        </Row>
-                      </Card>
-                    </Col>
-                  </Row>
-                </Container>
-              </div>
+
+                                <div className="col-lg-12 pb-1">
+                                  <Form.Label className="mb-0">New Password</Form.Label>
+                                  <FormControl isInvalid={passwordValidity}
+                                               name='password'
+                                               className="shadow-sm"
+                                               required
+                                               type={values.showPassword ? "text" : "password"}
+                                               id="cnfpassword"
+                                               autoComplete="off"
+                                               onChange={onChange} />
+                                  <i className="toggle-password" onClick={handleClickShowPassword}
+                                     onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+
+                                  <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                    Password between 7 to 15 characters which contain at least one numeric digit and a special character.
+                                  </Form.Control.Feedback>
+                                </div>
+
+                                <div className="col-lg-12 pt-2">
+                                  <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-11 font-bolder">Request confirmation code</a>
+                                </div>
+
+                                <div className="col-lg-12 py-3">
+                                  <Button type='submit' className="btn-blue" onClick={resetPassword}>Proceed</Button>
+                                </div>
+
+                                <div className="col-lg-12">
+                                  <a className="c-blue-link cursor-pointer f-11 font-bolder" onClick={Backtosignin}>Return to Sign IN</a>
+                                </div>
+                              </div>
+                            </Form.Group>
+                          </Card.Body>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
             )
           }
     </>
