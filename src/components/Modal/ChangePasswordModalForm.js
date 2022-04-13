@@ -5,7 +5,7 @@ import { Form, Button, FormControl, Row, Col, Card, Alert } from 'react-bootstra
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-import { Auth } from 'aws-amplify';
+import { Auth, input } from 'aws-amplify';
 
 const alertSettings = {
     variant: '', msg: '', alertStatus: false
@@ -55,52 +55,78 @@ const ChangePasswordModalForm = () => {
     event.preventDefault();
   };
 
-  async function changePassword(){
-    const { oldPassword, newPassword } = formState;
-    Auth.currentAuthenticatedUser()
-    .then(user => {
-        return Auth.changePassword(user,oldPassword,newPassword);
-    })
-    .then(data => {
-      updateFormState(() => ({ ...formState, formType: 'newPassword' }));
-      var msg = 'Password Changed Successfully';
-      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }));
+  async function changePassword(e){
+    console.log("match",formState.matchPassword)
+    console.log("new pass",formState.newPassword)
+    
+    if (formState.matchPassword !==formState.newPassword) {
+      e.preventDefault();
+      var msg = 'Password doesn`t match,please try again';
+      updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }));
       setTimeout(() => {
         updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
-      }, 3000);
-    })
-    .catch(err => console.log(err));
+      }, 2000);
+    }
+    else
+    {
+      
+      const { oldPassword, newPassword } = formState;
+      Auth.currentAuthenticatedUser()
+      .then(user => {
+          return Auth.changePassword(user,oldPassword,newPassword);
+      })
+      .then(data => {
+        updateFormState(() => ({ ...formState, formType: 'newPassword' }));
+        var msg = 'Password Changed Successfully';
+        updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'success', msg: msg }));
+        setTimeout(() => {
+          updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+        }, 3000);
+      })
+      .catch(err => console.log(err));
+      
+    }
+
+
+
+
+    
 
   }
 
   function onChange(e) {
     e.persist();
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
-    if (e.target.name === 'current_password') {
-      var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
-      if (e.target.value.match(paswd)) {
-        setPasswordValidity(false);
-      }
-      else {
-        setPasswordValidity(true);
-      }
-    }
-    if (e.target.name === 'cnf_password') {
+    // if (e.target.name === 'oldPassword') {
+    //   var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+    //   if (e.target.value.match(paswd)) {
+    //     setPasswordValidity(false);
+    //   }
+    //   else {
+    //     setPasswordValidity(true);
+    //   }
+    // }
+   
+
+    if (e.target.name === 'matchPassword') {
         var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
         if (e.target.value.match(paswd)) {
-            setcnfPasswordValidity(false);
+            
+            setPasswordValidity(false);
         }
         else {
-            setcnfPasswordValidity(true);
+            
+            setPasswordValidity(true);
         }
       }
-      if (e.target.name === 'new_password') {
+      if (e.target.name === 'newPassword') {
         var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
         if (e.target.value.match(paswd)) {
-          setPasswordValidity(false);
+          setcnfPasswordValidity(false);
         }
         else {
-          setPasswordValidity(true);
+          
+          setcnfPasswordValidity(true);
         }
       }
 

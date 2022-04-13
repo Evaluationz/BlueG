@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="footer-content-list footer-content-item mb-0">
-                                <p className="font-normal f-12 mb-0 text-white">©2021 bluG by Evaluationz India Private Limited. Designed &amp; Developed By <a href="https://www.evaluationz.com/" target="_blank" className="text-decoration-none">Evaluationz</a></p>
+                                <p className="font-normal f-12 mb-0 text-white">© 2022 BlueG by Evaluationz India Private Limited.</p>
                             </div>
                         </div>
                     </div>

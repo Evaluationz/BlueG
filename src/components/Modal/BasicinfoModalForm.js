@@ -14,8 +14,8 @@ const BasicinfoModalForm = (props) => {
 
     const [formState, updateFormState] = useState(pageState);
     const { alertStatus, variant, msg } = alertState;
-    async function updateBasicInfo() {
 
+    async function updateBasicInfo() {
         let url = configData.express_url;
         const postData = { contactno: formState.contact_no, email: formState.email, name: formState.client_name };
         axios.post(url + "bgProfile/UpdateBasicInfo", postData)
@@ -27,8 +27,6 @@ const BasicinfoModalForm = (props) => {
                 }, 3000);
             })
     }
-
-
 
     function handleChange(e) {
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
