@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Header/Layout";
 import { Button, Alert, Container, Form, Row, Col, Breadcrumb } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,8 +9,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import configData from "../config/index.json"
-import Footer from "../components/Footer/Footer";
+import configData from "../../config/index.json"
+import Footer from "../../components/Footer/Footer";
 
 
 import { Auth, Hub } from 'aws-amplify';
@@ -140,60 +140,60 @@ function ReportDownload() {
     }
   ];
   return (
-      <>
-        <Layout />
-        <div className="container-fluid body-container mt-70 pt-2">
-          <Container fluid className="my-3">
-          <Alert show={alertStatus} variant={variant}>{msg}</Alert>
-            <Container fluid className="py-3 bg-white shadow-sm">
-              <Breadcrumb>
-                <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
-                <Breadcrumb.Item active>Reports</Breadcrumb.Item>
-              </Breadcrumb>
+    <>
+      <Layout />
+      <div className="container-fluid body-container mt-70 pt-2">
+        <Container fluid className="my-3">
+        <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+          <Container fluid className="py-3 bg-white shadow-sm">
+            <Breadcrumb>
+              <Breadcrumb.Item href="/dashboard"><i className="mdi mdi-home" />Home</Breadcrumb.Item>
+              <Breadcrumb.Item active>Reports</Breadcrumb.Item>
+            </Breadcrumb>
 
-              <Container fluid className="px-0">
-                <Form method="POST">
-                  <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
-                    <Col sm="3">
-                      <Form.Label column className="pb-0 f-14">From Date</Form.Label>
-                      <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} className="f-14"/>
-                    </Col>
+            <Container fluid className="px-0">
+              <Form method="POST">
+                <Form.Group as={Row} className="mb-12" controlId="formPlaintextEmail">
+                  <Col sm="3">
+                    <Form.Label column className="pb-0 f-14">From Date</Form.Label>
+                    <Form.Control type="date" name="startDate" value={startDate} onChange={handleChange} className="f-14"/>
+                  </Col>
 
-                    <Col sm="3">
-                      <Form.Label column className="pb-0 f-14">To Date</Form.Label>
-                      <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} className="f-14"/>
-                    </Col>
+                  <Col sm="3">
+                    <Form.Label column className="pb-0 f-14">To Date</Form.Label>
+                    <Form.Control type="date" name="endDate" value={endDate} onChange={handleChange} className="f-14"/>
+                  </Col>
 
-                    <Col sm="4">
-                      <Form.Label column className="pb-0 f-14">Resume Id</Form.Label>
-                      <Form.Control type="search" name="resumeID" onChange={handleChange} className="f-14"/>
-                    </Col>
+                  <Col sm="4">
+                    <Form.Label column className="pb-0 f-14">Resume Id</Form.Label>
+                    <Form.Control type="search" name="resumeID" onChange={handleChange} className="f-14"/>
+                  </Col>
 
-                    <Col sm="2" className="mt-4 pt-1" style={{ textAlign: 'right' }}>
-                      <Form.Label column/>
-                      <Button type="Submit" variant="primary" onClick={getData} className="btn-blue f-14">Search</Button>
-                    </Col>
-                  </Form.Group>
-                </Form>
-              </Container>
+                  <Col sm="2" className="mt-4 pt-1" style={{ textAlign: 'right' }}>
+                    <Form.Label column/>
+                    <Button type="Submit" variant="primary" onClick={getData} className="btn-blue f-14">Search</Button>
+                  </Col>
+                </Form.Group>
+              </Form>
+            </Container>
 
-              <Container fluid className="px-0 mt-3">
-                <BootstrapTable keyField="case_id"
-                                data={ReportData}
-                                columns={columns}
-                                striped={false}
-                                hover
-                                condensed
-                                pagination={paginationFactory()}
-                                filter={filterFactory()}>
-                </BootstrapTable>
-              </Container>
+            <Container fluid className="px-0 mt-3">
+              <BootstrapTable keyField="case_id"
+                              data={ReportData}
+                              columns={columns}
+                              striped={false}
+                              hover
+                              condensed
+                              pagination={paginationFactory()}
+                              filter={filterFactory()}>
+              </BootstrapTable>
             </Container>
           </Container>
-        </div>
-        <Footer/>
-      </>
-  );
+        </Container>
+      </div>
+      <Footer/>
+    </>
+);
 }
 
 

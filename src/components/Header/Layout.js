@@ -6,7 +6,7 @@ import { Button, Offcanvas, Navbar, Container, Nav } from 'react-bootstrap';
 // import { GiNotebook } from "react-icons/gi"
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import configData from "../config/index.json"
+import configData from "../../config/index.json"
 import axios from "axios";
 
 import {

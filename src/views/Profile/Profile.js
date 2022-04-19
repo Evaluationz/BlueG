@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Header/Layout";
 import {
   Card,
   ListGroup,
@@ -14,15 +14,15 @@ import {
 } from "react-bootstrap";
 import React, { useState, Component, useEffect } from "react";
 import axios from "axios";
-import configData from "../config/index.json";
+import configData from "../../config/index.json";
 import Moment from "moment";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
-import Footer from "../components/Footer/Footer";
-import BasicinfoModalForm from "../components/Modal/BasicinfoModalForm";
-import CompanyInfoModalForm from "../components/Modal/ComanyInfoModalForm";
-import ChangePasswordModalForm from "../components/Modal/ChangePasswordModalForm";
+import Footer from "../../components/Footer/Footer";
+import BasicinfoModalForm from "../../components/Modal/BasicinfoModalForm";
+import CompanyInfoModalForm from "../../components/Modal/ComanyInfoModalForm";
+import ChangePasswordModalForm from "../../components/Modal/ChangePasswordModalForm";
 
 import { Auth, Hub } from 'aws-amplify';
 
@@ -72,7 +72,6 @@ function Profile() {
       console.log('user error')
     }
   }
-
   return (
     <>
       <Modal show={BasicInfoModalshow} onHide={handleCloseBasicInfo}>

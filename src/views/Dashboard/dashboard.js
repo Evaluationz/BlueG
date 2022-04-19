@@ -1,13 +1,13 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Header/Layout";
 import * as Highcharts from 'highcharts';
 import { Breadcrumb, Container, Alert } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Moment from 'moment';
-import { useNavigate } from "react-router-dom";
-import configData from "../config/index.json"
+import { useNavigate,Navigate } from "react-router-dom";
+import configData from "../../config/index.json"
 import HighchartsReact from 'highcharts-react-official';
-import Footer from "../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 
 
 import { Auth, Hub } from 'aws-amplify';
@@ -83,6 +83,7 @@ function Dashboard() {
       }
     ],
   };
+
 
 
   return (
