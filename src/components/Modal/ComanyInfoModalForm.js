@@ -53,6 +53,31 @@ const CompanyInfoModalForm = (props) => {
                                     <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
                                 </div>
 
+                                <div className="col-md-4 pb-2">
+                                    <Form.Label className="mb-0 f-14">City</Form.Label>
+                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                </div>
+
+                                <div className="col-md-4 pb-2">
+                                    <Form.Label className="mb-0 f-14">ZIP</Form.Label>
+                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                </div>
+
+                                <div className="col-md-4 pb-2">
+                                    <Form.Label className="mb-0 f-14">Country</Form.Label>
+                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                </div>
+
+                                <div className="col-md-4 pb-2">
+                                    <Form.Label className="mb-0 f-14">Tier</Form.Label>
+                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                </div>
+
+                                <div className="col-md-4 pb-2">
+                                    <Form.Label className="mb-0 f-14">Valid Till</Form.Label>
+                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                </div>
+
                                 <div className="col-lg-12 pt-3">
                                     <Button className='btn-blue float-right f-14' type="submit">Update</Button>
                                 </div>
