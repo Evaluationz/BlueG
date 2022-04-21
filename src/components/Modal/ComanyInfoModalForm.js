@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import configData from "../../config/index.json"
 import { Form, Modal, Button, FormControl, Row, Col, Card, Alert } from 'react-bootstrap';
+import Select from "@material-ui/core/Select";
 
 const alertSettings = {
     variant: '', msg: '', alertStatus: false
@@ -55,27 +56,39 @@ const CompanyInfoModalForm = (props) => {
 
                                 <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">City</Form.Label>
-                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                    <Form.Select name='city' className="f-14">
+                                        <option>Select</option>
+                                        <option>Bengaluru</option>
+                                    </Form.Select>
                                 </div>
 
                                 <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">ZIP</Form.Label>
-                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                    <Form.Select name='zip' className="f-14">
+                                        <option>Select</option>
+                                        <option>Zip code</option>
+                                    </Form.Select>
                                 </div>
 
                                 <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">Country</Form.Label>
-                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                    <Form.Select name='country' className="f-14">
+                                        <option>Select</option>
+                                        <option>India</option>
+                                    </Form.Select>
                                 </div>
 
                                 <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">Tier</Form.Label>
-                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                    <Form.Select name='tier' className="f-14">
+                                        <option>Select</option>
+                                        <option>Monthly</option>
+                                    </Form.Select>
                                 </div>
 
                                 <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">Valid Till</Form.Label>
-                                    <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
+                                    <Form.Control type="date" className="f-14"/>
                                 </div>
 
                                 <div className="col-lg-12 pt-3">
