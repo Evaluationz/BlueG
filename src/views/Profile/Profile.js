@@ -57,6 +57,7 @@ function Profile() {
   async function loadData() {
     try {
       const user = await Auth.currentAuthenticatedUser()
+      console.log("profile user",user)
       if (user) {
         let url = configData.express_url
         var postData = { email: user.attributes.email }
@@ -310,7 +311,7 @@ function Profile() {
                         <p className="f-14">{pageState.ReportData.address}</p>
                       </div>
                     </div>
-                    <div className="col-sm-6 col-md-4">
+                    {/* <div className="col-sm-6 col-md-4">
                       <div className="text-left mb-1">
                         <p className="mb-0 f-12 font-bold">City</p>
                         <p className="f-14">Test</p>
@@ -339,7 +340,7 @@ function Profile() {
                         <p className="mb-0 f-12 font-bold">Valid Till</p>
                         <p className="mb-1 f-14">26-April-2022</p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

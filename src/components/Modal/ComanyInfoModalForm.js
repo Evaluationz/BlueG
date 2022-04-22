@@ -54,7 +54,7 @@ const CompanyInfoModalForm = (props) => {
                                     <FormControl name='address' required type='text' defaultValue={formState.address} onChange={handleChange} className="f-14"/>
                                 </div>
 
-                                <div className="col-md-4 pb-2">
+                                {/* <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">City</Form.Label>
                                     <Form.Select name='city' className="f-14">
                                         <option>Select</option>
@@ -89,7 +89,7 @@ const CompanyInfoModalForm = (props) => {
                                 <div className="col-md-4 pb-2">
                                     <Form.Label className="mb-0 f-14">Valid Till</Form.Label>
                                     <Form.Control type="date" className="f-14"/>
-                                </div>
+                                </div> */}
 
                                 <div className="col-lg-12 pt-3">
                                     <Button className='btn-blue float-right f-14' type="submit">Update</Button>

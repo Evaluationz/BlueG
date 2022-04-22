@@ -170,7 +170,15 @@ function SignIn({stateChanger, ...rest}) {
         }
         else {
             const { username, password, rememberme } = formState;
-            await Auth.signIn(username, password);
+            //await Auth.signIn(username, password);
+            Auth.signIn(username, password)
+            .then(user => {
+            if (user.challengeName === 'NEW_PASSWORD_REQUIRED') 
+            {
+                console.log("temporary passord")
+                //Auth.completeNewPassword(user, new_password, requiredAttributes).then(user => {});
+            }
+           });
             // updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }));
             stateChanger('confirmSingIn');
             if (rememberme === 'on') {
