@@ -6,7 +6,7 @@ import '../../styles.scss';
 import { Auth,Hub } from 'aws-amplify';
 
 const initialFormState = {
-    username: '', password: '',authCode: '', formType: 'signIn'
+    username: '', password: '',authCode: '',user:'', formType: 'signIn'
 };
 
 const alertSettings = {
@@ -94,7 +94,7 @@ function SignIn({stateChanger, ...rest}) {
 
     function onChange(e) {
         e.persist();
-        console.log(e.target.name);
+        console.log(formState)
         updateAlertState(() => ({ ...alertState, alertStatus: false }));
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
         if (e.target.name === 'username' && e.target.value !== "") {
@@ -144,6 +144,8 @@ function SignIn({stateChanger, ...rest}) {
         }
     }
 
+    
+
     async function setAuthListener() {
         var msg = '';
         Hub.listen('auth', (data) => {
@@ -171,16 +173,13 @@ function SignIn({stateChanger, ...rest}) {
         else {
             const { username, password, rememberme } = formState;
             //await Auth.signIn(username, password);
-            Auth.signIn(username, password)
-            .then(user => {
+            let user = await Auth.signIn(username, password)
             if (user.challengeName === 'NEW_PASSWORD_REQUIRED') 
-            {
-                console.log("temporary passord")
-                //Auth.completeNewPassword(user, new_password, requiredAttributes).then(user => {});
+            { 
+                updateFormState(() => ({ ...formState, formType: 'tempPassword',user: user }));
             }
-           });
-            // updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }));
-            stateChanger('confirmSingIn');
+            else {
+                stateChanger('confirmSingIn');
             if (rememberme === 'on') {
                 try {
                     const result = await Auth.rememberDevice();
@@ -188,8 +187,19 @@ function SignIn({stateChanger, ...rest}) {
                     console.log('Error remembering device', error)
                 }
             }
+                
+            }
+            // updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }));
+            
         }
         setValidatedSignIn(true);
+    }
+
+    async function resetTempPassword(e){
+        e.preventDefault();
+        const { user, password } = formState;
+        await Auth.completeNewPassword(user,password)
+        stateChanger('confirmSingIn');
     }
 
     const { formType } = formState;
@@ -462,6 +472,78 @@ function SignIn({stateChanger, ...rest}) {
 
                                                             <div className="col-lg-12 py-3">
                                                                 <Button type='submit' className="btn-blue" onClick={resetPassword}>Proceed</Button>
+                                                            </div>
+
+                                                            <div className="col-lg-12">
+                                                                <a className="c-blue-link cursor-pointer f-11 font-bolder" onClick={Backtosignin}>Return to Sign IN</a>
+                                                            </div>
+                                                        </div>
+                                                    </Form.Group>
+                                                </Card.Body>
+                                            </Col>
+                                        </Row>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
+                )
+            }
+             {
+                formType === 'tempPassword' && (
+                    <div>
+                        <Container fluid className="bg-block bg-gray login-card-block">
+                            <Row>
+                                <Col>
+                                    <Alert show={alertStatus} variant={variant}>{msg}</Alert>
+                                    <Card border="light" className='shadow rounded signin-card'>
+                                        <Row className="m-0">
+                                            <Col className="col-md-5 d-md-flex big-screen-block">
+                                                <Card.Body className="h-100 d-flex">
+                                                    <Col>
+                                                        <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '100px', paddingBottom: '0.9rem', paddingTop: '0.5rem' }} />
+                                                        <Card.Img variant="top" src={require('../../assets/images/illustration.png')} style={{ width: '350px' }} />
+                                                    </Col>
+                                                </Card.Body>
+                                            </Col>
+                                            <Col className="col-md-7 px-4 small-screen-block">
+                                                <Card.Body className="d-flex align-items-center justify-content-center pb-0 top-image-block">
+                                                    <Card.Img variant="top" src={require('../../assets/images/blueg-logo.png')} style={{ width: '150px' }} />
+                                                </Card.Body>
+
+                                                <Card.Body className="d-flex align-items-center justify-content-center pb-0 pt-md-4">
+                                                    <h4 className="mb-0">
+                                                        Reset Password
+                                                    </h4>
+                                                </Card.Body>
+
+                                                <Card.Body>
+                                                    <Form.Group className="mb-1">
+                                                        <div className="row align-items-center ">
+                                                            <div className="col-lg-12 pb-1">
+                                                                <Form.Label className="mb-0">New Password</Form.Label>
+                                                                <FormControl isInvalid={passwordValidity}
+                                                                             name='password'
+                                                                             className="shadow-sm"
+                                                                             required
+                                                                             type={values.showPassword ? "text" : "password"}
+                                                                             id="cnfpassword"
+                                                                             autoComplete="off"
+                                                                             onChange={onChange} />
+                                                                <i className="toggle-password" onClick={handleClickShowPassword}
+                                                                   onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+
+                                                                <Form.Control.Feedback type="invalid" className="mb-0 text-left">
+                                                                    Password between 7 to 15 characters which contain at least one numeric digit and a special character.
+                                                                </Form.Control.Feedback>
+                                                            </div>
+
+                                                            {/* <div className="col-lg-12 pt-2">
+                                                                <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-11 font-bolder">Request confirmation code</a>
+                                                            </div> */}
+
+                                                            <div className="col-lg-12 py-3">
+                                                                <Button type='submit' className="btn-blue" onClick={resetTempPassword}>Save</Button>
                                                             </div>
 
                                                             <div className="col-lg-12">
