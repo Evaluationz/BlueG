@@ -73,7 +73,8 @@ function SignIn({stateChanger, ...rest}) {
 
     async function forgotPassword() {
         const { username } = formState;
-        Auth.forgotPassword(username)
+        console.log("forgot",username)
+      await  Auth.forgotPassword(username)
             .then(data => {
                 updateFormState(() => ({ ...formState, formType: 'newPassword' }));
                 var msg = 'Verification code sent to email';

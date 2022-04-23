@@ -17,7 +17,7 @@ const alertSettings = {
 };
 
 const fieldValidationSettings = { contactValidity: false, passwordValidity: false, emailValidity: false, confirmationcodeValidity: false }
-const buttonActiveSettings = { activesignupButton: true, activesignupnextButton: true }
+const buttonActiveSettings = { activesignupButton: true, activesignupnextButton: true}
 function Signup({stateChanger, ...rest}) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
@@ -25,6 +25,7 @@ function Signup({stateChanger, ...rest}) {
     const [buttonActiveState, updateButtonState] = useState(buttonActiveSettings);
     const [show, setShow] = useState(false);
     const [validatesignUp, setValidatedSignUp] = useState(false);
+    const [activecontractButton, updatecontractButton] = useState(true);
 
 
     useEffect(() => {
@@ -94,6 +95,17 @@ function Signup({stateChanger, ...rest}) {
         e.persist();
         updateAlertState(() => ({ ...alertState, alertStatus: false }))
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
+        if (e.target.name === "checkConfirm" &&  e.target.checked) {
+          console.log("checkbox",e.target.value)
+          updatecontractButton(false)
+        
+        }
+        else
+        {
+          updatecontractButton(true) 
+        }
+        
+
         if (e.target.name === "companyname" || e.target.name === "username" || e.target.name === "cin" && e.target.value === "" ) {
             updateButtonState(() => ({ ...buttonActiveState, activesignupButton: true }))
             console.log(buttonActiveState)
@@ -367,7 +379,7 @@ function Signup({stateChanger, ...rest}) {
                           </Stack>
                         </Modal.Body>
                         <Modal.Footer>
-                          <Button className='btn-blue' onClick={confirmContract}>I Agree</Button>
+                          <Button className='btn-blue'  disabled={activecontractButton} onClick={confirmContract}>I Agree</Button>
                         </Modal.Footer>
                       </Modal>
 
