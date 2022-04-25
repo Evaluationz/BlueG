@@ -370,9 +370,9 @@ function SignIn({stateChanger, ...rest}) {
                                                                         </div>
                                                                         <div className="col-6">
                                                                             <div className="mb-2 d-flex justify-content-end align-items-end">
-                                                                                <button onClick={forgotPassword}
-                                                                                   disabled={forgotButton}
-                                                                                   className="c-blue-link bg-white cursor-pointer f-12 font-bolder">Forgot Password?</button>
+                                                                            
+                                                                            <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-12 font-bolder" disabled={forgotButton}>Forgot Password?</a>
+                                            
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -468,6 +468,8 @@ function SignIn({stateChanger, ...rest}) {
                                                             </div>
 
                                                             <div className="col-lg-12 pt-2">
+                                                           
+                                                      
                                                                 <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-11 font-bolder">Request confirmation code</a>
                                                             </div>
 
