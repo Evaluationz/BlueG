@@ -334,13 +334,13 @@ function Profile() {
                         <p className="mb-0 f-12 font-bold">Tier</p>
                         <p className="mb-1 f-14">Monthly</p>
                       </div>
-                    </div>
+                    </div>*/}
                     <div className="col-md-4">
                       <div className="text-left mb-1">
                         <p className="mb-0 f-12 font-bold">Valid Till</p>
-                        <p className="mb-1 f-14">26-April-2022</p>
+                        <p className="mb-1 f-14">{Moment(pageState.ReportData.valid_till).format("DD/MM/YYYY")}</p>
                       </div>
-                    </div> */}
+                    </div> 
                   </div>
                 </div>
               </div>
