@@ -34,7 +34,7 @@
   "sharedId": "40cd1cde",
   "resourceName": "blueg40cd1cde",
   "authSelections": "identityPoolAndUserPool",
-  "useDefault": "default",
+  "useDefault": "defaultSocial",
   "usernameAttributes": [
     "email"
   ],
@@ -55,5 +55,11 @@
     ]
   },
   "breakCircularDependency": true,
-  "dependsOn": []
+  "dependsOn": [],
+  "hostedUI": true,
+  "hostedUIDomainName": "bluegsocialsigin",
+  "authProvidersUserPool": [],
+  "hostedUIProviderMeta": "[]",
+  "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+  "authProviders": []
 }

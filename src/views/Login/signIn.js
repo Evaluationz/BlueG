@@ -2,6 +2,8 @@ import React, { useState,useEffect } from 'react';
 import { Button, Container, Card, InputGroup, FormControl, Row, Col, Stack, Alert, Form, Modal } from 'react-bootstrap';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import axios from "axios";
+import configData from "../../config/index.json"
 import '../../styles.scss';
 import { Auth,Hub } from 'aws-amplify';
 
@@ -12,19 +14,88 @@ const initialFormState = {
 const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
+
+function waitForInit() {
+  return new Promise((res, rej) => {
+    const hasFbLoaded = () => {
+      if (window.FB) {
+        res();
+      } else {
+        setTimeout(hasFbLoaded, 300);
+      }
+    };
+    hasFbLoaded();
+  });
+}
+
 const fieldValidationSettings = {emailValidity:false,passwordValidity:false,confirmationcodeValidity:false}
 const buttonActiveSettings = {emailButton:false,passwordButton:true,forgotButton:true}
-function SignIn({stateChanger, ...rest}) {
+function SignIn({stateChanger, ...rest},props) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
     const [validatesignIn, setValidatedSignIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [fieldValidityState, updatefieldValidity] = useState(fieldValidationSettings);
     const [buttonState, updateButtonState] = useState(buttonActiveSettings);
 
     useEffect(() => {
-        setAuthListener()
+      waitForInit()
+      setAuthListener()
     }, []);
 
+    // facebook login
+    function statusChangeCallback(response) {
+      if (response.status === "connected") {
+        handleResponse(response.authResponse);
+      } else {
+        handleError(response);
+      }
+    };
+
+    async function handleResponse(data) {
+      const { email, accessToken: token, expiresIn } = data;
+      const expires_at = expiresIn * 1000 + new Date().getTime();
+      const user = { email };
+      setIsLoading(true)
+      try {
+        const response = await Auth.federatedSignIn(
+          "facebook",
+          { token, expires_at },
+          user
+        );
+        const { username } = formState;
+        let url = configData.express_url
+        var postData = { email: username }
+        let clientDetails = await axios.post(url + "client/getClientId", postData)
+        if(clientDetails.data.client_email===username){
+          stateChanger('confirmSingIn')
+        }
+        else{
+          console.log("Alert..!!")
+        }
+        setIsLoading(true)
+      } catch (e) {
+        setIsLoading(true)
+        handleError(e);
+      }
+    }
+
+    function handleError(error) {
+      alert(error);
+    }
+
+    function checkLoginState() {
+    window.FB.api('/me', {fields: 'email'}, function(response) {
+        updateFormState(() => ({ ...formState, username : response.email }))
+    });
+      window.FB.getLoginStatus(statusChangeCallback);
+    };
+
+    function handleClickFacebook(){
+      window.FB.login(checkLoginState, {scope: "public_profile,email"});
+     
+    };
+    //end
     async function createAccount() {
         stateChanger('signUp');
         updateAlertState(() => ({ ...alertState, alertStatus: false }));
@@ -95,9 +166,8 @@ function SignIn({stateChanger, ...rest}) {
 
     function onChange(e) {
         e.persist();
-        console.log(formState)
-        updateAlertState(() => ({ ...alertState, alertStatus: false }));
-        updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
+        updateAlertState(() => ({ ...alertState, alertStatus: false }))
+        updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
         if (e.target.name === 'username' && e.target.value !== "") {
             updateButtonState(() => ({ ...buttonState, emailButton:false,forgotButton:false}));
             console.log('changing state',buttonState)
@@ -239,8 +309,8 @@ function SignIn({stateChanger, ...rest}) {
                                                     </h4>
                                                 </Card.Body>
                                                 <Card.Body>
-                                                    {/* <div className="col-lg-12">
-                                      <div className="col-lg-12 p-0 form-group">
+                                                 <div className="col-lg-12">
+                                      <div className="col-lg-12 p-0 form-group" onClick={handleClickFacebook}>
                                         <div className="facebook-button img-fluid w-100">
                                           <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
                                           <div className="facebook-button-container w-100 text-center">
@@ -257,7 +327,7 @@ function SignIn({stateChanger, ...rest}) {
                                           </div>
                                         </div>
                                       </div>
-                                    </div> */}
+                                    </div> 
                                                 </Card.Body>
 
                                                 {/* <div className="col-lg-12 px-4">

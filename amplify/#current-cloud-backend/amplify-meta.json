@@ -42,7 +42,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-blueg-dev-124000-deployment/amplify-cfn-templates/auth/blueg40cd1cde-cloudformation-template.json",
         "logicalId": "authblueg40cd1cde"
       },
-      "lastPushTimeStamp": "2022-02-14T07:24:56.844Z",
+      "lastPushTimeStamp": "2022-04-13T07:08:38.231Z",
       "output": {
         "UserPoolId": "ap-south-1_GlmQ1BTTa",
         "AppClientIDWeb": "5pmmuu5uhd1o63baq8goip84hu",
@@ -50,9 +50,11 @@
         "IdentityPoolId": "ap-south-1:4aabdd49-b9fd-4d80-8733-3a8b628c08cf",
         "UserPoolArn": "arn:aws:cognito-idp:ap-south-1:152712286852:userpool/ap-south-1_GlmQ1BTTa",
         "IdentityPoolName": "blueg40cd1cde_identitypool_40cd1cde__dev",
-        "UserPoolName": "blueg40cd1cde_userpool_40cd1cde"
+        "UserPoolName": "blueg40cd1cde_userpool_40cd1cde",
+        "HostedUIDomain": "bluegsocialsigin-dev",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}"
       },
-      "lastPushDirHash": "Zr/KbX++NjHkVJ0wyUfoL8yTZas="
+      "lastPushDirHash": "UTz+KxyaLnBFrPersewM0Sbdi6g="
     }
   }
 }

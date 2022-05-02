@@ -16,11 +16,25 @@ const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
 
+function waitForInit() {
+  return new Promise((res, rej) => {
+    const hasFbLoaded = () => {
+      if (window.FB) {
+        res();
+      } else {
+        setTimeout(hasFbLoaded, 300);
+      }
+    };
+    hasFbLoaded();
+  });
+}
+
 const fieldValidationSettings = { contactValidity: false, passwordValidity: false, emailValidity: false, confirmationcodeValidity: false }
 const buttonActiveSettings = { activesignupButton: true, activesignupnextButton: true}
 function Signup({stateChanger, ...rest}) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
+    const [isLoading, setIsLoading] = useState(false);
     const [fieldValidityState, updatefieldValidity] = useState(fieldValidationSettings);
     const [buttonActiveState, updateButtonState] = useState(buttonActiveSettings);
     const [show, setShow] = useState(false);
@@ -92,6 +106,59 @@ console.log("state",state)
     const handleClickShowPassword = () => {
         setValues({ ...values, showPassword: !values.showPassword });
     };
+
+    // facebook login
+    function statusChangeCallback(response) {
+      if (response.status === "connected") {
+        handleResponse(response.authResponse);
+      } else {
+        handleError(response);
+      }
+    };
+
+    async function handleResponse(data) {
+      const { email, accessToken: token, expiresIn } = data;
+      const expires_at = expiresIn * 1000 + new Date().getTime();
+      const user = { email };
+      setIsLoading(true)
+      try {
+        const response = await Auth.federatedSignIn(
+          "facebook",
+          { token, expires_at },
+          user
+        );
+        const { username } = formState;
+        let url = configData.express_url
+        var postData = { email: username }
+        let clientDetails = await axios.post(url + "client/getClientId", postData)
+        if(clientDetails.data.client_email===username){
+          console.log("Account alrady exist..!!")
+        }
+        else{
+          console.log("Alert..!!")
+        }
+        setIsLoading(true)
+      } catch (e) {
+        setIsLoading(true)
+        handleError(e);
+      }
+    }
+
+    function handleError(error) {
+      alert(error);
+    }
+
+    function checkLoginState() {
+    window.FB.api('/me', {fields: 'email'}, function(response) {
+        updateFormState(() => ({ ...formState, username : response.email }))
+    });
+      window.FB.getLoginStatus(statusChangeCallback);
+    };
+
+    function handleClickFacebook(){
+      window.FB.login(checkLoginState, {scope: "public_profile,email"});
+    };
+    //End
 
     async function confirmSignUp(e) {
         e.preventDefault();
@@ -287,7 +354,7 @@ console.log("state",state)
                                   </h4>
                                 </Card.Body>
                                 <Card.Body>
-                                   {/* <div className="col-lg-12">
+                                   <div className="col-lg-12" onClick={handleClickFacebook}>
                                      <div className="col-lg-12 p-0 form-group">
                                        <div className="facebook-button img-fluid w-100">
                                          <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
@@ -305,7 +372,7 @@ console.log("state",state)
                                         </div>
                                       </div>
                                     </div>
-                                  </div> */}
+                                  </div> 
                                 </Card.Body>
 
                                  {/* <div className="col-lg-12 px-4">
