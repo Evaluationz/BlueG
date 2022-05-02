@@ -9,7 +9,7 @@ import '../../styles.scss';
 import { Auth,Hub } from 'aws-amplify';
 
 const initialFormState = {
-    username: '', cin: '', address: '', contactno: '', companyname: '', postion_coords: '', password: '', checkConfirm: false, authCode: '', formType: 'signUp'
+    username: '', cin: '', address: '',country_name:'',state_name:'',city_name:'', contactno: '', companyname: '', postion_coords: '', password: '', checkConfirm: false, authCode: '', formType: 'signUp'
 };
 
 const alertSettings = {
@@ -54,7 +54,33 @@ function Signup({stateChanger, ...rest}) {
         );
         autocomplete.addListener('place_changed', () => {
             let place = autocomplete.getPlace()
-            updateFormState(() => ({ ...formState, address: place.formatted_address }))
+          
+var state,country,city;
+if(place.address_components!==undefined){
+  let addrComp = place.address_components;
+  for(let i = 0; i < addrComp.length; ++i)
+  {
+    var typ = addrComp[i].types;
+    if(typ[0]==='administrative_area_level_1')
+        state = addrComp[i].long_name; //store the state
+        
+    else if(typ[0]==='locality')
+        city = addrComp[i].long_name; //store the city
+    else if(typ[0]==='country')
+      country = addrComp[i].long_name; //store the country        
+
+    //we can break early if we find all three data
+    if(state != null && city != null && country != null) break;
+  }
+  
+  
+
+
+}
+console.log("state",state)
+  console.log("city",city)
+  console.log("country",country)
+            updateFormState(() => ({ ...formState, address: place.formatted_address,state_name:state,country_name:country,city_name:city }))
         });
     }
 
@@ -185,9 +211,9 @@ function Signup({stateChanger, ...rest}) {
                 async position => {
                     const { latitude, longitude } = position.coords;
                     var postion_coords = 'Lat: ' + latitude + ' Long: ' + longitude;
-                    const { companyname, cin, contactno, address } = formState;
+                    const { companyname, cin, contactno, address,country_name,state_name,city_name } = formState;
                     let url = configData.express_url
-                    var postData = { 'client_name': companyname, 'cin': cin, 'email': username, 'contact_no': contactno, 'address': address, 'postions': postion_coords }
+                    var postData = { 'client_name': companyname, 'cin': cin, 'email': username, 'contact_no': contactno, 'address': address,'country':country_name,'state':state_name,'city':city_name, 'postions': postion_coords }
                     let updateClient = await axios.post(url + "client/createMClient", postData)
                     if (updateClient.data === 'success') {
                         try {
