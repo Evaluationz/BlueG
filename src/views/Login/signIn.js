@@ -358,9 +358,9 @@ function SignIn({ stateChanger, ...rest }, props) {
                                                     </div>
                                                 </Card.Body>
 
-                                                {/* <div className="col-lg-12 px-4">
+                                                 <div className="col-lg-12 px-4">
                                     <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                  </div> */}
+                                  </div> 
 
                                                 <Card.Body>
                                                     <Form noValidate validated={validatesignIn} onSubmit={signIn}>

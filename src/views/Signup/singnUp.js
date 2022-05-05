@@ -199,7 +199,7 @@ console.log("state",state)
         }
         
 
-        if (e.target.name === "companyname" || e.target.name === "username" || e.target.name === "cin" && e.target.value === "" ) {
+        if ( e.target.name === "username"  && e.target.value === "" ) {
             updateButtonState(() => ({ ...buttonActiveState, activesignupButton: true }))
             console.log(buttonActiveState)
         }
@@ -207,7 +207,7 @@ console.log("state",state)
             updateButtonState(() => ({ ...buttonActiveState, activesignupButton: false }))
             
         }
-        if (e.target.name === "contactno" || e.target.name === "address" || e.target.name === "password" && e.target.value === "" || e.target.value === null || e.target.value === undefined) {
+        if (e.target.name === "companyname" || e.target.name === "cin" || e.target.name === "contactno" || e.target.name === "address" || e.target.name === "password" && e.target.value === "" || e.target.value === null || e.target.value === undefined) {
             updateButtonState(() => ({ ...buttonActiveState, activesignupnextButton: true }))
         }
         else {
@@ -375,26 +375,15 @@ console.log("state",state)
                                   </div> 
                                 </Card.Body>
 
-                                 {/* <div className="col-lg-12 px-4">
+                                  <div className="col-lg-12 px-4">
                                   <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                </div> */}
+                                </div> 
 
                                 <Card.Body>
                                   <Form noValidate validated={validatesignUp} onSubmit={signUp}>
                                     <Form.Group className="mb-1">
                                       <div className="row">
-                                        <div className="col-lg-12 pb-3">
-                                          <Form.Label className="mb-0">Company Name*</Form.Label>
-                                          <FormControl name='companyname'
-                                                       required
-                                                       type='text'
-                                                       autoFocus="TRUE"
-                                                       className="shadow-none"
-                                                       onChange={onChange} />
-                                          <Form.Control.Feedback type="invalid" className="text-left">
-                                            Please provide a company name.
-                                          </Form.Control.Feedback>
-                                        </div>
+                                        
 
                                         <div className="col-lg-12 pb-3">
                                           <Form.Label className="mb-0">Email*</Form.Label>
@@ -409,18 +398,7 @@ console.log("state",state)
                                           </Form.Control.Feedback>
                                         </div>
 
-                                        <div className="col-lg-12 pb-3">
-                                          <Form.Label className="mb-0">CIN*</Form.Label>
-                                          <FormControl name='cin'
-                                                       required
-                                                       type='text'
-                                                       maxLength={21}
-                                                       className="shadow-none"
-                                                       onChange={onChange} />
-                                          <Form.Control.Feedback type="invalid" className="text-left">
-                                            Please provide a CIN number.
-                                          </Form.Control.Feedback>
-                                        </div>
+                                       
 
                                         <div className="col-lg-12 f-14">
                                           <span className="f-11">By signing up, you agree to the blueG</span>
@@ -504,6 +482,30 @@ console.log("state",state)
                                     <Form noValidate validated={validatesignUp} onSubmit={signUp}>
                                       <Form.Group className="">
                                         <div className="row align-items-center">
+                                        <div className="col-lg-12 pb-3">
+                                          <Form.Label className="mb-0">Company Name*</Form.Label>
+                                          <FormControl name='companyname'
+                                                       required
+                                                       type='text'
+                                                       autoFocus="TRUE"
+                                                       className="shadow-none"
+                                                       onChange={onChange} />
+                                          <Form.Control.Feedback type="invalid" className="text-left">
+                                            Please provide a company name.
+                                          </Form.Control.Feedback>
+                                        </div>
+                                        <div className="col-lg-12 pb-3">
+                                          <Form.Label className="mb-0">CIN*</Form.Label>
+                                          <FormControl name='cin'
+                                                       required
+                                                       type='text'
+                                                       maxLength={21}
+                                                       className="shadow-none"
+                                                       onChange={onChange} />
+                                          <Form.Control.Feedback type="invalid" className="text-left">
+                                            Please provide a CIN number.
+                                          </Form.Control.Feedback>
+                                        </div>
                                           <div className="col-lg-12 pb-3">
                                             <Form.Label className="mb-0">Address*</Form.Label>
                                             <FormControl name='address'
