@@ -1,14 +1,16 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Card, InputGroup, FormControl, Row, Col, Stack, Alert, Form, Modal } from 'react-bootstrap';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import axios from "axios";
 import configData from "../../config/index.json"
 import '../../styles.scss';
-import { Auth,Hub } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
+
+import GoogleLogin from 'react-google-login';
 
 const initialFormState = {
-    username: '', password: '',authCode: '',user:'', formType: 'signIn'
+    username: '', password: '', authCode: '', user: '', formType: 'signIn'
 };
 
 const alertSettings = {
@@ -16,21 +18,21 @@ const alertSettings = {
 };
 
 function waitForInit() {
-  return new Promise((res, rej) => {
-    const hasFbLoaded = () => {
-      if (window.FB) {
-        res();
-      } else {
-        setTimeout(hasFbLoaded, 300);
-      }
-    };
-    hasFbLoaded();
-  });
+    return new Promise((res, rej) => {
+        const hasFbLoaded = () => {
+            if (window.FB) {
+                res();
+            } else {
+                setTimeout(hasFbLoaded, 300);
+            }
+        };
+        hasFbLoaded();
+    });
 }
 
-const fieldValidationSettings = {emailValidity:false,passwordValidity:false,confirmationcodeValidity:false}
-const buttonActiveSettings = {emailButton:false,passwordButton:true,forgotButton:true}
-function SignIn({stateChanger, ...rest},props) {
+const fieldValidationSettings = { emailValidity: false, passwordValidity: false, confirmationcodeValidity: false }
+const buttonActiveSettings = { emailButton: false, passwordButton: true, forgotButton: true }
+function SignIn({ stateChanger, ...rest }, props) {
     const [formState, updateFormState] = useState(initialFormState);
     const [alertState, updateAlertState] = useState(alertSettings);
     const [validatesignIn, setValidatedSignIn] = useState(false);
@@ -39,61 +41,87 @@ function SignIn({stateChanger, ...rest},props) {
     const [buttonState, updateButtonState] = useState(buttonActiveSettings);
 
     useEffect(() => {
-      waitForInit()
-      setAuthListener()
+        waitForInit()
+        setAuthListener()
     }, []);
-
+    // Google Signin
+    async function handleGoogleLogin(response){
+        const user =  response.profileObj.email;
+        const token = response.tokenId
+        const expires_at = response.tokenObj.expires_in * 1000 + new Date().getTime();
+        try{
+            const response = await Auth.federatedSignIn(
+                "google",
+                { token, expires_at },
+                user
+            );
+            let url = configData.express_url
+            var postData = { email: user }
+            let clientDetails = await axios.post(url + "client/getClientId", postData)
+            if (clientDetails.data.client_email === user) {
+                stateChanger('confirmSingIn')
+            }
+            else {
+                console.log("Alert..!!")
+            }
+        }
+        catch(e){
+            console.log('errr',e)
+        }
+        
+    }
+    
     // facebook login
     function statusChangeCallback(response) {
-      if (response.status === "connected") {
-        handleResponse(response.authResponse);
-      } else {
-        handleError(response);
-      }
+        if (response.status === "connected") {
+            handleResponse(response.authResponse);
+        } else {
+            handleError(response);
+        }
     };
 
     async function handleResponse(data) {
-      const { email, accessToken: token, expiresIn } = data;
-      const expires_at = expiresIn * 1000 + new Date().getTime();
-      const user = { email };
-      setIsLoading(true)
-      try {
-        const response = await Auth.federatedSignIn(
-          "facebook",
-          { token, expires_at },
-          user
-        );
-        const { username } = formState;
-        let url = configData.express_url
-        var postData = { email: username }
-        let clientDetails = await axios.post(url + "client/getClientId", postData)
-        if(clientDetails.data.client_email===username){
-          stateChanger('confirmSingIn')
-        }
-        else{
-          console.log("Alert..!!")
-        }
+        const { email, accessToken: token, expiresIn } = data;
+        const expires_at = expiresIn * 1000 + new Date().getTime();
+        const user = { email };
         setIsLoading(true)
-      } catch (e) {
-        setIsLoading(true)
-        handleError(e);
-      }
+        try {
+            const response = await Auth.federatedSignIn(
+                "facebook",
+                { token, expires_at },
+                user
+            );
+            const { username } = formState;
+            let url = configData.express_url
+            var postData = { email: username }
+            let clientDetails = await axios.post(url + "client/getClientId", postData)
+            if (clientDetails.data.client_email === username) {
+                stateChanger('confirmSingIn')
+            }
+            else {
+                console.log("Alert..!!")
+            }
+            setIsLoading(true)
+        } catch (e) {
+            setIsLoading(true)
+            handleError(e);
+        }
     }
 
     function handleError(error) {
-      alert(error);
+        alert(error);
     }
 
     function checkLoginState() {
-    window.FB.api('/me', {fields: 'email'}, function(response) {
-        updateFormState(() => ({ ...formState, username : response.email }))
-    });
-      window.FB.getLoginStatus(statusChangeCallback);
+        window.FB.api('/me', { fields: 'email' }, function (response) {
+            updateFormState(() => ({ ...formState, username: response.email }))
+        });
+        window.FB.getLoginStatus(statusChangeCallback);
     };
 
-    function handleClickFacebook(){
-      window.FB.login(checkLoginState, {scope: "public_profile,email"});
-     
+    function handleClickFacebook() {
+        window.FB.login(checkLoginState, { scope: "public_profile,email" });
+
     };
     //end
     async function createAccount() {
@@ -144,8 +172,8 @@ function SignIn({stateChanger, ...rest},props) {
 
     async function forgotPassword() {
         const { username } = formState;
-        console.log("forgot",username)
-      await  Auth.forgotPassword(username)
+        console.log("forgot", username)
+        await Auth.forgotPassword(username)
             .then(data => {
                 updateFormState(() => ({ ...formState, formType: 'newPassword' }));
                 var msg = 'Verification code sent to email';
@@ -169,19 +197,19 @@ function SignIn({stateChanger, ...rest},props) {
         updateAlertState(() => ({ ...alertState, alertStatus: false }))
         updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }))
         if (e.target.name === 'username' && e.target.value !== "") {
-            updateButtonState(() => ({ ...buttonState, emailButton:false,forgotButton:false}));
-            console.log('changing state',buttonState)
+            updateButtonState(() => ({ ...buttonState, emailButton: false, forgotButton: false }));
+            console.log('changing state', buttonState)
         }
         else {
-            updateButtonState(() => ({ ...buttonState, emailButton:true, forgotButton:true}));
+            updateButtonState(() => ({ ...buttonState, emailButton: true, forgotButton: true }));
         }
 
         //sigin password
         if (e.target.name === 'password' && e.target.value === "" || e.target.value === null || e.target.value === undefined) {
-            updateButtonState(() => ({ ...buttonState, passwordButton: true}))
+            updateButtonState(() => ({ ...buttonState, passwordButton: true }))
         }
         else {
-            updateButtonState(() => ({ ...buttonState, passwordButton: false}))
+            updateButtonState(() => ({ ...buttonState, passwordButton: false }))
         }
 
         if (e.target.name === 'username') {
@@ -215,7 +243,7 @@ function SignIn({stateChanger, ...rest},props) {
         }
     }
 
-    
+
 
     async function setAuthListener() {
         var msg = '';
@@ -245,31 +273,30 @@ function SignIn({stateChanger, ...rest},props) {
             const { username, password, rememberme } = formState;
             //await Auth.signIn(username, password);
             let user = await Auth.signIn(username, password)
-            if (user.challengeName === 'NEW_PASSWORD_REQUIRED') 
-            { 
-                updateFormState(() => ({ ...formState, formType: 'tempPassword',user: user }));
+            if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+                updateFormState(() => ({ ...formState, formType: 'tempPassword', user: user }));
             }
             else {
                 stateChanger('confirmSingIn');
-            if (rememberme === 'on') {
-                try {
-                    const result = await Auth.rememberDevice();
-                } catch (error) {
-                    console.log('Error remembering device', error)
+                if (rememberme === 'on') {
+                    try {
+                        const result = await Auth.rememberDevice();
+                    } catch (error) {
+                        console.log('Error remembering device', error)
+                    }
                 }
-            }
-                
+
             }
             // updateFormState(() => ({ ...formState, formType: 'confirmSingIn' }));
-            
+
         }
         setValidatedSignIn(true);
     }
 
-    async function resetTempPassword(e){
+    async function resetTempPassword(e) {
         e.preventDefault();
         const { user, password } = formState;
-        await Auth.completeNewPassword(user,password)
+        await Auth.completeNewPassword(user, password)
         stateChanger('confirmSingIn');
     }
 
@@ -277,7 +304,7 @@ function SignIn({stateChanger, ...rest},props) {
     const { alertStatus, variant, msg } = alertState;
 
     const { passwordValidity, emailValidity, confirmationcodeValidity } = fieldValidityState;
-    const { emailButton, passwordButton,forgotButton } = buttonState;
+    const { emailButton, passwordButton, forgotButton } = buttonState;
     console.log(emailButton);
 
     return (
@@ -309,25 +336,26 @@ function SignIn({stateChanger, ...rest},props) {
                                                     </h4>
                                                 </Card.Body>
                                                 <Card.Body>
-                                                 <div className="col-lg-12">
-                                      <div className="col-lg-12 p-0 form-group" onClick={handleClickFacebook}>
-                                        <div className="facebook-button img-fluid w-100">
-                                          <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
-                                          <div className="facebook-button-container w-100 text-center">
-                                            Continue with Facebook
-                                          </div>
-                                        </div>
-                                      </div>
+                                                    <div className="col-lg-12">
+                                                        <div className="col-lg-12 p-0 form-group" onClick={handleClickFacebook}>
+                                                            <div className="facebook-button img-fluid w-100">
+                                                                <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy" />
+                                                                <div className="facebook-button-container w-100 text-center">
+                                                                    Continue with Facebook
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                      <div className="col-lg-12 p-0 form-group mt-3">
-                                        <div className="google-button img-fluid w-100 cursor-pointer">
-                                          <img src={require('../../assets/images/google-icon.png')} alt="google" loading="lazy"/>
-                                          <div className="google-button-container w-100 text-center">
-                                            Continue with Google
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div> 
+                                                        <div className="col-lg-12 p-0 form-group mt-3">
+                                                            <GoogleLogin
+                                                                className="google-button img-fluid w-100 cursor-pointer"
+                                                                clientId="797137270990-ug3c0c6e65ikqj12v5u4lfeu2g1a3c3g.apps.googleusercontent.com"
+                                                                buttonText="Continue with Google"
+                                                                onSuccess={handleGoogleLogin}
+                                                                cookiePolicy={'single_host_origin'}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 </Card.Body>
 
                                                 {/* <div className="col-lg-12 px-4">
@@ -341,14 +369,14 @@ function SignIn({stateChanger, ...rest},props) {
                                                                 <div className="col-lg-12">
                                                                     <Form.Label className="mb-0">Email*</Form.Label>
                                                                     <FormControl name='username'
-                                                                                 isInvalid={emailValidity}
-                                                                                 type='email'
-                                                                                 placeholder="Enter Your Email*"
-                                                                                 autoComplete="off"
-                                                                                 autoFocus="TRUE"
-                                                                                 className="shadow-none"
-                                                                                 required
-                                                                                 onChange={onChange} />
+                                                                        isInvalid={emailValidity}
+                                                                        type='email'
+                                                                        placeholder="Enter Your Email*"
+                                                                        autoComplete="off"
+                                                                        autoFocus="TRUE"
+                                                                        className="shadow-none"
+                                                                        required
+                                                                        onChange={onChange} />
                                                                     <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                                                         Enter Your Email
                                                                     </Form.Control.Feedback>
@@ -356,9 +384,9 @@ function SignIn({stateChanger, ...rest},props) {
 
                                                                 <div className="col-lg-12 pt-3 pb-2">
                                                                     <Button className='btn-blue'
-                                                                            type="submit"
-                                                                            disabled={emailButton}
-                                                                            onClick={() => { updateFormState(() => ({ ...formState, formType: 'singInNext' })) }}>Proceed</Button>
+                                                                        type="submit"
+                                                                        disabled={emailButton}
+                                                                        onClick={() => { updateFormState(() => ({ ...formState, formType: 'singInNext' })) }}>Proceed</Button>
                                                                 </div>
 
                                                                 <div className="col-lg-12 f-14">
@@ -414,16 +442,16 @@ function SignIn({stateChanger, ...rest},props) {
                                                                 <div className="col-lg-12 pb-1">
                                                                     <Form.Label className="mb-0">Password*</Form.Label>
                                                                     <FormControl isInvalid={passwordValidity} name='password'
-                                                                                 className="shadow-none"
-                                                                                 placeholder="Enter your Password*"
-                                                                                 type={values.showPassword ? "text" : "password"}
-                                                                                 maxLength={15}
-                                                                                 autoComplete="off"
-                                                                                 autoFocus="TRUE"
-                                                                                 required
-                                                                                 onChange={onChange} />
+                                                                        className="shadow-none"
+                                                                        placeholder="Enter your Password*"
+                                                                        type={values.showPassword ? "text" : "password"}
+                                                                        maxLength={15}
+                                                                        autoComplete="off"
+                                                                        autoFocus="TRUE"
+                                                                        required
+                                                                        onChange={onChange} />
                                                                     <i className="toggle-password" onClick={handleClickShowPassword}
-                                                                       onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                                                        onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
                                                                     <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                                                         Enter Your Password.
                                                                     </Form.Control.Feedback>
@@ -432,17 +460,17 @@ function SignIn({stateChanger, ...rest},props) {
                                                                         <div className="col-6">
                                                                             <div className="form-check pl-0">
                                                                                 <input className="form-check-input ml-0"
-                                                                                       type="checkbox"
-                                                                                       name="rememberme" onChange={onChange} id="flexCheckDefault" />
+                                                                                    type="checkbox"
+                                                                                    name="rememberme" onChange={onChange} id="flexCheckDefault" />
                                                                                 <label className="form-check-label mt-1 f-12"
-                                                                                       htmlFor="flexCheckDefault"> Remember me </label>
+                                                                                    htmlFor="flexCheckDefault"> Remember me </label>
                                                                             </div>
                                                                         </div>
                                                                         <div className="col-6">
                                                                             <div className="mb-2 d-flex justify-content-end align-items-end">
-                                                                            
-                                                                            <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-12 font-bolder" disabled={forgotButton}>Forgot Password?</a>
-                                            
+
+                                                                                <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-12 font-bolder" disabled={forgotButton}>Forgot Password?</a>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -450,17 +478,17 @@ function SignIn({stateChanger, ...rest},props) {
 
                                                                 <div className="col-lg-12 py-3">
                                                                     <Button className='btn-white float-left'
-                                                                            onClick={() => { updateFormState(() => ({ ...formState, formType: 'signIn' })) }}>Back</Button>
+                                                                        onClick={() => { updateFormState(() => ({ ...formState, formType: 'signIn' })) }}>Back</Button>
 
                                                                     <Button className='btn-blue float-right'
-                                                                            disabled={passwordButton}
-                                                                            type='submit' > Sign In</Button>
+                                                                        disabled={passwordButton}
+                                                                        type='submit' > Sign In</Button>
                                                                 </div>
 
                                                                 <div className="col-lg-12 f-14">
                                                                     <a className="c-blue-link cursor-pointer f-11 font-bolder"
-                                                                       href="https://www.evaluationz.com/tnc"
-                                                                       target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
+                                                                        href="https://www.evaluationz.com/tnc"
+                                                                        target="_blank">Terms of Use</a> <span className="text-black f-11">&</span> <a className="c-blue-link cursor-pointer f-11 font-bolder" href="https://www.evaluationz.com/privacy" target="_blank">Privacy Policy</a>
                                                                 </div>
                                                             </div>
                                                         </Form.Group>
@@ -509,11 +537,11 @@ function SignIn({stateChanger, ...rest},props) {
                                                             <div className="col-lg-12 pb-3">
                                                                 <Form.Label className="mb-0">Confirmation Code</Form.Label>
                                                                 <FormControl name='authCode'
-                                                                             isInvalid={confirmationcodeValidity}
-                                                                             type='number'
-                                                                             required
-                                                                             className="shadow-sm"
-                                                                             onChange={onChange} />
+                                                                    isInvalid={confirmationcodeValidity}
+                                                                    type='number'
+                                                                    required
+                                                                    className="shadow-sm"
+                                                                    onChange={onChange} />
                                                                 <Form.Control.Feedback type="invalid" className="text-left">
                                                                     Please provide 6 digit number
                                                                 </Form.Control.Feedback>
@@ -522,15 +550,15 @@ function SignIn({stateChanger, ...rest},props) {
                                                             <div className="col-lg-12 pb-1">
                                                                 <Form.Label className="mb-0">New Password</Form.Label>
                                                                 <FormControl isInvalid={passwordValidity}
-                                                                             name='password'
-                                                                             className="shadow-sm"
-                                                                             required
-                                                                             type={values.showPassword ? "text" : "password"}
-                                                                             id="cnfpassword"
-                                                                             autoComplete="off"
-                                                                             onChange={onChange} />
+                                                                    name='password'
+                                                                    className="shadow-sm"
+                                                                    required
+                                                                    type={values.showPassword ? "text" : "password"}
+                                                                    id="cnfpassword"
+                                                                    autoComplete="off"
+                                                                    onChange={onChange} />
                                                                 <i className="toggle-password" onClick={handleClickShowPassword}
-                                                                   onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                                                    onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
 
                                                                 <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                                                     Password between 7 to 15 characters which contain at least one numeric digit and a special character.
@@ -538,8 +566,8 @@ function SignIn({stateChanger, ...rest},props) {
                                                             </div>
 
                                                             <div className="col-lg-12 pt-2">
-                                                           
-                                                      
+
+
                                                                 <a onClick={forgotPassword} className="c-blue-link cursor-pointer f-11 font-bolder">Request confirmation code</a>
                                                             </div>
 
@@ -562,7 +590,7 @@ function SignIn({stateChanger, ...rest},props) {
                     </div>
                 )
             }
-             {
+            {
                 formType === 'tempPassword' && (
                     <div>
                         <Container fluid className="bg-block bg-gray login-card-block">
@@ -596,15 +624,15 @@ function SignIn({stateChanger, ...rest},props) {
                                                             <div className="col-lg-12 pb-1">
                                                                 <Form.Label className="mb-0">New Password</Form.Label>
                                                                 <FormControl isInvalid={passwordValidity}
-                                                                             name='password'
-                                                                             className="shadow-sm"
-                                                                             required
-                                                                             type={values.showPassword ? "text" : "password"}
-                                                                             id="cnfpassword"
-                                                                             autoComplete="off"
-                                                                             onChange={onChange} />
+                                                                    name='password'
+                                                                    className="shadow-sm"
+                                                                    required
+                                                                    type={values.showPassword ? "text" : "password"}
+                                                                    id="cnfpassword"
+                                                                    autoComplete="off"
+                                                                    onChange={onChange} />
                                                                 <i className="toggle-password" onClick={handleClickShowPassword}
-                                                                   onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
+                                                                    onMouseDown={handleMouseDownPassword}>{values.showPassword ? <Visibility /> : <VisibilityOff />}</i>
 
                                                                 <Form.Control.Feedback type="invalid" className="mb-0 text-left">
                                                                     Password between 7 to 15 characters which contain at least one numeric digit and a special character.

@@ -42,7 +42,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-blueg-dev-124000-deployment/amplify-cfn-templates/auth/blueg40cd1cde-cloudformation-template.json",
         "logicalId": "authblueg40cd1cde"
       },
-      "lastPushTimeStamp": "2022-04-13T07:08:38.231Z",
+      "lastPushTimeStamp": "2022-05-04T11:18:00.098Z",
       "output": {
         "UserPoolId": "ap-south-1_GlmQ1BTTa",
         "AppClientIDWeb": "5pmmuu5uhd1o63baq8goip84hu",
@@ -54,7 +54,7 @@
         "HostedUIDomain": "bluegsocialsigin-dev",
         "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}"
       },
-      "lastPushDirHash": "UTz+KxyaLnBFrPersewM0Sbdi6g="
+      "lastPushDirHash": "HzMuIslQEq4LCyX7fyCDfeWLJ3Y="
     }
   }
 }

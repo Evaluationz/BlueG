@@ -44,6 +44,7 @@ function App() {
      }(document, 'script', 'facebook-jssdk'));
   }
 
+  
   async function checkUser() {
     try {
       const user = await Auth.currentAuthenticatedUser()
