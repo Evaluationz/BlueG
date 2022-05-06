@@ -21,29 +21,8 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
-    loadFacebookSDK()
     checkUser()
   }, []);
-
-  function loadFacebookSDK() {
-    window.fbAsyncInit = function() {
-      window.FB.init({
-        appId            : '5363009173750221',
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v3.1'
-      });
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  }
-
   
   async function checkUser() {
     try {

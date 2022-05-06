@@ -8,6 +8,8 @@ import '../../styles.scss';
 import { Auth, Hub } from 'aws-amplify';
 
 import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
+
 
 const initialFormState = {
     username: '', password: '', authCode: '', user: '', formType: 'signIn'
@@ -16,19 +18,6 @@ const initialFormState = {
 const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
-
-function waitForInit() {
-    return new Promise((res, rej) => {
-        const hasFbLoaded = () => {
-            if (window.FB) {
-                res();
-            } else {
-                setTimeout(hasFbLoaded, 300);
-            }
-        };
-        hasFbLoaded();
-    });
-}
 
 const fieldValidationSettings = { emailValidity: false, passwordValidity: false, confirmationcodeValidity: false }
 const buttonActiveSettings = { emailButton: false, passwordButton: true, forgotButton: true }
@@ -41,88 +30,80 @@ function SignIn({ stateChanger, ...rest }, props) {
     const [buttonState, updateButtonState] = useState(buttonActiveSettings);
 
     useEffect(() => {
-        waitForInit()
         setAuthListener()
     }, []);
     // Google Signin
-    async function handleGoogleLogin(response){
-        const user =  response.profileObj.email;
+    async function handleGoogleLogin(response) {
+        const user = response.profileObj.email;
         const token = response.tokenId
         const expires_at = response.tokenObj.expires_in * 1000 + new Date().getTime();
-        try{
-            const response = await Auth.federatedSignIn(
-                "google",
-                { token, expires_at },
-                user
-            );
-            let url = configData.express_url
-            var postData = { email: user }
-            let clientDetails = await axios.post(url + "client/getClientId", postData)
-            if (clientDetails.data.client_email === user) {
-                stateChanger('confirmSingIn')
-            }
-            else {
-                console.log("Alert..!!")
-            }
-        }
-        catch(e){
-            console.log('errr',e)
-        }
-        
-    }
-    
-    // facebook login
-    function statusChangeCallback(response) {
-        if (response.status === "connected") {
-            handleResponse(response.authResponse);
-        } else {
-            handleError(response);
-        }
-    };
-
-    async function handleResponse(data) {
-        const { email, accessToken: token, expiresIn } = data;
-        const expires_at = expiresIn * 1000 + new Date().getTime();
-        const user = { email };
-        setIsLoading(true)
         try {
-            const response = await Auth.federatedSignIn(
-                "facebook",
-                { token, expires_at },
-                user
-            );
-            const { username } = formState;
             let url = configData.express_url
-            var postData = { email: username }
-            let clientDetails = await axios.post(url + "client/getClientId", postData)
-            if (clientDetails.data.client_email === username) {
+            var postData = { clientemail: user }
+            let clientDetails = await axios.post(url + "bgProfile/GetUserProfile", postData)
+            if (clientDetails.data[0]) {
+                await Auth.federatedSignIn(
+                    "google",
+                    { token, expires_at },
+                    user
+                )
                 stateChanger('confirmSingIn')
             }
             else {
-                console.log("Alert..!!")
-            }
-            setIsLoading(true)
-        } catch (e) {
-            setIsLoading(true)
-            handleError(e);
+                var msg = 'Email not found. Create an account'
+                updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+                setTimeout(() => {
+                    updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+                }, 3000);
+                }
         }
+        catch (e) {
+            console.log(e)
+            var msg = 'Something went wrong.! Please try again.'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
+            
+        }
+
     }
 
-    function handleError(error) {
-        alert(error);
+    // facebook login
+    async function handleFacebookLogin(response) {
+        const user = response.email;
+        const token = response.accessToken
+        const expires_at = response.expiresIn * 1000 + new Date().getTime();
+        try {
+            let url = configData.express_url
+            var postData = { clientemail: user }
+            let clientDetails = await axios.post(url + "bgProfile/GetUserProfile", postData)
+            if (clientDetails.data[0]) {
+                await Auth.federatedSignIn(
+                    "facebook",
+                    { token, expires_at },
+                    user
+                );
+                stateChanger('confirmSingIn')
+            }
+            else {
+                var msg = 'Email not found. Create an account.'
+                updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+                setTimeout(() => {
+                    updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+                }, 3000);
+                }
+        }
+        catch (e) {
+            var msg = 'Something went wrong.! Please try again.'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
+        }
+
     }
 
-    function checkLoginState() {
-        window.FB.api('/me', { fields: 'email' }, function (response) {
-            updateFormState(() => ({ ...formState, username: response.email }))
-        });
-        window.FB.getLoginStatus(statusChangeCallback);
-    };
-
-    function handleClickFacebook() {
-        window.FB.login(checkLoginState, { scope: "public_profile,email" });
-
-    };
     //end
     async function createAccount() {
         stateChanger('signUp');
@@ -337,13 +318,16 @@ function SignIn({ stateChanger, ...rest }, props) {
                                                 </Card.Body>
                                                 <Card.Body>
                                                     <div className="col-lg-12">
-                                                        <div className="col-lg-12 p-0 form-group" onClick={handleClickFacebook}>
-                                                            <div className="facebook-button img-fluid w-100">
-                                                                <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy" />
-                                                                <div className="facebook-button-container w-100 text-center">
-                                                                    Continue with Facebook
-                                                                </div>
-                                                            </div>
+                                                        <div className="col-lg-12 p-0 form-group">
+                                                            <FacebookLogin
+                                                                className="facebook-button img-fluid w-100"
+                                                                appId="5363009173750221"
+                                                                buttonText="Continue with Google"
+                                                                fields="name,email,picture"
+                                                                callback={handleFacebookLogin} 
+                                                                icon="fa-facebook"
+                                                                />
+
                                                         </div>
 
                                                         <div className="col-lg-12 p-0 form-group mt-3">
@@ -358,9 +342,9 @@ function SignIn({ stateChanger, ...rest }, props) {
                                                     </div>
                                                 </Card.Body>
 
-                                                 <div className="col-lg-12 px-4">
+                                                {/* <div className="col-lg-12 px-4">
                                     <h2 className="divide-section"><span>&nbsp;OR&nbsp;</span></h2>
-                                  </div> 
+                                  </div> */}
 
                                                 <Card.Body>
                                                     <Form noValidate validated={validatesignIn} onSubmit={signIn}>

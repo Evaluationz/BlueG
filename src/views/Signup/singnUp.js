@@ -8,6 +8,9 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import '../../styles.scss';
 import { Auth,Hub } from 'aws-amplify';
 
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
+
 const initialFormState = {
     username: '', cin: '', address: '',country_name:'',state_name:'',city_name:'', contactno: '', companyname: '', postion_coords: '', password: '', checkConfirm: false, authCode: '', formType: 'signUp'
 };
@@ -15,19 +18,6 @@ const initialFormState = {
 const alertSettings = {
     variant: '', msg: '', alertStatus: false
 };
-
-function waitForInit() {
-  return new Promise((res, rej) => {
-    const hasFbLoaded = () => {
-      if (window.FB) {
-        res();
-      } else {
-        setTimeout(hasFbLoaded, 300);
-      }
-    };
-    hasFbLoaded();
-  });
-}
 
 const fieldValidationSettings = { contactValidity: false, passwordValidity: false, emailValidity: false, confirmationcodeValidity: false }
 const buttonActiveSettings = { activesignupButton: true, activesignupnextButton: true}
@@ -107,59 +97,64 @@ console.log("state",state)
         setValues({ ...values, showPassword: !values.showPassword });
     };
 
-    // facebook login
-    function statusChangeCallback(response) {
-      if (response.status === "connected") {
-        handleResponse(response.authResponse);
-      } else {
-        handleError(response);
-      }
-    };
-
-    async function handleResponse(data) {
-      const { email, accessToken: token, expiresIn } = data;
-      const expires_at = expiresIn * 1000 + new Date().getTime();
-      const user = { email };
-      setIsLoading(true)
+    // Google Signin
+    async function handleGoogleLogin(response) {
+      const user = response.profileObj.email;
       try {
-        const response = await Auth.federatedSignIn(
-          "facebook",
-          { token, expires_at },
-          user
-        );
-        const { username } = formState;
-        let url = configData.express_url
-        var postData = { email: username }
-        let clientDetails = await axios.post(url + "client/getClientId", postData)
-        if(clientDetails.data.client_email===username){
-          console.log("Account alrady exist..!!")
+          let url = configData.express_url
+          var postData = { clientemail: user }
+          let clientDetails = await axios.post(url + "bgProfile/GetUserProfile", postData)
+          if (clientDetails.data[0]) {
+            var msg = 'Email already exists'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
         }
-        else{
-          console.log("Alert..!!")
+        else {
+          updateFormState(() => ({ ...formState, formType: 'signUpNext',username:user }))
         }
-        setIsLoading(true)
-      } catch (e) {
-        setIsLoading(true)
-        handleError(e);
       }
-    }
+      catch (e) {
+        console.log(e)
+        var msg = 'Something went wrong.! Please try again.'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
+      }
 
-    function handleError(error) {
-      alert(error);
-    }
+  }
 
-    function checkLoginState() {
-    window.FB.api('/me', {fields: 'email'}, function(response) {
-        updateFormState(() => ({ ...formState, username : response.email }))
-    });
-      window.FB.getLoginStatus(statusChangeCallback);
-    };
+  // facebook login
+  async function handleFacebookLogin(response) {
+      const user = response.email;
+      try {
+          let url = configData.express_url
+          var postData = { clientemail: user }
+          let clientDetails = await axios.post(url + "bgProfile/GetUserProfile", postData)
+          if (clientDetails.data[0]) {
+            var msg = 'Email already exists'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
+          }
+          else {
+            updateFormState(() => ({ ...formState, formType: 'signUpNext',username:user }))
+          }
+      }
+      catch (e) {
+        var msg = 'Something went wrong.! Please try again.'
+            updateAlertState(() => ({ ...alertState, alertStatus: true, variant: 'danger', msg: msg }))
+            setTimeout(() => {
+                updateAlertState(() => ({ ...alertState, alertStatus: false, variant: '', msg: '' }))
+            }, 3000);
+      }
 
-    function handleClickFacebook(){
-      window.FB.login(checkLoginState, {scope: "public_profile,email"});
-    };
-    //End
+  }
 
+  //end
     async function confirmSignUp(e) {
         e.preventDefault();
         const { username, authCode } = formState;
@@ -354,25 +349,30 @@ console.log("state",state)
                                   </h4>
                                 </Card.Body>
                                 <Card.Body>
-                                   <div className="col-lg-12" onClick={handleClickFacebook}>
-                                     <div className="col-lg-12 p-0 form-group">
-                                       <div className="facebook-button img-fluid w-100">
-                                         <img src={require('../../assets/images/facebook-logo.png')} alt="facebook" loading="lazy"/>
-                                         <div className="facebook-button-container w-100 text-center">
-                                           Continue with Facebook
-                                         </div>
-                                       </div>
-                                     </div>
+                                   <div className="col-lg-12">
+                                                        <div className="col-lg-12 p-0 form-group">
+                                                            <FacebookLogin
+                                                                className="facebook-button img-fluid w-100"
+                                                                appId="5363009173750221"
+                                                                autoLoad={true}
+                                                                buttonText="Continue with Google"
+                                                                fields="name,email,picture"
+                                                                callback={handleFacebookLogin} 
+                                                                icon="fa-facebook"
+                                                                />
 
-                                    <div className="col-lg-12 p-0 form-group mt-3">
-                                      <div className="google-button img-fluid w-100 cursor-pointer">
-                                        <img src={require('../../assets/images/google-icon.png')} alt="google" loading="lazy"/>
-                                        <div className="google-button-container w-100 text-center">
-                                          Continue with Google
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div> 
+                                                        </div>
+
+                                                        <div className="col-lg-12 p-0 form-group mt-3">
+                                                            <GoogleLogin
+                                                                className="google-button img-fluid w-100 cursor-pointer"
+                                                                clientId="797137270990-ug3c0c6e65ikqj12v5u4lfeu2g1a3c3g.apps.googleusercontent.com"
+                                                                buttonText="Continue with Google"
+                                                                onSuccess={handleGoogleLogin}
+                                                                cookiePolicy={'single_host_origin'}
+                                                            />
+                                                        </div>
+                                                    </div>
                                 </Card.Body>
 
                                   <div className="col-lg-12 px-4">
