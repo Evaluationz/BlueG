@@ -320,14 +320,12 @@ function SignIn({ stateChanger, ...rest }, props) {
                                                     <div className="col-lg-12">
                                                         <div className="col-lg-12 p-0 form-group">
                                                             <FacebookLogin
-                                                                className="facebook-button img-fluid w-100"
+                                                                cssClass="facebook-button img-fluid w-100 cursor-pointer"
                                                                 appId="5363009173750221"
-                                                                buttonText="Continue with Google"
+                                                                buttonText="Continue with Facebook"
                                                                 fields="name,email,picture"
                                                                 callback={handleFacebookLogin} 
-                                                                icon="fa-facebook"
-                                                                />
-
+                                                                icon="fa-facebook"/>
                                                         </div>
 
                                                         <div className="col-lg-12 p-0 form-group mt-3">
@@ -336,8 +334,7 @@ function SignIn({ stateChanger, ...rest }, props) {
                                                                 clientId="797137270990-ug3c0c6e65ikqj12v5u4lfeu2g1a3c3g.apps.googleusercontent.com"
                                                                 buttonText="Continue with Google"
                                                                 onSuccess={handleGoogleLogin}
-                                                                cookiePolicy={'single_host_origin'}
-                                                            />
+                                                                cookiePolicy={'single_host_origin'}/>
                                                         </div>
                                                     </div>
                                                 </Card.Body>
