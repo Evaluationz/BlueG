@@ -45,8 +45,19 @@ function ReportDownload() {
  async function loadData(e) {
     const user = await Auth.currentAuthenticatedUser()
     if (user) {
+      var emailId = ''
+      if(user.attributes){
+        emailId = user.attributes.email
+      }
+      else{
+        for (let key of Object.keys(user)) {
+          if(key != 'id' && key !='token'){
+            emailId=emailId+user[key]
+          }
+        }
+      }
       let url = configData.express_url
-      var postData = { email: user.attributes.email }
+      var postData = { email: emailId }
       let clientDetails = await axios.post(url + "client/getClientId", postData)
       if (clientDetails.data.client_id) {
     

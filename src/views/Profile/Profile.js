@@ -34,7 +34,7 @@ function Profile() {
   const [BasicInfoModalshow, setShowBasicInfo] = useState(false);
   const [BasicCompanyModalshow, setShowCompanyInfo] = useState(false);
   const [ChangePasswordModalshow, setShowChangePassword] = useState(false);
-  
+
   const handleCloseBasicInfo = () => setShowBasicInfo(false);
   const handleShowBasicInfo = () => setShowBasicInfo(true);
 
@@ -57,17 +57,28 @@ function Profile() {
   async function loadData() {
     try {
       const user = await Auth.currentAuthenticatedUser()
-      console.log("profile user",user)
+      console.log("profile user", user)
       if (user) {
+        var emailId = ''
+        if (user.attributes) {
+          emailId = user.attributes.email
+        }
+        else {
+          for (let key of Object.keys(user)) {
+            if (key != 'id' && key != 'token') {
+              emailId = emailId + user[key]
+            }
+          }
+        }
         let url = configData.express_url
-        var postData = { email: user.attributes.email }
+        var postData = { email: emailId }
         let clientDetails = await axios.post(url + "client/getClientId", postData)
         let profileData = { clientemail: clientDetails.data.client_email };
-    await axios
-      .post(configData.express_url + "bgProfile/GetUserProfile",profileData)
-      .then((res) => {
-        updatePageState(() => ({ ...pageState, ReportData: res.data[0] }));
-      });
+        await axios
+          .post(configData.express_url + "bgProfile/GetUserProfile", profileData)
+          .then((res) => {
+            updatePageState(() => ({ ...pageState, ReportData: res.data[0] }));
+          });
       }
     } catch (err) {
       console.log('user error')
@@ -89,7 +100,7 @@ function Profile() {
           <Modal.Title className="f-20">Company Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CompanyInfoModalForm pageState={pageState}/>
+          <CompanyInfoModalForm pageState={pageState} />
         </Modal.Body>
       </Modal>
 
@@ -98,7 +109,7 @@ function Profile() {
           <Modal.Title className="f-20">Change password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ChangePasswordModalForm/>
+          <ChangePasswordModalForm />
         </Modal.Body>
       </Modal>
 
@@ -271,7 +282,7 @@ function Profile() {
                     <div className="col-md-6">
                       <div className="text-left mb-1">
                         <p className="mb-0 f-12 font-bold">Name</p>
-                        <p className="f-14">{pageState.ReportData.client_name}</p> 
+                        <p className="f-14">{pageState.ReportData.client_name}</p>
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -336,13 +347,13 @@ function Profile() {
                       </div>
                     </div>*/}
                     {
-                    pageState.ReportData.valid_till!=="" && pageState.ReportData.valid_till!==null &&
-                    <div className="col-md-4">
-                      <div className="text-left mb-1">
-                        <p className="mb-0 f-12 font-bold">Valid Till</p>
-                        <p className="mb-1 f-14">{ Moment(pageState.ReportData.valid_till).format("DD/MM/YYYY")}</p>
+                      pageState.ReportData.valid_till !== "" && pageState.ReportData.valid_till !== null &&
+                      <div className="col-md-4">
+                        <div className="text-left mb-1">
+                          <p className="mb-0 f-12 font-bold">Valid Till</p>
+                          <p className="mb-1 f-14">{Moment(pageState.ReportData.valid_till).format("DD/MM/YYYY")}</p>
+                        </div>
                       </div>
-                    </div> 
                     }
                   </div>
                 </div>
