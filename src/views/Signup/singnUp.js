@@ -351,15 +351,13 @@ console.log("state",state)
                                 <Card.Body>
                                    <div className="col-lg-12">
                                                         <div className="col-lg-12 p-0 form-group">
-                                                            <FacebookLogin
-                                                                className="facebook-button img-fluid w-100"
+                                                        <FacebookLogin
+                                                                cssClass="facebook-button img-fluid w-100 cursor-pointer"
                                                                 appId="5363009173750221"
-                                                                autoLoad={true}
-                                                                buttonText="Continue with Google"
+                                                                buttonText="Continue with Facebook"
                                                                 fields="name,email,picture"
                                                                 callback={handleFacebookLogin} 
-                                                                icon="fa-facebook"
-                                                                />
+                                                                icon="fa-facebook"/>
 
                                                         </div>
 

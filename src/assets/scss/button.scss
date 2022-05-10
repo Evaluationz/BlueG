@@ -50,14 +50,25 @@ button {
   }
 }
 .facebook-button {
-  flex-direction: row;
-  padding: 10px 10px;
-  border: 1px solid #dddddd;
-  border-radius: 0.25rem;
-  background-color: #4267B2;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: row !important;
+  padding: 10px 10px !important;
+  border: 1px solid #dddddd !important;
+  border-radius: 0.25rem !important;
+  background-color: #4267B2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100%;
+  color: #ffffff;
+  font-size: 14px !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  .fa-facebook{
+    color: #ffffff;
+    font-size: 1.3em;
+    margin-right: 10px;
+    padding: 5px 12px 5px 5px;
+    border-radius: 2px;
+  }
   img{
     width: 1.1em;
     margin-left: 1em;
@@ -83,6 +94,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  &:active,
+  &:focus{
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
   img{
     width: 1.1em;
     margin-left: 1em;
